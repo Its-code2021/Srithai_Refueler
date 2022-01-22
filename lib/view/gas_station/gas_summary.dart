@@ -1,3 +1,9 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
+import 'dart:io';
+
+import 'package:cpac/utility/my_alert.dart';
+import 'package:cpac/view/gas_station/gas_done.dart';
 import 'package:cpac/view/gas_station/gas_history.dart';
 import 'package:cpac/view/gas_station/gas_tabel_all.dart';
 import 'package:cpac/view/gas_station/tabbar_Gas.dart';
@@ -10,6 +16,102 @@ class Gas_Summary extends StatefulWidget {
   _Gas_SummaryState createState() => _Gas_SummaryState();
 }
 
+showAlertDialog(BuildContext context) {
+  // set up the buttons
+  Widget cancelButton = ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      primary: Colors.red,
+      elevation: 5,
+    ),
+    child: const Text("ยกเลิก"),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+  Widget continueButton = ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      primary: Colors.blue[900],
+      elevation: 5,
+    ),
+    child: const Text("ยืนยัน"),
+    onPressed: () {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => Gas_Done()),
+          (Route<dynamic> route) => false);
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Column(
+      // ignore: prefer_const_literals_to_create_immutables
+      children: [
+        const Text(
+          "โปรดยืนยัน หลังจากยืนยันแล้วจะไม่สามารถแก้ไขได้ ",
+          style: TextStyle(fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
+        Container(
+          height: 10,
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            const Text(
+              "จำนวนลิตร: ",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            const Text(
+              "142 ",
+              style: TextStyle(fontSize: 18, color: Colors.green),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            const Text(
+              "จำนวนเงินทั้งหมด: ",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            const Text(
+              "4,237.28 ",
+              style: TextStyle(fontSize: 18, color: Colors.green),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ],
+    ),
+    actions: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Container(
+            width: 130,
+            child: continueButton,
+          ),
+          Container(
+            width: 130,
+            child: cancelButton,
+          ),
+        ],
+      ),
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
 class _Gas_SummaryState extends State<Gas_Summary> {
   Widget Btn_Confirm() {
     return Container(
@@ -19,21 +121,18 @@ class _Gas_SummaryState extends State<Gas_Summary> {
       child: Align(
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              primary: Color(0xff438EB9),
-              minimumSize: Size.fromHeight(
+              primary: const Color(0xff438EB9),
+              minimumSize: const Size.fromHeight(
                 50,
               ),
               // fromHeight use double.infinity as width and 40 is the height
               elevation: 5),
-          child: Text(
+          child: const Text(
             'ยืนยัน',
             style: TextStyle(fontSize: 20),
           ),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => TabBar_Menu_Gas()),
-            );
+            showAlertDialog(context);
             print('ยืนยัน');
           },
         ),
@@ -47,7 +146,7 @@ class _Gas_SummaryState extends State<Gas_Summary> {
       appBar: AppBar(
         title: Image.asset('images/002.png', fit: BoxFit.cover),
         centerTitle: true,
-        backgroundColor: Color(0xff438EB9),
+        backgroundColor: const Color(0xff438EB9),
       ),
       body: SingleChildScrollView(
           child: Column(
@@ -59,8 +158,8 @@ class _Gas_SummaryState extends State<Gas_Summary> {
             width: double.infinity,
             height: 60,
             alignment: Alignment.center,
-            color: Color(0xff438EB9),
-            child: Text(
+            color: const Color(0xff438EB9),
+            child: const Text(
               'กรอกจำนวนเงินน้ำมันที่เติม',
               textAlign: TextAlign.center,
               style: TextStyle(

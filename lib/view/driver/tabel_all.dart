@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
 
+import 'package:cpac/controller/qr_code.dart';
+import 'package:cpac/utility/status_all.dart';
 import 'package:cpac/view/driver/coupon_detail.dart';
+import 'package:cpac/view/driver/staff_draw_user.dart';
 import 'package:flutter/material.dart';
 
 // ignore: non_constant_identifier_names
@@ -447,7 +450,7 @@ Widget Tabel_Coupon_detail() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'SRT21120001 ',
+                    'DPRAY22010531-2 ',
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -481,7 +484,7 @@ Widget Tabel_Coupon_detail() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    '25/12/2021 09:00',
+                    '12/01/2022 09:00',
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -502,7 +505,7 @@ Widget Tabel_Coupon_detail() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'เบอร์รถ/ทะเบียนรถ',
+                    'ทะเบียนรถ',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
@@ -515,7 +518,7 @@ Widget Tabel_Coupon_detail() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    '1291/73-0494',
+                    'กท 65-1535',
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -536,7 +539,7 @@ Widget Tabel_Coupon_detail() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'จำนวนลิตร',
+                    'ชื่อพนักงานขับรถ',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
@@ -549,7 +552,7 @@ Widget Tabel_Coupon_detail() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    '80',
+                    'นายสมคิด',
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -570,7 +573,7 @@ Widget Tabel_Coupon_detail() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'ปั้มน้ำมันที่เติม',
+                    'จำนวนลิตรที่เติมจริง',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
@@ -583,13 +586,47 @@ Widget Tabel_Coupon_detail() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'PTT',
+                    '142',
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'ชื่อผู้เติมน้ำมัน',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'นายสมชาย',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
                   )
                 ],
               ),
@@ -618,11 +655,11 @@ Widget Tabel_Coupon_detail() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'รอยืนยัน',
+                    'เติมแล้ว',
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Colors.red),
+                        color: Colors.green),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -639,7 +676,7 @@ Widget Tabel_Coupon_detail() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'วัน/เวลาที่ยืนยัน',
+                    'วัน/เวลาที่เติม',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
@@ -652,11 +689,11 @@ Widget Tabel_Coupon_detail() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    '-',
+                    '12/01/2022 10:00',
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        color: Colors.green),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -801,7 +838,7 @@ Widget Tabel_Body_Coupon_History(BuildContext context) {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'SRT21120001',
+                        'DPRAY22010531-$i',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 12,
@@ -835,7 +872,7 @@ Widget Tabel_Body_Coupon_History(BuildContext context) {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        '80',
+                        '14$i',
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
@@ -1083,6 +1120,392 @@ Widget Tabel_Detailed_Summary() {
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+///new
+Widget Tabel_Staff_detail() {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 5.0),
+    child: Table(
+      border: TableBorder.all(
+          color: Colors.black, style: BorderStyle.solid, width: 2),
+      children: [
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'เลขที่ คูปอง ',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    QrCode['code'].toString(),
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'ทะเบียนรถ',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    QrCode["truck_license"].toString(),
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'ชื่อพนักงานขับรถ',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    QrCode['driver'].toString(),
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'จำนวนลิตร',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    QrCode['amount'].toString(),
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget Tabel_Staff_detail_new() {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 5.0),
+    child: Table(
+      border: TableBorder.all(
+          color: Colors.black, style: BorderStyle.solid, width: 2),
+      children: [
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'เลขที่ คูปอง ',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Oil_Details['code'].toString(),
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'ทะเบียนรถ',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Oil_Details['truck_license'].toString(),
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'ชื่อพนักงานขับรถ',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Oil_Details['driver'].toString(),
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: TextField(
+                      enabled: false,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding:
+                            const EdgeInsets.symmetric(vertical: 0.1),
+                        hintText: "จำนวนลิตรที่เติมจริง",
+                        hintStyle: TextStyle(color: Colors.black),
+                      ),
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff428BCA)),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [BtnConfrim()],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'ชื่อผู้เติมน้ำมัน',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Oil_Details['refueler_name'].toString(),
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'สถานะ',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Status_Oil_All()
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'วัน/เวลาที่เติม',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Oil_Details['refuel_at'].toString(),
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green),
                     textAlign: TextAlign.center,
                   )
                 ],

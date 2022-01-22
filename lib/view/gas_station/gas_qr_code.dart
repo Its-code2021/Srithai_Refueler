@@ -28,9 +28,47 @@ class _Gas_QrCodeState extends State<Gas_QrCode> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: new Center(
+          child: Image.asset('images/002.png', fit: BoxFit.cover),
+        ),
+        backgroundColor: const Color(0xff438EB9),
+        // ignore: duplicate_ignore, duplicate_ignore, duplicate_ignore
+      ),
       body: Column(
         children: <Widget>[
+          Container(
+            height: 10,
+          ),
+          Container(
+            width: double.infinity,
+            height: 60,
+            alignment: Alignment.center,
+            color: Colors.black,
+            child: Text(
+              'SCAN QR CODE',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+          ),
           Expanded(flex: 4, child: _buildQrView(context)),
+          Container(
+            width: double.infinity,
+            height: 60,
+            alignment: Alignment.center,
+            color: Colors.black,
+            child: Text(
+              'บนคูปองเติมน้ำมัน',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+          ),
           Expanded(
             flex: 1,
             child: FittedBox(
@@ -62,6 +100,7 @@ class _Gas_QrCodeState extends State<Gas_QrCode> {
                     Container(
                       height: 10,
                     ),
+
                   Text('Scan a code'),
                   Column(
                     children: <Widget>[
@@ -84,7 +123,7 @@ class _Gas_QrCodeState extends State<Gas_QrCode> {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

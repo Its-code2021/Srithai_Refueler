@@ -3,6 +3,7 @@
 import 'package:cpac/view/driver/coupon_history.dart';
 import 'package:cpac/view/driver/menu_user.dart';
 import 'package:cpac/view/driver/notifications.dart';
+import 'package:cpac/view/driver/qr_code.dart';
 import 'package:cpac/view/driver/refueling_all.dart';
 import 'package:cpac/view/splash_page.dart';
 
@@ -18,7 +19,6 @@ class _TabBar_Menu_DriverState extends State<TabBar_Menu_Driver> {
 
   final List<Widget> _widgetOptions = <Widget>[
     Refueling_All(),
-    Coupon_History(),
     Menu_User(),
     // SplashPage(),
   ];
@@ -66,38 +66,18 @@ class _TabBar_Menu_DriverState extends State<TabBar_Menu_Driver> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Notifications()),
+                      MaterialPageRoute(builder: (context) => Qr_code()),
                     );
-                    print('แจ้งเตือน');
+                    print('Qr_code');
                   },
                   icon: Container(
                     child: const Icon(
-                      Icons.notifications,
+                      Icons.qr_code_scanner_outlined,
                       size: 30,
                     ),
                   ),
                 ),
                 // ignore: unnecessary_new
-                new Positioned(
-                  top: 1.0,
-                  right: 0.0,
-                  child: new Stack(
-                    children: <Widget>[
-                      new Icon(Icons.brightness_1,
-                          size: 25.0, color: Colors.red),
-                      new Positioned(
-                        top: 7.0,
-                        right: 7.0,
-                        child: new Text('50',
-                            // ignore: prefer_const_constructors
-                            style: new TextStyle(
-                                color: Colors.white,
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.w500)),
-                      )
-                    ],
-                  ),
-                ),
               ],
             )
           ],
@@ -109,12 +89,12 @@ class _TabBar_Menu_DriverState extends State<TabBar_Menu_Driver> {
           items: const [
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.home,
+                Icons.local_gas_station_rounded,
                 size: 25,
                 color: Colors.grey,
               ),
               title: Text(
-                'หน้าหลัก',
+                'รายละเอียดการเติมน้ำมัน',
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 12,
@@ -122,51 +102,11 @@ class _TabBar_Menu_DriverState extends State<TabBar_Menu_Driver> {
                 textAlign: TextAlign.center,
               ),
               activeIcon: Icon(
-                Icons.home,
+                Icons.local_gas_station_rounded,
                 size: 25,
                 color: Color(0xff438EB9),
               ),
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.list_alt,
-                size: 25,
-                color: Colors.grey,
-              ),
-              title: Text(
-                'ประวัติการเติมน้ำมัน',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-              activeIcon: Icon(
-                Icons.list_alt,
-                size: 25,
-                color: Color(0xff438EB9),
-              ),
-            ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(
-            //     Icons.notifications,
-            //     size: 25,
-            //     color: Colors.grey,
-            //   ),
-            //   title: Text(
-            //     'การแจ้งเตือน',
-            //     style: TextStyle(
-            //         color: Colors.black,
-            //         fontSize: 12,
-            //         fontWeight: FontWeight.bold),
-            //     textAlign: TextAlign.center,
-            //   ),
-            //   activeIcon: Icon(
-            //     Icons.notifications_active,
-            //     size: 25,
-            //     color: Color(0xff438EB9),
-            //   ),
-            // ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.person,

@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:cpac/controller/user_profile.dart';
+import 'package:cpac/server/api.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class Gas_User_Profile extends StatefulWidget {
@@ -35,7 +38,7 @@ class _Gas_User_ProfileState extends State<Gas_User_Profile> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 title: Text(
-                  'Mr.PTT',
+                  Profile['fullname'],
                   style: TextStyle(
                     color: Color(0xff438EB9),
                     fontWeight: FontWeight.bold,
@@ -50,7 +53,7 @@ class _Gas_User_ProfileState extends State<Gas_User_Profile> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 title: Text(
-                  'ptt',
+                  Profile['username'],
                   style: TextStyle(
                     color: Color(0xff438EB9),
                     fontWeight: FontWeight.bold,
@@ -65,7 +68,7 @@ class _Gas_User_ProfileState extends State<Gas_User_Profile> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 title: Text(
-                  '089-XXX-XXXX',
+                  Profile['telephone'],
                   style: TextStyle(
                     color: Color(0xff438EB9),
                     fontWeight: FontWeight.bold,
@@ -73,6 +76,11 @@ class _Gas_User_ProfileState extends State<Gas_User_Profile> {
                 ),
               ),
             ),
+            // ElevatedButton(
+            //     onPressed: () {
+            //       GetapiHeader();
+            //     },
+            //     child: Text('data'))
           ],
         )
 

@@ -32,7 +32,7 @@ class _Coupon_DetailState extends State<Coupon_Detail> {
               alignment: Alignment.center,
               color: Color(0xff438EB9),
               child: Text(
-                'รายละเอียด คูปอง',
+                'รายละเอียดประวัติการเติมน้ำมัน',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 25,

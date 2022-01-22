@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:cpac/view/driver/login_driver.dart';
-import 'package:cpac/view/gas_station/login_gas.dart';
+import 'package:cpac/view/login_test.dart';
 import 'package:flutter/material.dart';
 
 class Select_User extends StatefulWidget {
@@ -39,8 +38,7 @@ class _Select_UserState extends State<Select_User> {
                     ),
                     onPressed: () {
                       Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (context) => Login_Driver()),
+                          MaterialPageRoute(builder: (context) => LoginPage()),
                           (Route<dynamic> route) => false);
                       print('พนักงานขับรถ');
                     },
@@ -71,7 +69,7 @@ class _Select_UserState extends State<Select_User> {
                     ),
                     onPressed: () {
                       Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => Login_Gas()),
+                          MaterialPageRoute(builder: (context) => LoginPage()),
                           (Route<dynamic> route) => false);
                       print('เข้าสู่ระบบ ปั้ม');
                     },

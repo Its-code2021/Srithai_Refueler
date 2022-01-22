@@ -1,11 +1,13 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/view/driver/coupon_history.dart';
-import 'package:cpac/view/driver/login_driver.dart';
 import 'package:cpac/view/driver/user_profile.dart';
 import 'package:cpac/view/gas_station/gas_notifications.dart';
 import 'package:cpac/view/gas_station/gas_user_profile.dart';
-import 'package:cpac/view/gas_station/login_gas.dart';
+
+import 'package:cpac/view/login_test.dart';
+
 import 'package:flutter/material.dart';
 
 class Gas_Menu_User extends StatefulWidget {
@@ -41,7 +43,7 @@ class _Gas_Menu_UserState extends State<Gas_Menu_User> {
                     color: Colors.white,
                   ),
                   Text(
-                    'Mr.PTT',
+                    Profile['fullname'],
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -68,6 +70,7 @@ class _Gas_Menu_UserState extends State<Gas_Menu_User> {
                   context,
                   MaterialPageRoute(builder: (context) => Gas_User_Profile()),
                 );
+
                 print('บัญชีของฉัน');
               },
               child: ListTile(
@@ -154,9 +157,10 @@ class _Gas_Menu_UserState extends State<Gas_Menu_User> {
                   textStyle:
                       TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
               onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => Login_Gas()),
-                    (Route<dynamic> route) => false);
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    (route) => false);
                 print('ออกจากระบบ');
               },
               child: ListTile(
