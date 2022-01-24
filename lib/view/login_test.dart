@@ -141,10 +141,11 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Container(height: 60),
                     Image.asset(
                       'images/001.png',
                     ),
-                    Container(height: 60),
+                    Container(height: 50),
                     Container(
                       child: SizedBox(
                         width: double.infinity,
@@ -152,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                           'ชื่อผู้ใช้งาน',
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -176,7 +177,7 @@ class _LoginPageState extends State<LoginPage> {
                           'รหัสผ่าน',
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),

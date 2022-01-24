@@ -1503,7 +1503,7 @@ Widget Tabel_Staff_detail_new() {
                   Text(
                     Oil_Details['refuel_at'].toString(),
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.green),
                     textAlign: TextAlign.center,
