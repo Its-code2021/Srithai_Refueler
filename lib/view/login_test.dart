@@ -141,6 +141,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Container(height: 100),
                     Image.asset(
                       'images/001.png',
                     ),
