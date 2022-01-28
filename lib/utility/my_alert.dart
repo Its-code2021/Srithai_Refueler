@@ -1,7 +1,9 @@
+import 'package:cpac/controller/gas_qr_code.dart';
 import 'package:cpac/controller/qr_code.dart';
 import 'package:cpac/view/driver/loading_page.dart';
 import 'package:cpac/view/driver/qr_code.dart';
 import 'package:cpac/view/driver/staff_draw_user.dart';
+import 'package:cpac/view/gas_station/gas_loading_page.dart';
 import 'package:flutter/material.dart';
 
 Future<void> myAlert_2(BuildContext context, String message) async {
@@ -24,6 +26,7 @@ Future<void> myAlert_2(BuildContext context, String message) async {
 }
 
 Future<void> AlertScanQrcode(BuildContext context) async {
+  var OilDetail_id = null;
   showDialog(
       context: context,
       builder: (context) => MediaQuery(
@@ -54,6 +57,54 @@ Future<void> AlertScanQrcode(BuildContext context) async {
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
                                 builder: (context) => Loading_pang_QqCode()),
+                            (Route<dynamic> route) => false);
+                      },
+                      child: const Center(
+                          child: Text(
+                        'ตกลง',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ));
+}
+
+Future<void> AlertScanQrcode_Gas(BuildContext context) async {
+  var OilDetail_id = null;
+  showDialog(
+      context: context,
+      builder: (context) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+            child: AlertDialog(
+              actions: [
+                Column(
+                  children: [
+                    Icon(
+                      Icons.error_outline,
+                      size: 50,
+                      color: Colors.red,
+                    ),
+                    Container(
+                      height: 10,
+                    ),
+                    const Text(
+                      'คูปองนี้ไม่สามารถเติมได้',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      textAlign: TextAlign.center,
+                    ),
+                    Container(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    Loading_Page_Gas_QqCode()),
                             (Route<dynamic> route) => false);
                       },
                       child: const Center(

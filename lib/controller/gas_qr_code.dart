@@ -22,17 +22,15 @@ Future<void> GetapiQrCodeGas(qrcode, BuildContext context) async {
     if (status_code == '200') {
       print(result);
       print(Profile['fullname']);
-
       Profile['fullname'];
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => Gas_Loading_Page()),
           (Route<dynamic> route) => false);
       QrCode = result;
     } else if (status_code == '404') {
-      AlertScanQrcode(context);
+      AlertScanQrcode_Gas(context);
     } else if (status_code == '201') {
       var OilDetail_id = result;
-
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => Loading_Page_Detail_Gas()),
           (Route<dynamic> route) => false);
