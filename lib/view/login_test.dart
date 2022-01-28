@@ -1,12 +1,12 @@
 import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/server/api.dart';
 import 'package:cpac/utility/my_alert.dart';
+import 'package:cpac/view/gas_station/gas_select.dart';
+import 'package:cpac/view/gas_station/tabbar_gas%20home.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'driver/staff_refueling.dart';
-import 'gas_station/tabbar_Gas.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -81,8 +81,9 @@ class _LoginPageState extends State<LoginPage> {
           } else if (Profile['user_level'] == "P") {
             GetapiHeader(token);
             GetToken(token);
+
             Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => TabBar_Menu_Gas()),
+                MaterialPageRoute(builder: (context) => TabBar_Menu_Gas_Home()),
                 (Route<dynamic> route) => false);
           }
         }

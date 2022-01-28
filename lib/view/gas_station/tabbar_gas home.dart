@@ -1,30 +1,26 @@
-// ignore_for_file: deprecated_member_use, unnecessary_new, use_key_in_widget_constructors, unused_import, duplicate_ignore, avoid_print, avoid_unnecessary_containers, camel_case_types, file_names
+// ignore_for_file: deprecated_member_use, unnecessary_new, use_key_in_widget_constructors, avoid_print, avoid_unnecessary_containers, file_names, prefer_const_constructors, duplicate_ignore
 
-import 'package:cpac/view/driver/coupon_history.dart';
-import 'package:cpac/view/driver/menu_user.dart';
-import 'package:cpac/view/driver/notifications.dart';
 import 'package:cpac/view/gas_station/gas_history.dart';
 import 'package:cpac/view/gas_station/gas_menu_user.dart';
-import 'package:cpac/view/gas_station/gas_notifications.dart';
 import 'package:cpac/view/gas_station/gas_qr_code.dart';
-import 'package:cpac/view/gas_station/gas_reference_number.dart';
-
-import 'package:cpac/view/gas_station/gas_station_all.dart';
-
+import 'package:cpac/view/gas_station/gas_select.dart';
+import 'package:cpac/view/gas_station/gas_user_profile.dart';
 import 'package:flutter/material.dart';
 
-class Gas_Tab_QrCode extends StatefulWidget {
+import 'gas__oil_all.dart';
+
+class TabBar_Menu_Gas_Home extends StatefulWidget {
   @override
-  _Gas_Tab_QrCodeState createState() => _Gas_Tab_QrCodeState();
+  _TabBar_Menu_Gas_HomeState createState() => _TabBar_Menu_Gas_HomeState();
 }
 
-// ignore: camel_case_types
-class _Gas_Tab_QrCodeState extends State<Gas_Tab_QrCode> {
+class _TabBar_Menu_Gas_HomeState extends State<TabBar_Menu_Gas_Home> {
   int _selectedIndex = 0;
 
   final List<Widget> _widgetOptions = <Widget>[
-    Gas_QrCode(),
-    Gas_Reference_Number(),
+    Gas_Select(),
+    Gas_History(),
+    Gas_User_Profile(),
     // SplashPage(),
   ];
 
@@ -35,21 +31,23 @@ class _Gas_Tab_QrCodeState extends State<Gas_Tab_QrCode> {
             //show confirm dialogue
             context: context,
             builder: (context) => AlertDialog(
-              title: const Text(
-                'ยืนยันการออกจากการ Scan QrCode หรือไม่',
+              // ignore: prefer_const_constructors
+              title: Text(
+                'คุณแน่ใจหรือไม่ที่จะปิดแอปพลิเคชัน',
                 style: TextStyle(fontSize: 18),
               ),
               actions: [
                 ElevatedButton(
                   onPressed: () => Navigator.of(context).pop(true),
-                  child: const Text('ยืนยัน'),
+                  // ignore: prefer_const_constructors
+                  child: Text('ยืนยัน'),
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: Colors.grey,
                   ),
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: const Text('ยกเลิก'),
+                  child: Text('ยกเลิก'),
                 ),
               ],
             ),
@@ -60,13 +58,6 @@ class _Gas_Tab_QrCodeState extends State<Gas_Tab_QrCode> {
     return WillPopScope(
       onWillPop: showExitPopup, //call function on back button press
       child: Scaffold(
-        appBar: AppBar(
-          title: new Center(
-            child: Image.asset('images/002.png', fit: BoxFit.cover),
-          ),
-          backgroundColor: const Color(0xff438EB9),
-          // ignore: duplicate_ignore, duplicate_ignore, duplicate_ignore
-        ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: _selectedIndex,
@@ -74,12 +65,12 @@ class _Gas_Tab_QrCodeState extends State<Gas_Tab_QrCode> {
           items: const [
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.list_alt,
+                Icons.home_outlined,
                 size: 25,
                 color: Colors.grey,
               ),
               title: Text(
-                'Scan QrCode',
+                'หน้าแรก',
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 12,
@@ -87,19 +78,19 @@ class _Gas_Tab_QrCodeState extends State<Gas_Tab_QrCode> {
                 textAlign: TextAlign.center,
               ),
               activeIcon: Icon(
-                Icons.list_alt,
+                Icons.home,
                 size: 25,
                 color: Color(0xff438EB9),
               ),
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.border_color,
+                Icons.history_outlined,
                 size: 25,
                 color: Colors.grey,
               ),
               title: Text(
-                'ใส่หมายเลขอ้างอิง',
+                'ประวัติการเติมน้ำมัน',
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 12,
@@ -107,7 +98,27 @@ class _Gas_Tab_QrCodeState extends State<Gas_Tab_QrCode> {
                 textAlign: TextAlign.center,
               ),
               activeIcon: Icon(
-                Icons.border_color,
+                Icons.history,
+                size: 25,
+                color: Color(0xff438EB9),
+              ),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.person_outline,
+                size: 25,
+                color: Colors.grey,
+              ),
+              title: Text(
+                'บัญชีของฉัน',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              activeIcon: Icon(
+                Icons.person,
                 size: 25,
                 color: Color(0xff438EB9),
               ),

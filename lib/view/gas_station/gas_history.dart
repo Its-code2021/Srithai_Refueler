@@ -1,47 +1,237 @@
+// ignore_for_file: prefer_const_constructors, dead_code, unnecessary_new
+
+import 'package:cpac/controller/gas_qr_code.dart';
+import 'package:cpac/utility/date_time.dart';
+
 import 'package:cpac/view/gas_station/gas_tabel_all.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class Gas_History extends StatefulWidget {
   Gas_History({Key? key}) : super(key: key);
 
   @override
-  _Gas_HistoryState createState() => _Gas_HistoryState();
+  State<Gas_History> createState() => _Gas_HistoryState();
 }
 
 class _Gas_HistoryState extends State<Gas_History> {
+  TextEditingController dateinputStartDate = TextEditingController();
+  TextEditingController dateinpuEndtDatet = TextEditingController();
+  @override
+  void initState() {
+    dateinputStartDate.text = ""; //set the initial value of text field
+    dateinpuEndtDatet.text = "";
+    super.initState();
+  }
+
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
   @override
   Widget build(BuildContext context) {
+    bool _isDrawerOpen = false;
     return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Image.asset('images/002.png', fit: BoxFit.cover)),
+        backgroundColor: const Color(0xff438EB9),
+        // actions: [
+        //   Builder(
+        //     builder: (context) => IconButton(
+        //         icon: Icon(Icons.refresh),
+        //         onPressed: () {
+        //           dateinputStartDate.clear();
+        //           dateinpuEndtDatet.clear();
+        //           _refreshAction();
+        //           print('$startdate - $enddate');
+        //         }),
+        //   ),
+        // ],
+      ),
+      resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               height: 10,
             ),
             Container(
               width: double.infinity,
-              height: 60,
+              height: 50,
               alignment: Alignment.center,
-              color: Color(0xff438EB9),
-              // ignore: prefer_const_constructors
-              child: Text(
+              color: const Color(0xff438EB9),
+              child: const Text(
                 'ประวัติการเติมน้ำมัน',
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
             ),
+
             Container(
-              height: 10,
+              padding: EdgeInsets.all(15),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        'วันที่ ',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      Expanded(
+                        child: Row(
+                          children: [
+                            new Flexible(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 40,
+                                    child: new TextField(
+                                      textAlign: TextAlign.center,
+                                      textAlignVertical:
+                                          TextAlignVertical.bottom,
+                                      controller: dateinputStartDate,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                        hintText: BTW_date['startdate'],
+                                      ),
+                                      readOnly: true,
+                                      onTap: () async {
+                                        DateTime? pickedDate =
+                                            await showDatePicker(
+                                                context: context,
+                                                initialDate: DateTime.now(),
+                                                firstDate: DateTime(2000),
+                                                lastDate: DateTime(2101));
+
+                                        if (pickedDate != null) {
+                                          print(pickedDate);
+                                          String formattedDate =
+                                              DateFormat('yyyy-MM-dd')
+                                                  .format(pickedDate);
+                                          print(formattedDate);
+
+                                          setState(() {
+                                            dateinputStartDate.text =
+                                                formattedDate;
+                                          });
+                                        } else {
+                                          print("Date is not selected");
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Text(
+                        ' ถึง ',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Expanded(
+                        child: Row(
+                          children: [
+                            new Flexible(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 40,
+                                    child: new TextField(
+                                      textAlign: TextAlign.center,
+                                      textAlignVertical:
+                                          TextAlignVertical.bottom,
+                                      controller: dateinpuEndtDatet,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                        hintText: BTW_date['enddate'],
+                                      ),
+                                      readOnly: true,
+                                      onTap: () async {
+                                        DateTime? pickedDate =
+                                            await showDatePicker(
+                                                context: context,
+                                                initialDate: DateTime.now(),
+                                                firstDate: DateTime(2000),
+                                                lastDate: DateTime(2101));
+
+                                        if (pickedDate != null) {
+                                          print(pickedDate);
+                                          String formattedDate =
+                                              DateFormat('yyyy-MM-dd')
+                                                  .format(pickedDate);
+                                          print(formattedDate);
+
+                                          setState(() {
+                                            dateinpuEndtDatet.text =
+                                                formattedDate;
+                                          });
+                                        } else {
+                                          print("Date is not selected");
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: 10,
+                      ),
+                      Container(
+                        width: 50,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.blue[900],
+                              minimumSize: Size.fromHeight(
+                                40,
+                              )),
+                          onPressed: () {
+                            startdate = dateinputStartDate.text;
+                            enddate = dateinpuEndtDatet.text;
+                            print('$startdate - $enddate');
+                            PostPumpHistoryRefue(startdate, enddate);
+                            _refreshAction();
+                          },
+                          child: Center(child: Icon(Icons.search)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            TabelGas_Header_History(),
-            TabelGas_Header_History_Body(context)
+
+            Tabel_Header_Gas_History(),
+            Tabel_Body_Gas_History(),
+            // Tabel_Body_Gas_History_Summary(),
+
+            // ElevatedButton(
+            //   onPressed: _refreshAction,
+            //   child: Text('data'),
+            // ),
           ],
         ),
       ),
     );
+  }
+
+  _refreshAction() {
+    setState(() {
+      Gas_History;
+    });
   }
 }

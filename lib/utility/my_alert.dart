@@ -245,3 +245,89 @@ Future<void> AlertQrCodeMessage_Error(BuildContext context) async {
     ),
   );
 }
+
+Future<void> AlertDetailDrawGas(BuildContext context) async {
+  showDialog(
+      context: context,
+      builder: (context) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+            child: AlertDialog(
+              actions: [
+                Column(
+                  children: [
+                    Icon(
+                      Icons.error_outline,
+                      size: 50,
+                      color: Colors.red,
+                    ),
+                    Container(
+                      height: 10,
+                    ),
+                    const Text(
+                      'กรุณาให้พนักงานขับรถลงชื่อรับทราบ',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      textAlign: TextAlign.center,
+                    ),
+                    Container(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Center(
+                          child: Text(
+                        'ตกลง',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ));
+}
+
+Future<void> AlertBillAmount_Null(BuildContext context) async {
+  showDialog(
+    context: context,
+    builder: (context) => MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+      child: AlertDialog(
+        actions: [
+          Column(
+            children: [
+              Icon(
+                Icons.error_outline,
+                size: 50,
+                color: Colors.red,
+              ),
+              Container(
+                height: 10,
+              ),
+              const Text(
+                'กรุณากรอกจำนวนเงิน',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+              Container(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Center(
+                    child: Text(
+                  'ตกลง',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
+              ),
+            ],
+          )
+        ],
+      ),
+    ),
+  );
+}

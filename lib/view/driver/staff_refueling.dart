@@ -1,4 +1,5 @@
 import 'package:cpac/view/driver/qr_code.dart';
+import 'package:cpac/view/login_test.dart';
 import 'package:flutter/material.dart';
 
 class Staff_Refueling extends StatefulWidget {
@@ -81,6 +82,21 @@ class _Staff_RefuelingState extends State<Staff_Refueling> {
           title:
               Center(child: Image.asset('images/002.png', fit: BoxFit.cover)),
           backgroundColor: const Color(0xff438EB9),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    (route) => false);
+                print('ออกจากระบบ');
+              },
+              icon: Icon(
+                Icons.logout_outlined,
+                size: 35,
+              ),
+            )
+          ],
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,

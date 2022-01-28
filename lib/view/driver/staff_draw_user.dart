@@ -9,7 +9,6 @@ import 'package:cpac/utility/my_alert.dart';
 
 import 'package:cpac/view/driver/staff_done.dart';
 import 'package:cpac/view/driver/tabel_all.dart';
-import 'package:cpac/view/gas_station/gas_summary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -66,7 +65,7 @@ class _Staff_Draw_UserState extends State<Staff_Draw_User> {
                             textAlign: TextAlign.center,
                           ),
                           Text(
-                            _text.text,
+                            _texthController.text,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
@@ -90,12 +89,12 @@ class _Staff_Draw_UserState extends State<Staff_Draw_User> {
                           ElevatedButton(
                             onPressed: () {
                               var id = Oil_Details['id'].toString();
-                              var refuel_amount = _text.text;
+                              var refuel_amount = _texthController.text;
                               var images = base64Image;
                               PostConfirmRefuelAmount(
                                   id, refuel_amount, images);
                               print(base64Image);
-                              Clipboard.setData(ClipboardData(text: quote));
+                              // Clipboard.setData(ClipboardData(text: quote));
                               Navigator.of(context).pushAndRemoveUntil(
                                   MaterialPageRoute(
                                       builder: (context) => Staff_Done()),
@@ -149,15 +148,22 @@ class _Staff_Draw_UserState extends State<Staff_Draw_User> {
               ),
               onPressed: () {
                 setState(() async {
-                  _text.text.isEmpty ? _validate = true : _validate = false;
+                  _texthController.text.isEmpty
+                      ? _validate = true
+                      : _validate = false;
+                  _controller.isEmpty ? _validate2 = true : _validate2 = false;
                   if (_validate == false) {
-                    AlertConfrimAmout(context);
-                    if (_controller.isNotEmpty) {
-                      final Uint8List? data = await _controller.toPngBytes();
-                      if (data != null) {
-                        base64Image = base64Encode(data);
-                        var images_code = base64Image;
+                    if (_validate2 == false) {
+                      AlertConfrimAmout(context);
+                      if (_controller.isNotEmpty) {
+                        final Uint8List? data = await _controller.toPngBytes();
+                        if (data != null) {
+                          base64Image = base64Encode(data);
+                          var images_code = base64Image;
+                        }
                       }
+                    } else if (_validate2 == true) {
+                      AlertDetailDrawGas(context);
                     }
                   } else if (_validate == true) {
                     AlertDetailDraw(context);
@@ -297,14 +303,17 @@ class BtnConfrim extends StatefulWidget {
   }
 }
 
-final _text = TextEditingController();
+var _texthController = TextEditingController();
+bool _text = false;
 bool _validate = false;
+bool _validate2 = false;
 
 class BtnConfrimState extends State<BtnConfrim> {
-  @override
-  void dispose() {
-    _text.dispose();
-    super.dispose();
+  void initState() {
+    super.initState();
+    print('init');
+    _texthController.text = '';
+    _text = true; //variable to control enable property of textfield
   }
 
   @override
@@ -315,7 +324,7 @@ class BtnConfrimState extends State<BtnConfrim> {
         children: <Widget>[
           Center(
             child: TextField(
-              controller: _text,
+              controller: _texthController,
               autofocus: true,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(vertical: 0.1),

@@ -1,18 +1,20 @@
+import 'package:cpac/controller/gas_qr_code.dart';
 import 'package:cpac/controller/qr_code.dart';
 import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/utility/my_alert.dart';
-import 'package:cpac/view/driver/loading_page.dart';
+
 import 'package:cpac/view/driver/qr_code.dart';
+import 'package:cpac/view/gas_station/gas_loading_page.dart';
 import 'package:flutter/material.dart';
 
-class Qr_Code_Number extends StatefulWidget {
-  Qr_Code_Number({Key? key}) : super(key: key);
+class Gas_Qr_Code_Number extends StatefulWidget {
+  Gas_Qr_Code_Number({Key? key}) : super(key: key);
 
   @override
-  _Qr_Code_NumberState createState() => _Qr_Code_NumberState();
+  _Gas_Qr_Code_NumberState createState() => _Gas_Qr_Code_NumberState();
 }
 
-class _Qr_Code_NumberState extends State<Qr_Code_Number> {
+class _Gas_Qr_Code_NumberState extends State<Gas_Qr_Code_Number> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +28,7 @@ class _Qr_Code_NumberState extends State<Qr_Code_Number> {
             onPressed: () {
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
-                      builder: (context) => Loading_pang_QqCode()),
+                      builder: (context) => Loading_Page_Gas_QqCode()),
                   (Route<dynamic> route) => false);
             },
           ),
@@ -73,13 +75,15 @@ class _Qr_Code_NumberState extends State<Qr_Code_Number> {
                       ), //
                     ),
                     onPressed: () {
+                      Profile['fullname'];
+                      print(Profile['fullname']);
                       setState(() {
                         number_qrcode.text.isEmpty
                             ? _validate = true
                             : _validate = false;
                         if (_validate == false) {
                           var qrcode = number_qrcode.text.toString();
-                          PostapiQrCodeNumber(qrcode, context);
+                          PostapiGasQrCodeNumber(qrcode, context);
                           number_qrcode.clear();
                           print("_validate ::::$_validate");
                           print(qrcode);

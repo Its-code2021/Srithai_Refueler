@@ -1,20 +1,23 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cpac/controller/gas_qr_code.dart';
+import 'package:cpac/view/driver/loading_page.dart';
+import 'package:cpac/view/driver/staff_draw_user.dart';
 import 'package:cpac/view/driver/tabel_all.dart';
-import 'package:cpac/view/gas_station/gas_draw_user.dart';
-import 'package:cpac/view/gas_station/gas_summary.dart';
 import 'package:cpac/view/gas_station/gas_tabel_all.dart';
 
 import 'package:flutter/material.dart';
 
-class Gas_Detail extends StatefulWidget {
-  Gas_Detail({Key? key}) : super(key: key);
+import 'gas_loading_page.dart';
+
+class Gas_Oil_All extends StatefulWidget {
+  Gas_Oil_All({Key? key}) : super(key: key);
 
   @override
-  _Gas_DetailState createState() => _Gas_DetailState();
+  _Gas_Oil_AllState createState() => _Gas_Oil_AllState();
 }
 
-class _Gas_DetailState extends State<Gas_Detail> {
+class _Gas_Oil_AllState extends State<Gas_Oil_All> {
   Widget Add_Oil() {
     return Container(
       width: 200,
@@ -34,11 +37,16 @@ class _Gas_DetailState extends State<Gas_Detail> {
             style: TextStyle(fontSize: 20),
           ),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ExamplePage()),
-            );
-            print('เติมน้ำมัน');
+            var Qr_confrim = QrCode['qr_code'];
+
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (context) => Loading_Page_Detail_Gas()),
+                (Route<dynamic> route) => false);
+            GetBilDetail_Gas(OilDetail_id);
+            PostOilConfrimGas_ADD(Qr_confrim);
+            print(Qr_confrim);
+            print(GetBilDetail_Gas(OilDetail_id));
           },
         ),
       ),
@@ -48,11 +56,6 @@ class _Gas_DetailState extends State<Gas_Detail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Image.asset('images/002.png', fit: BoxFit.cover),
-        centerTitle: true,
-        backgroundColor: Color(0xff438EB9),
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -84,8 +87,6 @@ class _Gas_DetailState extends State<Gas_Detail> {
           ],
         ),
       ),
-
-      // This trailing comma makes auto-formatting nicer f
     );
   }
 }

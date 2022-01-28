@@ -7,7 +7,6 @@ import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/view/driver/loading_page.dart';
 import 'package:cpac/view/driver/qr_code_number.dart';
 import 'package:cpac/view/driver/tabbar_driver.dart';
-import 'package:cpac/view/gas_station/gas_detail.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';

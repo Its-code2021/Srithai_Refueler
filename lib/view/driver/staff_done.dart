@@ -1,9 +1,8 @@
 import 'package:cpac/view/driver/qr_code.dart';
+import 'package:cpac/view/driver/staff_refueling.dart';
 import 'package:cpac/view/driver/tabbar_coupon_history.dart';
 import 'package:cpac/view/driver/tabbar_driver.dart';
-import 'package:cpac/view/gas_station/gas_history.dart';
-import 'package:cpac/view/gas_station/gas_qr_code.dart';
-import 'package:cpac/view/gas_station/tabbar_Gas.dart';
+
 import 'package:flutter/material.dart';
 
 class Staff_Done extends StatefulWidget {
@@ -61,7 +60,7 @@ class _Staff_DoneState extends State<Staff_Done> {
                   onPressed: () {
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
-                            builder: (context) => TabBar_Coupon_History()),
+                            builder: (context) => Staff_Refueling()),
                         (Route<dynamic> route) => false);
                     print('กลับหน้าหลัก');
                   },

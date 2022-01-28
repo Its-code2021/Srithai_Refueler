@@ -1,19 +1,20 @@
 import 'dart:io';
 
-import 'package:cpac/view/gas_station/gas_detail.dart';
-import 'package:flutter/foundation.dart';
+import 'package:cpac/controller/gas_qr_code.dart';
+import 'package:cpac/view/gas_station/gas_qr_code_number.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-class Gas_QrCode extends StatefulWidget {
-  Gas_QrCode({Key? key}) : super(key: key);
+class Gas_Qr_Code extends StatefulWidget {
+  Gas_Qr_Code({Key? key}) : super(key: key);
 
   @override
-  _Gas_QrCodeState createState() => _Gas_QrCodeState();
+  State<Gas_Qr_Code> createState() => _Gas_Qr_CodeState();
 }
 
-class _Gas_QrCodeState extends State<Gas_QrCode> {
+class _Gas_Qr_CodeState extends State<Gas_Qr_Code> {
   Barcode? result;
+
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
@@ -22,9 +23,9 @@ class _Gas_QrCodeState extends State<Gas_QrCode> {
     if (Platform.isAndroid) {
       controller?.pauseCamera();
     }
-    controller?.resumeCamera();
   }
 
+  String qrCodeResult = "Not Yet Scanned";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +33,16 @@ class _Gas_QrCodeState extends State<Gas_QrCode> {
         title: new Center(
           child: Image.asset('images/002.png', fit: BoxFit.cover),
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.border_color_outlined),
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => Gas_Qr_Code_Number()),
+                  (Route<dynamic> route) => false);
+            },
+          ),
+        ],
         backgroundColor: const Color(0xff438EB9),
         // ignore: duplicate_ignore, duplicate_ignore, duplicate_ignore
       ),
@@ -45,83 +56,28 @@ class _Gas_QrCodeState extends State<Gas_QrCode> {
             height: 60,
             alignment: Alignment.center,
             color: Colors.black,
-            child: Text(
+            child: const Text(
               'SCAN QR CODE',
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
             ),
           ),
-          Expanded(flex: 4, child: _buildQrView(context)),
+          Expanded(flex: 5, child: _buildQrView(context)),
           Container(
             width: double.infinity,
             height: 60,
             alignment: Alignment.center,
             color: Colors.black,
-            child: Text(
+            child: const Text(
               'บนคูปองเติมน้ำมัน',
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  // ignore: unnecessary_null_comparison
-                  if (result != null)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          'สแกนเลขที่คูปอง:',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                        Text(
-                          ' ${result?.code}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.blue),
-                        )
-                      ],
-                    )
-                  else
-                    Container(
-                      height: 10,
-                    ),
-
-                  Text('Scan a code'),
-                  Column(
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.all(8),
-                        child: ElevatedButton(
-                          child: Text('ยืนยัน'),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Gas_Detail()),
-                            );
-                            print('QR CODE');
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
             ),
           ),
         ],
@@ -129,14 +85,34 @@ class _Gas_QrCodeState extends State<Gas_QrCode> {
     );
   }
 
+  void _onLoading() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: new Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                Container(
+                    margin: EdgeInsets.only(left: 5),
+                    child: Text('โปรดรอสักครู่....')),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Widget _buildQrView(BuildContext context) {
-    // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
     var scanArea = (MediaQuery.of(context).size.width < 400 ||
             MediaQuery.of(context).size.height < 400)
         ? 300.0
         : 300.0;
-    // To ensure the Scanner view is properly sizes after rotation
-    // we need to listen for Flutter SizeChanged notification and update controller
     return QRView(
       key: qrKey,
       onQRViewCreated: _onQRViewCreated,
@@ -153,9 +129,16 @@ class _Gas_QrCodeState extends State<Gas_QrCode> {
     setState(() {
       this.controller = controller;
     });
-    controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
+    Future.delayed(Duration(seconds: 3), () {
+      controller.scannedDataStream.listen((scanData) {
+        setState(() {
+          result = scanData;
+          if (result != null) {
+            controller.stopCamera();
+            var qrcode = result?.code;
+            GetapiQrCodeGas(qrcode, context);
+          }
+        });
       });
     });
   }

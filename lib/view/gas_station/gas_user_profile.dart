@@ -2,6 +2,7 @@
 
 import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/server/api.dart';
+import 'package:cpac/view/login_test.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -17,16 +18,30 @@ class _Gas_User_ProfileState extends State<Gas_User_Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            'ข้อมูลส่วนตัว',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-          ),
-          centerTitle: true,
-          backgroundColor: Color(0xff438EB9),
+          title:
+              Center(child: Image.asset('images/002.png', fit: BoxFit.cover)),
+          backgroundColor: const Color(0xff438EB9),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Container(
+              height: 10,
+            ),
+            Container(
+              width: double.infinity,
+              height: 60,
+              alignment: Alignment.center,
+              color: const Color(0xff438EB9),
+              child: const Text(
+                'ข้อมูลส่วนตัว',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+            ),
             Container(
               height: 5,
             ),
@@ -76,11 +91,40 @@ class _Gas_User_ProfileState extends State<Gas_User_Profile> {
                 ),
               ),
             ),
-            // ElevatedButton(
-            //     onPressed: () {
-            //       GetapiHeader();
-            //     },
-            //     child: Text('data'))
+            Container(
+              height: 50,
+            ),
+            Container(
+              width: 200,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.red,
+                  minimumSize: Size.fromHeight(
+                    50,
+                  ), // fromHeight use double.infinity as width and 40 is the height
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                      (Route<dynamic> route) => false);
+                  print('ออกจากระบบ');
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      'ออกจากระบบ',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    Icon(
+                      Icons.logout_outlined,
+                      size: 30,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         )
 

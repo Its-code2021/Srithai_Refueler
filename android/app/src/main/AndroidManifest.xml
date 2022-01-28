@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cpac">
    <application
-        android:label="cpac"
+        android:label="SRITHAI"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

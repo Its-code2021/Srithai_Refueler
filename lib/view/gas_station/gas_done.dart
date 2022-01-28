@@ -1,6 +1,6 @@
-import 'package:cpac/view/gas_station/gas_history.dart';
 import 'package:cpac/view/gas_station/gas_qr_code.dart';
-import 'package:cpac/view/gas_station/tabbar_Gas.dart';
+import 'package:cpac/view/gas_station/tabbar_gas%20home.dart';
+
 import 'package:flutter/material.dart';
 
 class Gas_Done extends StatefulWidget {
@@ -54,13 +54,11 @@ class _Gas_DoneState extends State<Gas_Done> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xff4782D2),
-
-                    // fromHeight use double.infinity as width and 40 is the height
                   ),
                   onPressed: () {
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
-                            builder: (context) => TabBar_Menu_Gas()),
+                            builder: (context) => TabBar_Menu_Gas_Home()),
                         (Route<dynamic> route) => false);
                     print('กลับหน้าหลัก');
                   },
@@ -75,13 +73,11 @@ class _Gas_DoneState extends State<Gas_Done> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xff4782D2),
-                    // fromHeight use double.infinity as width and 40 is the height
                   ),
                   onPressed: () {
                     Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => Gas_QrCode()),
+                        MaterialPageRoute(builder: (context) => Gas_Qr_Code()),
                         (Route<dynamic> route) => false);
-                    print('Scan QRCode');
                   },
                   child: Text(
                     'Scan QRCode',
