@@ -1,7 +1,9 @@
 import 'package:cpac/controller/gas_qr_code.dart';
 import 'package:cpac/utility/my_alert.dart';
+import 'package:cpac/utility/status_all.dart';
 import 'package:cpac/view/gas_station/gas_done.dart';
 import 'package:cpac/view/gas_station/gas_tabel_all.dart';
+import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 
 class Gas_Bill_Amount extends StatefulWidget {
@@ -51,6 +53,8 @@ class _Gas_Bill_AmountState extends State<Gas_Bill_Amount> {
   }
 
   Future<void> AlertBillAmount_Confirm(BuildContext context) async {
+    var total_result = (Decimal.parse(_texthController.text) *
+        Decimal.parse(BilDetail['refuel_amount'].toString()));
     showDialog(
       context: context,
       builder: (context) => MediaQuery(
@@ -85,7 +89,25 @@ class _Gas_Bill_AmountState extends State<Gas_Bill_Amount> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        BilDetail['amount'].toString(),
+                        BilDetail['refuel_amount'].toString(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.green),
+                      ),
+                      const Text(
+                        ' ลิตร ',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      const Text(
+                        'ราคาต่อลิตร: ',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        _texthController.text,
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.green),
                       ),
@@ -103,7 +125,7 @@ class _Gas_Bill_AmountState extends State<Gas_Bill_Amount> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        _texthController.text,
+                        total_result.toString(),
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.green),
                       ),
@@ -126,12 +148,14 @@ class _Gas_Bill_AmountState extends State<Gas_Bill_Amount> {
                               primary: Colors.blue[900], elevation: 5),
                           onPressed: () {
                             var id = BilDetail['id'].toString();
-                            var bill_amount = _texthController.text;
-                            PostConfirmtBilAmount(id, bill_amount);
+                            var bill_amount = total_result.toString();
+                            var oil_rate = _texthController.text;
+                            PostConfirmtBilAmount(id, bill_amount, oil_rate);
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(
                                     builder: (context) => Gas_Done()),
                                 (Route<dynamic> route) => false);
+                            total_results.toString();
                             print(bill_amount);
                           },
                           child: const Center(
@@ -171,6 +195,14 @@ class _Gas_Bill_AmountState extends State<Gas_Bill_Amount> {
 
   @override
   Widget build(BuildContext context) {
+    @override
+    void initState() {
+      super.initState();
+      print('init');
+      _texthController.text = '';
+      _text = true; //variable to control enable property of textfield
+    }
+
     final key = GlobalKey<ScaffoldState>();
     // ignore: unnecessary_new
 
@@ -196,7 +228,7 @@ class _Gas_Bill_AmountState extends State<Gas_Bill_Amount> {
               color: const Color(0xff438EB9),
               // ignore: prefer_const_constructors
               child: Text(
-                'กรอกจำนวนเงินน้ำมันที่เติม',
+                'กรอกจำนวนราคาต่อลิตร',
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                     fontSize: 25,
@@ -207,7 +239,8 @@ class _Gas_Bill_AmountState extends State<Gas_Bill_Amount> {
             Container(
               height: 10,
             ),
-            Tabel_Bill_Amount(),
+            // Tabel_Bill_Amount(),
+            BtnConfrim_BilAmount(),
             Container(
               height: 20,
             ),
@@ -222,7 +255,12 @@ class _Gas_Bill_AmountState extends State<Gas_Bill_Amount> {
   }
 }
 
+var total_result;
+var total_results;
+
 class BtnConfrim_BilAmount extends StatefulWidget {
+  BtnConfrim_BilAmount();
+
   @override
   BtnConfrim_BilAmountState createState() {
     return BtnConfrim_BilAmountState();
@@ -237,7 +275,7 @@ class BtnConfrim_BilAmountState extends State<BtnConfrim_BilAmount> {
   @override
   void initState() {
     super.initState();
-    print('init');
+
     _texthController.text = '';
     _text = true; //variable to control enable property of textfield
   }
@@ -248,24 +286,387 @@ class BtnConfrim_BilAmountState extends State<BtnConfrim_BilAmount> {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: <Widget>[
-          Center(
-            child: TextField(
-              enabled: _text,
-              controller: _text ? _texthController : null,
-              autofocus: true,
-              decoration: const InputDecoration(
-                hintText: '0.00',
-                contentPadding: EdgeInsets.symmetric(vertical: 0.1),
-                border: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.teal)),
-                // errorText: _validate ? 'กรุณากรอกจะจำนวนลิตรที่เติมจริง' : null,
-              ),
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.center,
-            ),
-          ),
+          Tavle_all(),
         ],
       ),
+    );
+  }
+
+  _refreshAction(total_results) {
+    setState(() {
+      Tavle_all();
+      total_results.toString();
+    });
+  }
+
+  Widget Btn_Amount() {
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+        ),
+        child: Center(
+          child: TextField(
+            enabled: _text,
+            controller: _text ? _texthController : null,
+            textInputAction: TextInputAction.done,
+            onChanged: (total_ref) {
+              total_result = (Decimal.parse(_texthController.text) *
+                  Decimal.parse(BilDetail['refuel_amount'].toString()));
+              total_results = total_result;
+              _refreshAction(total_results);
+              print("$total_results");
+            },
+            autofocus: true,
+            // onSubmitted: (String total_ref) {
+            //   _refreshAction();
+            //   total_results;
+            //   print("$total_results");
+            //   return _refreshAction();
+            // },
+            decoration: const InputDecoration(
+              hintText: '0.00',
+              contentPadding: EdgeInsets.symmetric(vertical: 0.1),
+              border: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.teal)),
+              // errorText: _validate ? 'กรุณากรอกจะจำนวนลิตรที่เติมจริง' : null,
+            ),
+            keyboardType: TextInputType.number,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget Tavle_all() {
+    return Table(
+      border: TableBorder.all(
+          color: Colors.black, style: BorderStyle.solid, width: 2),
+      children: [
+        TableRow(
+          children: [
+            Container(
+              color: const Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'เลขที่ คูปอง ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    BilDetail['code'].toString(),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: const Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'ทะเบียนรถ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    BilDetail['truck_license'].toString(),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: const Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'ชื่อพนักงานขับรถ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    BilDetail['driver'].toString(),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: const Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'จำนวนลิตร',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    BilDetail['refuel_amount'].toString(),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: const Color(0xffC3C3C3),
+              height: 60,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'ราคาต่อลิตร',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Btn_Amount()
+                  // BtnConfrim_BilAmount(),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: Column(
+                  //     children: <Widget>[
+                  //       Center(
+                  //         child: TextField(
+                  //           controller: _text ? _texthController : null,
+                  //           onChanged: (total_ref) {
+                  //             Decimal total_result = (Decimal.parse(
+                  //                     _texthController.text) *
+                  //                 Decimal.parse(
+                  //                     BilDetail['refuel_amount']
+                  //                         .toString()));
+                  //             total_results = total_result;
+                  //             _refreshAction();
+                  //           },
+                  //           autofocus: true,
+                  //           textInputAction: TextInputAction.done,
+                  //           onSubmitted: (String total_ref) {
+                  //             _refreshAction();
+                  //             print("$total_results");
+                  //             return _refreshAction();
+                  //           },
+                  //           decoration: const InputDecoration(
+                  //             hintText: '0.00',
+                  //             contentPadding:
+                  //                 EdgeInsets.symmetric(vertical: 0.1),
+                  //             border: const OutlineInputBorder(
+                  //                 borderSide:
+                  //                     BorderSide(color: Colors.teal)),
+                  //             // errorText: _validate ? 'กรุณากรอกจะจำนวนลิตรที่เติมจริง' : null,
+                  //           ),
+                  //           keyboardType: TextInputType.number,
+                  //           textAlign: TextAlign.center,
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: const Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'จำนวนเงินทั้งหมด',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (_texthController.text == '') ...[
+                    Text(
+                      '0.00',
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff428BCA)),
+                      textAlign: TextAlign.center,
+                    )
+                  ] else ...[
+                    Text(
+                      total_results.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff428BCA)),
+                      textAlign: TextAlign.center,
+                    )
+                  ]
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: const Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'ชื่อปั้มที่เติม',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    BilDetail['refueler_name'].toString(),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: const Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'วัน/เวลาที่เติม',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    BilDetail['refuel_at'].toString(),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.green),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: const Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'สถานะ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Status_Gas_All()
+          ],
+        ),
+      ],
     );
   }
 }

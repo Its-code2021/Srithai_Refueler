@@ -25,7 +25,6 @@ Widget Tabel_Header_DpOil() {
                     'เบอร์รถ',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -42,7 +41,6 @@ Widget Tabel_Header_DpOil() {
                     'ทะเบียนรถ',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -59,7 +57,6 @@ Widget Tabel_Header_DpOil() {
                     'จำนวนเที่ยว',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -74,7 +71,6 @@ Widget Tabel_Header_DpOil() {
                   Text(
                     'จำนวนลิตร',
                     style: TextStyle(
-                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -105,7 +101,6 @@ Widget Tabel_Header_DpOil_Body() {
                     '1291',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Color(0xff438EB9),
                     ),
@@ -122,7 +117,6 @@ Widget Tabel_Header_DpOil_Body() {
                     '73-0494',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Color(0xff438EB9),
                     ),
@@ -139,7 +133,6 @@ Widget Tabel_Header_DpOil_Body() {
                     '10',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Color(0xff438EB9),
                     ),
@@ -155,7 +148,6 @@ Widget Tabel_Header_DpOil_Body() {
                   Text(
                     '80',
                     style: TextStyle(
-                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Color(0xff438EB9),
                     ),
@@ -187,7 +179,7 @@ Widget Tabel_Header_Row() {
                 children: [
                   Text(
                     'ลำดับ',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -201,9 +193,7 @@ Widget Tabel_Header_Row() {
                   Text(
                     '1',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -221,7 +211,7 @@ Widget Tabel_Header_Row() {
                 children: [
                   Text(
                     'วันที่วิ่งงาน',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -235,9 +225,7 @@ Widget Tabel_Header_Row() {
                   Text(
                     '25/12/2021 09:00',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -255,7 +243,7 @@ Widget Tabel_Header_Row() {
                 children: [
                   Text(
                     'หมายเลขดี.พี.',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -269,9 +257,7 @@ Widget Tabel_Header_Row() {
                   Text(
                     '4040181681',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -289,7 +275,7 @@ Widget Tabel_Header_Row() {
                 children: [
                   Text(
                     'เบอร์รถ/ทะเบียนรถ',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -303,9 +289,7 @@ Widget Tabel_Header_Row() {
                   Text(
                     '1291/73-0494',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -323,7 +307,7 @@ Widget Tabel_Header_Row() {
                 children: [
                   Text(
                     'ต้นทาง - ปลายทาง',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -337,9 +321,7 @@ Widget Tabel_Header_Row() {
                   Text(
                     'มาลีวัล -> อบต.ในคลองบางปลากด',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                   )
@@ -358,7 +340,7 @@ Widget Tabel_Header_Row() {
                 children: [
                   Text(
                     'โซน',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -372,9 +354,7 @@ Widget Tabel_Header_Row() {
                   Text(
                     '3',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -392,7 +372,7 @@ Widget Tabel_Header_Row() {
                 children: [
                   Text(
                     'น้ำมันที่กำหนด',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -406,9 +386,7 @@ Widget Tabel_Header_Row() {
                   Text(
                     '11',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -438,7 +416,7 @@ Widget Tabel_Coupon_detail() {
                 children: [
                   Text(
                     'เลขที่ คูปอง ',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -452,9 +430,7 @@ Widget Tabel_Coupon_detail() {
                   Text(
                     'DPRAY22010531-2 ',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -472,7 +448,7 @@ Widget Tabel_Coupon_detail() {
                 children: [
                   Text(
                     'วัน/เวลาที่เติม',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -486,9 +462,7 @@ Widget Tabel_Coupon_detail() {
                   Text(
                     '12/01/2022 09:00',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -506,7 +480,7 @@ Widget Tabel_Coupon_detail() {
                 children: [
                   Text(
                     'ทะเบียนรถ',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -520,9 +494,7 @@ Widget Tabel_Coupon_detail() {
                   Text(
                     'กท 65-1535',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -540,7 +512,7 @@ Widget Tabel_Coupon_detail() {
                 children: [
                   Text(
                     'ชื่อพนักงานขับรถ',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -554,9 +526,7 @@ Widget Tabel_Coupon_detail() {
                   Text(
                     'นายสมคิด',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -574,7 +544,7 @@ Widget Tabel_Coupon_detail() {
                 children: [
                   Text(
                     'จำนวนลิตรที่เติมจริง',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -588,9 +558,7 @@ Widget Tabel_Coupon_detail() {
                   Text(
                     '142',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                   )
@@ -609,7 +577,7 @@ Widget Tabel_Coupon_detail() {
                 children: [
                   Text(
                     'ชื่อผู้เติมน้ำมัน',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -623,9 +591,7 @@ Widget Tabel_Coupon_detail() {
                   Text(
                     'นายสมชาย',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -643,7 +609,7 @@ Widget Tabel_Coupon_detail() {
                 children: [
                   Text(
                     'สถานะ',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -657,9 +623,7 @@ Widget Tabel_Coupon_detail() {
                   Text(
                     'เติมแล้ว',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green),
+                        fontWeight: FontWeight.bold, color: Colors.green),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -677,7 +641,7 @@ Widget Tabel_Coupon_detail() {
                 children: [
                   Text(
                     'วัน/เวลาที่เติม',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -691,9 +655,7 @@ Widget Tabel_Coupon_detail() {
                   Text(
                     '12/01/2022 10:00',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green),
+                        fontWeight: FontWeight.bold, color: Colors.green),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -932,7 +894,7 @@ Widget Tabel_Detailed_Summary() {
                 children: [
                   Text(
                     'ลำดับ ',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -946,9 +908,7 @@ Widget Tabel_Detailed_Summary() {
                   Text(
                     '1 ',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -966,7 +926,7 @@ Widget Tabel_Detailed_Summary() {
                 children: [
                   Text(
                     'วัน/เวลาที่เติม',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -980,9 +940,7 @@ Widget Tabel_Detailed_Summary() {
                   Text(
                     '25/12/2021 09:00',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1000,7 +958,7 @@ Widget Tabel_Detailed_Summary() {
                 children: [
                   Text(
                     'เบอร์รถ',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1014,9 +972,7 @@ Widget Tabel_Detailed_Summary() {
                   Text(
                     '1291',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1034,7 +990,7 @@ Widget Tabel_Detailed_Summary() {
                 children: [
                   Text(
                     'ทะเบียนรถ',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1048,9 +1004,7 @@ Widget Tabel_Detailed_Summary() {
                   Text(
                     '73-0494',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1068,7 +1022,7 @@ Widget Tabel_Detailed_Summary() {
                 children: [
                   Text(
                     'จำนวนลิตร',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1082,9 +1036,7 @@ Widget Tabel_Detailed_Summary() {
                   Text(
                     '80',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                   )
@@ -1103,7 +1055,7 @@ Widget Tabel_Detailed_Summary() {
                 children: [
                   Text(
                     'ปั้มน้ำมันที่เติม',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1117,9 +1069,7 @@ Widget Tabel_Detailed_Summary() {
                   Text(
                     'PTT',
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1150,7 +1100,7 @@ Widget Tabel_Staff_detail() {
                 children: const [
                   Text(
                     'เลขที่ คูปอง ',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1164,9 +1114,7 @@ Widget Tabel_Staff_detail() {
                   Text(
                     QrCode['code'].toString(),
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1184,7 +1132,7 @@ Widget Tabel_Staff_detail() {
                 children: const [
                   Text(
                     'ทะเบียนรถ',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1198,9 +1146,7 @@ Widget Tabel_Staff_detail() {
                   Text(
                     QrCode["truck_license"].toString(),
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -1218,7 +1164,7 @@ Widget Tabel_Staff_detail() {
                 children: const [
                   Text(
                     'ชื่อพนักงานขับรถ',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1232,9 +1178,7 @@ Widget Tabel_Staff_detail() {
                   Text(
                     QrCode['driver'].toString(),
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1252,7 +1196,7 @@ Widget Tabel_Staff_detail() {
                 children: const [
                   Text(
                     'จำนวนลิตร',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1266,9 +1210,7 @@ Widget Tabel_Staff_detail() {
                   Text(
                     QrCode['amount'].toString(),
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1298,7 +1240,8 @@ Widget Tabel_Staff_detail_new() {
                 children: const [
                   Text(
                     'เลขที่ คูปอง ',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black87),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1312,9 +1255,7 @@ Widget Tabel_Staff_detail_new() {
                   Text(
                     Oil_Details['code'].toString(),
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1332,7 +1273,7 @@ Widget Tabel_Staff_detail_new() {
                 children: const [
                   Text(
                     'ทะเบียนรถ',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1346,9 +1287,7 @@ Widget Tabel_Staff_detail_new() {
                   Text(
                     Oil_Details['truck_license'].toString(),
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1366,7 +1305,7 @@ Widget Tabel_Staff_detail_new() {
                 children: const [
                   Text(
                     'ชื่อพนักงานขับรถ',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1380,9 +1319,7 @@ Widget Tabel_Staff_detail_new() {
                   Text(
                     Oil_Details['driver'].toString(),
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1406,10 +1343,9 @@ Widget Tabel_Staff_detail_new() {
                         contentPadding:
                             const EdgeInsets.symmetric(vertical: 0.1),
                         hintText: "จำนวนลิตรที่เติมจริง",
-                        hintStyle: TextStyle(color: Colors.black),
+                        hintStyle: TextStyle(color: Colors.black87),
                       ),
                       style: TextStyle(
-                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Color(0xff428BCA)),
                       textAlign: TextAlign.center,
@@ -1436,7 +1372,7 @@ Widget Tabel_Staff_detail_new() {
                 children: const [
                   Text(
                     'ชื่อผู้เติมน้ำมัน',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1450,9 +1386,7 @@ Widget Tabel_Staff_detail_new() {
                   Text(
                     Oil_Details['refueler_name'].toString(),
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff428BCA)),
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1470,7 +1404,7 @@ Widget Tabel_Staff_detail_new() {
                 children: const [
                   Text(
                     'สถานะ',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1489,7 +1423,7 @@ Widget Tabel_Staff_detail_new() {
                 children: const [
                   Text(
                     'วัน/เวลาที่เติม',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
                 ],
@@ -1503,9 +1437,7 @@ Widget Tabel_Staff_detail_new() {
                   Text(
                     Oil_Details['refuel_at'].toString(),
                     style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green),
+                        fontWeight: FontWeight.bold, color: Colors.green),
                     textAlign: TextAlign.center,
                   )
                 ],

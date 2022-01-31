@@ -358,7 +358,93 @@ Future<void> AlertBillAmount_Null(BuildContext context) async {
                 height: 10,
               ),
               const Text(
-                'กรุณากรอกจำนวนเงิน',
+                'กรุณากรอกจำนวนลิตร',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+              Container(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Center(
+                    child: Text(
+                  'ตกลง',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
+              ),
+            ],
+          )
+        ],
+      ),
+    ),
+  );
+}
+
+Future<void> AlertOilTotal_Null(BuildContext context) async {
+  showDialog(
+    context: context,
+    builder: (context) => MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+      child: AlertDialog(
+        actions: [
+          Column(
+            children: [
+              Icon(
+                Icons.error_outline,
+                size: 50,
+                color: Colors.red,
+              ),
+              Container(
+                height: 10,
+              ),
+              const Text(
+                'กรุณากรอกจำนวนลิตรที่เติมจริง',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+              Container(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Center(
+                    child: Text(
+                  'ตกลง',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
+              ),
+            ],
+          )
+        ],
+      ),
+    ),
+  );
+}
+
+Future<void> AlertOilRate_Null(BuildContext context) async {
+  showDialog(
+    context: context,
+    builder: (context) => MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+      child: AlertDialog(
+        actions: [
+          Column(
+            children: [
+              Icon(
+                Icons.error_outline,
+                size: 50,
+                color: Colors.red,
+              ),
+              Container(
+                height: 10,
+              ),
+              const Text(
+                'ไม่สามารกรอกจำนวนลิตรที่เติมจริงเกินที่กำหนดได้',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 textAlign: TextAlign.center,
               ),

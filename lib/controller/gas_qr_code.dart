@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/server/api.dart';
 import 'package:cpac/utility/date_time.dart';
@@ -105,27 +107,30 @@ Future<void> PostOilConfrimGas_ADD(Qr_confrim) async {
 }
 
 var ConfirmRefuel;
-Future<void> PostGasConfirmRefuelAmount(BuildContext context, String id,
-    String refuel_amount, String images) async {
+Future<void> PostGasConfirmRefuelAmount(
+    BuildContext context, id, refuel_amount, images) async {
   String url = apiPumpConfirmRefuelAmount;
-
-  Dio dio = new Dio();
+  Dio dio = Dio();
   Response response = await dio.post(url,
-      options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+      options: Options(headers: {
+        'Authorization': 'Token $Tokens_all',
+      }),
       data: {
         "id": id,
         "refuel_amount": refuel_amount,
         "images": images,
       });
+  print('response:::::$response');
   var result = response.data['results'][0];
   var status_code = response.data['status_code'][0];
-  if (status_code['code'] == "404") {
+  if (status_code['code'] == '200') {
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => Loading_Page_Bill_Amount()),
         (Route<dynamic> route) => false);
   }
   GetBilDetail_Gas(id);
-  print('test:::::$status_code');
+  print('sest:::::$result');
+  print('status_code:::::$status_code');
   print(GetBilDetail_Gas(id));
   ConfirmRefuel = result;
 }
@@ -158,16 +163,14 @@ Future<void> GetBilDetail_Gas(id) async {
 }
 
 var ConfirmtBilAmount;
-Future<void> PostConfirmtBilAmount(String id, String bill_amount) async {
+Future<void> PostConfirmtBilAmount(
+    String id, String bill_amount, String oil_rate) async {
   String url = apiPumpConfirmBillAmount;
 
   Dio dio = new Dio();
   Response response = await dio.post(url,
       options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
-      data: {
-        "id": id,
-        "bill_amount": bill_amount,
-      });
+      data: {"id": id, "bill_amount": bill_amount, "oil_rate": oil_rate});
   var result = response.data['results'][0];
   ConfirmtBilAmount = result;
   print('bill_amount:::::$ConfirmtBilAmount');

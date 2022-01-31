@@ -48,6 +48,7 @@ dependencies:
   intl: ^0.17.0
   date_ranger: ^0.0.1
   syncfusion_flutter_datepicker: ^19.4.47
+  decimal: ^2.1.0
  
   
   

@@ -12,7 +12,7 @@ import 'package:cpac/view/gas_station/gas_tabel_all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:painter/painter.dart';
+
 import 'package:signature/signature.dart';
 
 class Gas_Draw_User extends StatefulWidget {
@@ -25,6 +25,7 @@ class Gas_Draw_User extends StatefulWidget {
 class _Gas_Draw_UserState extends State<Gas_Draw_User> {
   bool _finished = false;
 
+  // ignore: prefer_typing_uninitialized_variables
   var base64Image;
 
   get image_text => null;
@@ -43,8 +44,7 @@ class _Gas_Draw_UserState extends State<Gas_Draw_User> {
     _controller.addListener(() => print('Value changed'));
   }
 
-  Future<void> AlertConfrimAmoutGas(BuildContext context) async {
-    String quote = base64Image;
+  Future<void> AlertConfrimAmoutGas() async {
     showDialog(
       context: context,
       builder: (context) => MediaQuery(
@@ -57,9 +57,65 @@ class _Gas_Draw_UserState extends State<Gas_Draw_User> {
                 Container(
                   height: 10,
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      'คุณเติมน้ำมันรถ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+                Container(
+                  height: 5,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      'ทะเบียน  ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      Gas_Details['truck_license'].toString(),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.green),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      ' จำนวน ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      _texthController.text,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.green),
+                    ),
+                    Text(
+                      ' ลิตร ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  height: 10,
+                ),
                 Text(
-                  'ยืนยันการเติมน้ำมัน ',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  'โปรดยืนยันหากยืนยันแล้วจะไม่สามารถแก้ไขได้',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 Container(
@@ -72,17 +128,11 @@ class _Gas_Draw_UserState extends State<Gas_Draw_User> {
                     ElevatedButton(
                       onPressed: () {
                         var id = Gas_Details['id'].toString();
-                        var refuelAmount = Gas_Details['amount'].toString();
+                        var refuel_amount = total_Refuel_all;
                         var images = base64Image;
+                        //print(images);
                         PostGasConfirmRefuelAmount(
-                            context, id, refuelAmount, images);
-                        // Navigator.of(context).pushAndRemoveUntil(
-                        //     MaterialPageRoute(
-                        //         builder: (context) =>
-                        //             Loading_Page_Bill_Amount()),
-                        //     (Route<dynamic> route) => false);
-                        // print(GetBilDetail_Gas(OilDetail_id));
-                        // Clipboard.setData(ClipboardData(text: quote));
+                            context, id, refuel_amount, images);
                       },
                       child: const Center(
                           child: Text(
@@ -113,6 +163,7 @@ class _Gas_Draw_UserState extends State<Gas_Draw_User> {
     );
   }
 
+  var total_Refuel_all;
   Widget Confrim_Oil() {
     return Container(
       width: 150,
@@ -133,16 +184,40 @@ class _Gas_Draw_UserState extends State<Gas_Draw_User> {
               ),
               onPressed: () {
                 setState(() async {
+                  _texthController.text.isEmpty
+                      ? _validate2 = true
+                      : _validate2 = false;
                   _controller.isEmpty ? _validate = true : _validate = false;
                   if (_validate == false) {
-                    AlertConfrimAmoutGas(context);
-                    if (_controller.isNotEmpty) {
-                      final Uint8List? data = await _controller.toPngBytes();
-                      if (data != null) {
-                        base64Image = base64Encode(data);
-                        // ignore: unused_local_variable
-                        var imagesCode = base64Image;
+                    if (_validate2 == false) {
+                      var total_Refuel =
+                          int.parse(Gas_Details['amount'].toString());
+                      var _texthController_text =
+                          int.parse(_texthController.text);
+                      assert(total_Refuel is int);
+                      if (total_Refuel > _texthController_text ||
+                          total_Refuel == _texthController_text) {
+                        total_Refuel_all = _texthController_text;
+                        AlertConfrimAmoutGas();
+                      } else {
+                        AlertOilRate_Null(context);
                       }
+                      if (_controller.isNotEmpty) {
+                        final Uint8List? data = await _controller.toPngBytes();
+                        if (data != null) {
+                          base64Image = base64Encode(data);
+
+                          // // var id = Gas_Details['id'].toString();
+                          // // var refuel_amount = total_Refuel_all.toString();
+                          // // var images = base64Image;
+                          // // PostGasConfirmrefuel_amount(
+                          // //     context, id, refuel_amount, images);
+                          // // ignore: unused_local_variable
+                          // var imagesCode = base64Image;
+                        }
+                      }
+                    } else if (_validate2 == true) {
+                      AlertOilTotal_Null(context);
                     }
                   } else if (_validate == true) {
                     AlertDetailDrawGas(context);
@@ -266,21 +341,25 @@ class _Gas_Draw_UserState extends State<Gas_Draw_User> {
   }
 }
 
-class BtnConfrim extends StatefulWidget {
+class BtnConfrim_Oil_Total extends StatefulWidget {
   @override
-  BtnConfrimState createState() {
-    return new BtnConfrimState();
+  BtnConfrim_Oil_TotalState createState() {
+    return BtnConfrim_Oil_TotalState();
   }
 }
 
-final _text = TextEditingController();
 bool _validate = false;
+bool _validate2 = false;
+var _texthController = TextEditingController();
+bool _text = false;
 
-class BtnConfrimState extends State<BtnConfrim> {
+class BtnConfrim_Oil_TotalState extends State<BtnConfrim_Oil_Total> {
   @override
-  void dispose() {
-    _text.dispose();
-    super.dispose();
+  void initState() {
+    super.initState();
+    print('init');
+    _texthController.text = '';
+    _text = true; //variable to control enable property of textfield
   }
 
   @override
@@ -289,14 +368,19 @@ class BtnConfrimState extends State<BtnConfrim> {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: <Widget>[
+          // Text(
+          //   Gas_Details['refuel_amount'].toString(),
+          // ),
           Center(
             child: TextField(
-              controller: _text,
+              enabled: _text,
+              controller: _text ? _texthController : null,
               autofocus: true,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(vertical: 0.1),
-                border: new OutlineInputBorder(
-                    borderSide: new BorderSide(color: Colors.teal)),
+              decoration: const InputDecoration(
+                hintText: '0.00',
+                contentPadding: EdgeInsets.symmetric(vertical: 0.1),
+                border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.teal)),
                 // errorText: _validate ? 'กรุณากรอกจะจำนวนลิตรที่เติมจริง' : null,
               ),
               keyboardType: TextInputType.number,

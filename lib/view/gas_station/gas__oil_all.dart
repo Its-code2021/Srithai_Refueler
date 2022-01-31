@@ -38,7 +38,6 @@ class _Gas_Oil_AllState extends State<Gas_Oil_All> {
           ),
           onPressed: () {
             var Qr_confrim = QrCode['qr_code'];
-
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
                     builder: (context) => Loading_Page_Detail_Gas()),
@@ -80,6 +79,19 @@ class _Gas_Oil_AllState extends State<Gas_Oil_All> {
               height: 10,
             ),
             Tabel_Gas_detail(),
+            Container(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                '*หมายเหตุ: กรุณาตรวจสอบทะเบียนรถ ให้ตรงกันกับทะเบียนรถที่ระบุในคูปอง',
+                style: TextStyle(
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15),
+              ),
+            ),
             Container(
               height: 20,
             ),

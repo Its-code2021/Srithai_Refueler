@@ -288,31 +288,33 @@ Widget Tabel_Gas_detail_draw() {
           children: [
             Container(
               color: const Color(0xffC3C3C3),
-              height: 40,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  Text(
-                    'จำนวนลิตรที่เติมจริง',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  )
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: TextField(
+                      enabled: false,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding:
+                            const EdgeInsets.symmetric(vertical: 0.1),
+                        hintText: "จำนวนลิตรที่เติมจริง",
+                        hintStyle: TextStyle(color: Colors.black87),
+                      ),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff428BCA)),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ],
               ),
             ),
             Container(
-              height: 40,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    Gas_Details['amount'].toString(),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xff428BCA)),
-                    textAlign: TextAlign.center,
-                  )
-                ],
+                children: [BtnConfrim_Oil_Total()],
               ),
             ),
           ],
@@ -531,7 +533,74 @@ Widget Tabel_Bill_Amount() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    BilDetail['amount'].toString(),
+                    BilDetail['refuel_amount'].toString(),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: const Color(0xffC3C3C3),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: TextField(
+                      enabled: false,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding:
+                            const EdgeInsets.symmetric(vertical: 0.1),
+                        hintText: "ราคาต่อลิตร",
+                        hintStyle: TextStyle(color: Colors.black87),
+                      ),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff428BCA)),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                // children: [BtnConfrim_BilAmount()],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: const Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'จำนวนเงินทั้งหมด',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    total_results.toString(),
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
@@ -622,41 +691,6 @@ Widget Tabel_Bill_Amount() {
               ),
             ),
             Status_Gas_All()
-          ],
-        ),
-        TableRow(
-          children: [
-            Container(
-              color: const Color(0xffC3C3C3),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: TextField(
-                      enabled: false,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        contentPadding:
-                            const EdgeInsets.symmetric(vertical: 0.1),
-                        hintText: "จำนวนเงินทั้งหมด",
-                        hintStyle: TextStyle(color: Colors.black87),
-                      ),
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff428BCA)),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [BtnConfrim_BilAmount()],
-              ),
-            ),
           ],
         ),
       ],

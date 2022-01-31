@@ -5,6 +5,7 @@ import 'package:cpac/utility/status_all.dart';
 import 'package:cpac/view/driver/loading_page.dart';
 import 'package:cpac/view/driver/qr_code.dart';
 import 'package:cpac/view/driver/refueling_all.dart';
+import 'package:cpac/view/driver/staff_done.dart';
 import 'package:cpac/view/driver/tabel_all.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -100,8 +101,8 @@ Future<void> PostOilConfrim_ADD(Qr_confrim) async {
 }
 
 var ConfirmRefuel;
-Future<void> PostConfirmRefuelAmount(
-    String id, String refuel_amount, String images) async {
+Future<void> PostConfirmRefuelAmount(BuildContext context, String id,
+    String refuel_amount, String images) async {
   String url = apiConfirmRefuelAmount;
 
   Dio dio = new Dio();
@@ -113,6 +114,13 @@ Future<void> PostConfirmRefuelAmount(
         "images": images,
       });
   var result = response.data['results'][0];
+  var status_code = response.data['status_code'][0];
+  if (status_code['code'] == '200') {
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => Staff_Done()),
+        (Route<dynamic> route) => false);
+  }
+  print('status_code:::::$status_code');
   ConfirmRefuel = result;
 }
 

@@ -51,36 +51,70 @@ class _Staff_Draw_UserState extends State<Staff_Draw_User> {
                 actions: [
                   Column(
                     children: [
-                      Icon(Icons.task_alt, size: 80, color: Colors.green),
-                      Container(
-                        height: 10,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                      Icon(Icons.task_alt, size: 60, color: Colors.green),
+                      Column(
                         children: [
-                          Text(
-                            'จำนวนลิตรที่เติมจริง: ',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
-                            textAlign: TextAlign.center,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                'คุณเติมน้ำมันรถ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          Container(
+                            height: 5,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                'ทะเบียน  ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                Oil_Details['truck_license'].toString(),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                ' จำนวนลิตร ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                _texthController.text,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            height: 10,
                           ),
                           Text(
-                            _texthController.text,
+                            'โปรดยืนยันหากยืนยันแล้วจะไม่สามารถแก้ไขได้',
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: Colors.green),
-                          ),
-                          Text(
-                            ' ลิตร?',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
+                              fontWeight: FontWeight.bold,
+                            ),
                             textAlign: TextAlign.center,
                           ),
                         ],
                       ),
                       Container(
-                        height: 10,
+                        height: 5,
                       ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -92,13 +126,9 @@ class _Staff_Draw_UserState extends State<Staff_Draw_User> {
                               var refuel_amount = _texthController.text;
                               var images = base64Image;
                               PostConfirmRefuelAmount(
-                                  id, refuel_amount, images);
-                              print(base64Image);
+                                  context, id, refuel_amount, images);
+
                               // Clipboard.setData(ClipboardData(text: quote));
-                              Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                      builder: (context) => Staff_Done()),
-                                  (Route<dynamic> route) => false);
                             },
                             child: const Center(
                                 child: Text(
@@ -154,12 +184,12 @@ class _Staff_Draw_UserState extends State<Staff_Draw_User> {
                   _controller.isEmpty ? _validate2 = true : _validate2 = false;
                   if (_validate == false) {
                     if (_validate2 == false) {
-                      AlertConfrimAmout(context);
                       if (_controller.isNotEmpty) {
                         final Uint8List? data = await _controller.toPngBytes();
                         if (data != null) {
                           base64Image = base64Encode(data);
                           var images_code = base64Image;
+                          AlertConfrimAmout(context);
                         }
                       }
                     } else if (_validate2 == true) {
@@ -248,9 +278,7 @@ class _Staff_Draw_UserState extends State<Staff_Draw_User> {
                     'กรุณากรอกลายเซ็นเพื่อยืนยัน เติมน้ำมัน',
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                        fontWeight: FontWeight.bold, color: Colors.black),
                   ),
                 ),
               ],

@@ -73,6 +73,16 @@ class _Refueling_AllState extends State<Refueling_All> {
               height: 10,
             ),
             Tabel_Staff_detail(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                '*หมายเหตุ: กรุณาตรวจสอบทะเบียนรถ ให้ตรงกันกับทะเบียนรถที่ระบุในคูปอง',
+                style: TextStyle(
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15),
+              ),
+            ),
             Container(
               height: 20,
             ),
