@@ -2,10 +2,7 @@ import 'package:cpac/controller/qr_code.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
-// String api = "https://stms.srithaigroup.com/v2/api";
-String api = "http://192.168.1.113/project/tms/api"; //Demo Wifi GPS
-// String api = "http://192.168.1.67/project/tms/api"; //Demo Wifi FLM
-// String api = "http://192.168.1.37/project/tms/api"; //Demo Wifi [บ้าน]
+String api = "https://stms.srithaigroup.com/v2/api";
 
 String apiLogin = api + "/auth/?p=user-login"; //เข้าสู่ระบบ
 String apiUser = api + "/auth/?p=user-data"; //user
