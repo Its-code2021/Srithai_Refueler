@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 
 String api = "https://stms.srithaigroup.com/v2/api";
 
-
 String apiLogin = api + "/auth/?p=user-login"; //เข้าสู่ระบบ
 String apiUser = api + "/auth/?p=user-data"; //user
 String apiQrCode = api + "/app/?p=scan-qr"; // Scan QrCode

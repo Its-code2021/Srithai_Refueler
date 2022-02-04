@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.cpac">
+    package="com.srithai.refueler">
    <application
         android:label="SRITHAI"
         android:icon="@mipmap/ic_launcher">
-        <activity
+        <activity<uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove" />
             android:name=".MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
