@@ -3,7 +3,7 @@
    <application
         android:label="SRITHAI"
         android:icon="@mipmap/ic_launcher">
-        <activity<uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove" />
+        <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
