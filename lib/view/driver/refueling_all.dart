@@ -36,10 +36,7 @@ class _Refueling_AllState extends State<Refueling_All> {
           onPressed: () {
             var Qr_confrim = QrCode['qr_code'];
 
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => Loading_pang_Detail()),
-                (Route<dynamic> route) => false);
-            PostOilConfrim_ADD(Qr_confrim);
+            PostOilConfrim_ADD(context, Qr_confrim);
           },
         ),
       ),

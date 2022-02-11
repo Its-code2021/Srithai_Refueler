@@ -3,6 +3,7 @@ import 'package:cpac/controller/qr_code.dart';
 import 'package:cpac/view/driver/loading_page.dart';
 import 'package:cpac/view/driver/qr_code.dart';
 import 'package:cpac/view/driver/staff_draw_user.dart';
+import 'package:cpac/view/driver/tabbar_driver_home.dart';
 import 'package:cpac/view/gas_station/gas_loading_page.dart';
 import 'package:flutter/material.dart';
 
@@ -467,4 +468,129 @@ Future<void> AlertOilRate_Null(BuildContext context) async {
       ),
     ),
   );
+}
+
+Future<void> chang_password_new(BuildContext context, String message) async {
+  showDialog(
+      context: context,
+      builder: (context) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+            child: AlertDialog(
+              content: Text(message),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('ยืนยัน'),
+                )
+              ],
+            ),
+          ));
+}
+
+Future<void> chang_password_old(BuildContext context, String message) async {
+  showDialog(
+      context: context,
+      builder: (context) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+            child: AlertDialog(
+              content: Text(message),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('ยืนยัน'),
+                )
+              ],
+            ),
+          ));
+}
+
+Future<void> Counpon_Null(BuildContext context, String message) async {
+  showDialog(
+      context: context,
+      builder: (context) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+            child: AlertDialog(
+              content: Text(
+                message,
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+              ),
+              actions: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue[900],
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Center(child: Text('ยืนยัน')),
+                )
+              ],
+            ),
+          ));
+}
+
+Future<void> Counpon_OilRefuel(BuildContext context, String message) async {
+  showDialog(
+      context: context,
+      builder: (context) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+            child: AlertDialog(
+              content: Text(
+                message,
+                textAlign: TextAlign.center,
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+              ),
+              actions: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue[900],
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) => Loading_Page_Date()),
+                        (Route<dynamic> route) => false);
+                  },
+                  child: Center(child: Text('ยืนยัน')),
+                )
+              ],
+            ),
+          ));
+}
+
+Future<void> Counpon_OilRefuel_PumpIn(
+    BuildContext context, String message) async {
+  showDialog(
+      context: context,
+      builder: (context) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+            child: AlertDialog(
+              content: Text(
+                message,
+                textAlign: TextAlign.center,
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+              ),
+              actions: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue[900],
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) => TabBar_Menu_Driver_Home()),
+                        (Route<dynamic> route) => false);
+                  },
+                  child: Center(child: Text('ยืนยัน')),
+                )
+              ],
+            ),
+          ));
 }

@@ -48,72 +48,22 @@ class _Staff_RefuelingState extends State<Staff_Refueling> {
 
   @override
   Widget build(BuildContext context) {
-    Future<bool> showExitPopup() async {
-      return await showDialog(
-            //show confirm dialogue
-            context: context,
-            builder: (context) => AlertDialog(
-              title: Text(
-                'คุณแน่ใจหรือไม่ที่จะปิดแอปพลิเคชัน',
-                style: TextStyle(fontSize: 18),
-              ),
-              actions: [
-                ElevatedButton(
-                  onPressed: () => Navigator.of(context).pop(true),
-                  child: Text('ยืนยัน'),
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.grey,
-                  ),
-                  onPressed: () => Navigator.of(context).pop(false),
-                  child: Text('ยกเลิก'),
-                ),
-              ],
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: Image.asset(
+              'images/logo.png',
+              fit: BoxFit.cover,
+              scale: 18.0,
             ),
-          ) ??
-          false;
-    }
-
-    return WillPopScope(
-      onWillPop: showExitPopup, //call function on back button press
-      child: Scaffold(
-        appBar: AppBar(
-          title:
-              Center(child: Image.asset('images/002.png', fit: BoxFit.cover)),
-          backgroundColor: const Color(0xff438EB9),
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
-                    (route) => false);
-                print('ออกจากระบบ');
-              },
-              icon: Icon(
-                Icons.logout_outlined,
-                size: 35,
-              ),
-            )
-          ],
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: Image.asset(
-                'images/logo.png',
-                fit: BoxFit.cover,
-                scale: 18.0,
-              ),
-            ),
-            Container(
-              height: 50,
-            ),
-            Qr_code_Staff()
-          ],
-        ),
+          ),
+          Container(
+            height: 50,
+          ),
+          Qr_code_Staff()
+        ],
       ),
     );
   }

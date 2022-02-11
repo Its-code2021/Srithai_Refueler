@@ -1,3 +1,6 @@
+// ignore_for_file: curly_braces_in_flow_control_structures
+
+import 'package:cpac/controller/driver_employee.dart';
 import 'package:cpac/controller/gas_qr_code.dart';
 import 'package:cpac/controller/qr_code.dart';
 import 'package:flutter/cupertino.dart';
@@ -67,4 +70,20 @@ class Status_Gas_History extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget Table_list_Null(BuildContext context) {
+  return Container(
+    alignment: Alignment.center,
+    width: MediaQuery.of(context).size.width,
+    height: MediaQuery.of(context).size.width,
+    child: const Text(
+      'ยังไม่มีรายการคูปอง !!!',
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        fontSize: 25,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  );
 }

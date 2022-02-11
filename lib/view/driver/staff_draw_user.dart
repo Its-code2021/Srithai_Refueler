@@ -158,6 +158,7 @@ class _Staff_Draw_UserState extends State<Staff_Draw_User> {
             ));
   }
 
+  var total_Refuel_all;
   Widget Confrim_Oil() {
     return Container(
       width: 150,
@@ -189,7 +190,18 @@ class _Staff_Draw_UserState extends State<Staff_Draw_User> {
                         if (data != null) {
                           base64Image = base64Encode(data);
                           var images_code = base64Image;
-                          AlertConfrimAmout(context);
+                          var total_Refuel =
+                              int.parse(Oil_Details['amount'].toString());
+                          var _texthController_text =
+                              int.parse(_texthController.text);
+                          assert(total_Refuel is int);
+                          if (total_Refuel > _texthController_text ||
+                              total_Refuel == _texthController_text) {
+                            total_Refuel_all = _texthController_text;
+                            AlertConfrimAmout(context);
+                          } else {
+                            AlertOilRate_Null(context);
+                          }
                         }
                       }
                     } else if (_validate2 == true) {

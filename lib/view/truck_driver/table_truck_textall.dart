@@ -1,0 +1,181 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
+import 'package:cpac/controller/driver_employee.dart';
+import 'package:flutter/material.dart';
+
+Widget Tabel_Trck_GenQrCode() {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 5.0),
+    child: Table(
+      border: TableBorder.all(
+          color: Colors.black, style: BorderStyle.solid, width: 2),
+      children: [
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'เลขที่ คูปอง ',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black87),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Driver_CouponDetail['code'].toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'ทะเบียนรถ ',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black87),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Driver_CouponDetail['truck_license'].toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'ชื่อพนักงานขับรถ ',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black87),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Driver_CouponDetail['driver'],
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        // TableRow(
+        //   children: [
+        //     Container(
+        //       color: Color(0xffC3C3C3),
+        //       height: 40,
+        //       child: Column(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         children: const [
+        //           Text(
+        //             'ต้นทาง - ปลายทาง ',
+        //             style: TextStyle(
+        //                 fontWeight: FontWeight.bold, color: Colors.black87),
+        //             textAlign: TextAlign.center,
+        //           )
+        //         ],
+        //       ),
+        //     ),
+        //     Container(
+        //       height: 40,
+        //       child: Column(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         children: [
+        //           const Text(
+        //             'มาลีวัล -> สมุทรปราการ',
+        //             style: TextStyle(
+        //                 fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+        //             textAlign: TextAlign.center,
+        //           )
+        //         ],
+        //       ),
+        //     ),
+        //   ],
+        // ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'จำนวนลิตร ',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black87),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Driver_CouponDetail['amount'].toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}

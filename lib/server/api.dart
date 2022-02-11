@@ -2,10 +2,13 @@ import 'package:cpac/controller/qr_code.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
-String api = "https://stms.srithaigroup.com/v2/api";
-
+// String api = "https://stms.srithaigroup.com/v2/api";
+String api = "http://192.168.1.113/project/tms/api"; //Demo Wifi GPS
+// String api = "http://192.168.1.67/project/tms/api"; //Demo Wifi FLM
+// String api = "http://192.168.1.37/project/tms/api"; //Demo Wifi [บ้าน]
 String apiLogin = api + "/auth/?p=user-login"; //เข้าสู่ระบบ
 String apiUser = api + "/auth/?p=user-data"; //user
+String apiChangPassword = api + "/auth/?p=user-change-password"; //user
 String apiQrCode = api + "/app/?p=scan-qr"; // Scan QrCode
 String apiQrCodeNumber = api + "/app/?p=enter-qr"; // กรอกหมายเลข QrCode
 String apiConfrimRefulOil =
@@ -38,4 +41,13 @@ String apiPumpHistoryRefue =
 
 String apiPumpHistoryRefueDetail =
     api + "/pump/?p=history-detail&id="; // ประวัติการเติมน้ำมัน
-   
+//API Driver(พขร.)
+String apiLoginDriver = api + "/auth/?p=driver-login"; //เข้าสู่ระบบ
+String apiDriverUser = api + "/auth/?p=driver-data"; //user
+String apiDriverCouponList = api + "/app/?p=driver-coupon-list"; //รายการคูปอง
+String apiDriverCouponDetail =
+    api + "/app/?p=driver-coupon-detail&id="; //รายการคูปอง
+String apiRecheckRefuel =
+    api + "/app/?p=driver-coupon-refuel&id="; //เช็คเติมว่าเติมน้ำมันยัง
+String apiChangPasswordDriver =
+    api + "/auth/?p=driver-change-password"; //เช็คเติมว่าเติมน้ำมันยัง

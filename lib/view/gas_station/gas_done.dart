@@ -1,3 +1,5 @@
+import 'package:cpac/controller/gas_qr_code.dart';
+import 'package:cpac/utility/date_time.dart';
 import 'package:cpac/view/gas_station/gas_qr_code.dart';
 import 'package:cpac/view/gas_station/tabbar_gas%20home.dart';
 
@@ -56,6 +58,7 @@ class _Gas_DoneState extends State<Gas_Done> {
                     primary: Color(0xff4782D2),
                   ),
                   onPressed: () {
+                    PostPumpHistoryRefue(startdate, enddate);
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
                             builder: (context) => TabBar_Menu_Gas_Home()),

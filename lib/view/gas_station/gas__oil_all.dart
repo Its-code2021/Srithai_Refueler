@@ -38,12 +38,9 @@ class _Gas_Oil_AllState extends State<Gas_Oil_All> {
           ),
           onPressed: () {
             var Qr_confrim = QrCode['qr_code'];
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                    builder: (context) => Loading_Page_Detail_Gas()),
-                (Route<dynamic> route) => false);
+
             GetBilDetail_Gas(OilDetail_id);
-            PostOilConfrimGas_ADD(Qr_confrim);
+            PostOilConfrimGas_ADD(context, Qr_confrim);
             print(Qr_confrim);
             print(GetBilDetail_Gas(OilDetail_id));
           },

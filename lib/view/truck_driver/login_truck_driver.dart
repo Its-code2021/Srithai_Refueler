@@ -1,25 +1,29 @@
+import 'package:cpac/controller/driver_employee.dart';
 import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/server/api.dart';
 import 'package:cpac/utility/my_alert.dart';
-import 'package:cpac/view/driver/tabbar_driver_home.dart';
-import 'package:cpac/view/gas_station/gas_select.dart';
-import 'package:cpac/view/gas_station/tabbar_gas%20home.dart';
+import 'package:cpac/view/truck_driver/driver_profile.dart';
+import 'package:cpac/view/truck_driver/home_driver.dart';
+import 'package:cpac/view/truck_driver/loading_driver.dart';
+import 'package:cpac/view/truck_driver/tabbar_driver_truck.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'driver/staff_refueling.dart';
 
-class LoginPage extends StatefulWidget {
+class Login_Truck_Driver extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _Login_Truck_DriverState createState() => _Login_Truck_DriverState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+var result_token;
+
+class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
   bool _isChecked = false;
   bool showPassword = true;
   String token = "";
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _usernameControllers = TextEditingController();
+  TextEditingController _passwordControllers = TextEditingController();
 
   @override
   void initState() {
@@ -35,6 +39,7 @@ class _LoginPageState extends State<LoginPage> {
         return Dialog(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
+            // ignore: unnecessary_new
             child: new Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -51,43 +56,21 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<Null> login() async {
-    String url = apiLogin;
+    String url = apiLoginDriver;
     try {
       Dio dio = new Dio();
       Response response = await dio.post(url, data: {
-        "username": _usernameController.text,
-        "password": _passwordController.text,
+        "username": _usernameControllers.text,
+        "password": _passwordControllers.text,
       });
-      print(response);
-      if (response.data['status_code'][0]['code'] == "200") {
-        var result = response.data['results'];
-        String username = _usernameController.text.toString();
-        String password = _passwordController.text.toString();
 
-        print(result[0]);
-        if (result[0] != '') {
-          token = result[0];
-          print(token);
-          String url = apiUser;
-          final response = await dio.get(url,
-              options: Options(headers: {'Authorization': 'Token $token'}));
-          var results = response.data['results'][0];
-          Profile = results;
-          if (Profile['user_level'] == "D") {
-            GetapiHeader(token); //pop dialog
-            GetToken(token);
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                    builder: (context) => TabBar_Menu_Driver_Home()),
-                (Route<dynamic> route) => false);
-          } else if (Profile['user_level'] == "P") {
-            GetapiHeader(token);
-            GetToken(token);
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => TabBar_Menu_Gas_Home()),
-                (Route<dynamic> route) => false);
-          }
-        }
+      if (response.data['status_code'][0]['code'] == "200") {
+        var result = response.data['results'][0];
+        result_token = result;
+        String username = _usernameControllers.text.toString();
+        String password = _passwordControllers.text.toString();
+        GetapiDriverUser(context, result_token);
+        GetapiDriverDouponList(context, result_token);
       } else {
         Navigator.pop(context);
         myAlert_2(context, "รหัสผ่านหรือชื่อผู้ใช้งานไม่ถูกต้อง");
@@ -102,21 +85,19 @@ class _LoginPageState extends State<LoginPage> {
 
   OutlineInputBorder myinputborder() {
     //return type is OutlineInputBorder
-    // ignore: prefer_const_constructors
-    return OutlineInputBorder(
+    return const OutlineInputBorder(
         //Outline border type for TextFeild
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        borderSide: const BorderSide(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(
           color: Colors.grey,
           width: 3,
         ));
   }
 
   OutlineInputBorder myfocusborder() {
-    // ignore: prefer_const_constructors
-    return OutlineInputBorder(
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        borderSide: const BorderSide(
+    return const OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(
           color: Colors.grey,
           width: 3,
         ));
@@ -124,6 +105,14 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    // if (Logout != 1) {
+    //   if (_usernameControllers.text != ' ' && _passwordControllers.text != '') {
+    //     setState(() {
+    //       login();
+    //     });
+    //   } else {}
+    // } else {}
+
     Color getColor(Set<MaterialState> states) {
       const Set<MaterialState> interactiveStates = <MaterialState>{
         MaterialState.pressed,
@@ -151,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     Container(height: 30),
                     const Text(
-                      'เข้าสู่ระบบ พนักงานเติมน้ำมัน / ปั้มน้ำมัน',
+                      'เข้าสู่ระบบ สำหรับพนักงานขับรถเท่านั้น',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -169,7 +158,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     Container(height: 10),
                     TextField(
-                        controller: _usernameController,
+                        controller: _usernameControllers,
                         onChanged: (value) => updateButtonState(value),
                         decoration: InputDecoration(
                           labelStyle: const TextStyle(
@@ -194,7 +183,7 @@ class _LoginPageState extends State<LoginPage> {
                     Container(height: 10),
                     TextField(
                       maxLength: 16,
-                      controller: _passwordController,
+                      controller: _passwordControllers,
                       onChanged: (value) => updateButtonState(value),
                       obscureText: showPassword,
                       decoration: InputDecoration(
@@ -243,8 +232,8 @@ class _LoginPageState extends State<LoginPage> {
                         ), //
                       ),
                       onPressed: () {
-                        if ((_usernameController.text != "" &&
-                            _passwordController.text != "")) {
+                        if ((_usernameControllers.text != "" &&
+                            _passwordControllers.text != "")) {
                           _onLoading();
                           login();
                         } else {
@@ -252,9 +241,9 @@ class _LoginPageState extends State<LoginPage> {
                               context, 'ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง');
                         }
                         print("username = " +
-                            _usernameController.text +
+                            _usernameControllers.text +
                             " password = " +
-                            _passwordController.text);
+                            _passwordControllers.text);
                       },
                       child: const Text('เข้าสู่ระบบ'),
                     ),
@@ -305,13 +294,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _handleRemeberme(value) {
-    print(" Rember Me");
+    print("Rember Me");
     _isChecked = value;
     SharedPreferences.getInstance().then(
       (prefs) {
         prefs.setBool("remember_me", value);
-        prefs.setString('username', _usernameController.text);
-        prefs.setString('password', _passwordController.text);
+        prefs.setString('username', _usernameControllers.text);
+        prefs.setString('password', _passwordControllers.text);
       },
     );
     setState(() {
@@ -334,8 +323,8 @@ class _LoginPageState extends State<LoginPage> {
         setState(() {
           _isChecked = true;
         });
-        _usernameController.text = _username;
-        _passwordController.text = _password;
+        _usernameControllers.text = _username;
+        _passwordControllers.text = _password;
       }
     } catch (e) {
       print(e);
@@ -354,7 +343,8 @@ class LogoutPage extends StatelessWidget {
               onTap: () {
                 Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    MaterialPageRoute(
+                        builder: (context) => Login_Truck_Driver()),
                     (route) => false);
               },
               child: const Icon(Icons.logout))

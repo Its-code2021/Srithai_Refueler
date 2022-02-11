@@ -1168,7 +1168,7 @@ Widget Tabel_History_detail_Gas() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    History_Detail['amount'].toString(),
+                    History_Detail['refuel_amount'].toString(),
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,

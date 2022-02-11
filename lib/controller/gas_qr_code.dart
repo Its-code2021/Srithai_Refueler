@@ -78,7 +78,7 @@ Future<void> PostapiGasQrCodeNumber(qrcode, BuildContext context) async {
 
 var Gas_Details;
 var OilDetail_id;
-Future<void> PostOilConfrimGas_ADD(Qr_confrim) async {
+Future<void> PostOilConfrimGas_ADD(BuildContext context, Qr_confrim) async {
   String url = apiConfrimRefulOilPump;
   Dio dio = new Dio();
   Response response = await dio.post(url,
@@ -88,22 +88,32 @@ Future<void> PostOilConfrimGas_ADD(Qr_confrim) async {
       });
 
   print("response $response");
-  var result = response.data['results'][0];
-  OilDetail_id = result;
-  if (OilDetail_id != null) {
-    String url = '$apiRefuelDetailPump$OilDetail_id';
-    Dio dio = new Dio();
-    Response response = await dio.get(
-      url,
-      options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
-    );
-    print("response $response");
-    print("OilConfrim::::$Tokens_all");
-    print("OilDetail_id::::$OilDetail_id");
+  var status_code = response.data['status_code'][0];
+  if (status_code['code'] == "200") {
     var result = response.data['results'][0];
-    Gas_Details = result;
-    // Tabel_Staff_detail();
+    OilDetail_id = result;
+    if (OilDetail_id != null) {
+      String url = '$apiRefuelDetailPump$OilDetail_id';
+      Dio dio = new Dio();
+      Response response = await dio.get(
+        url,
+        options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+      );
+      print("response $response");
+      print("OilConfrim::::$Tokens_all");
+      print("OilDetail_id::::$OilDetail_id");
+      var result = response.data['results'][0];
+      Gas_Details = result;
+      // Tabel_Staff_detail();
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => Loading_Page_Detail_Gas()),
+          (Route<dynamic> route) => false);
+    }
+  } else if (status_code["code"] == "404") {
+    Counpon_OilRefuel(context, "คูปองนี้ได้ถูกใช้เติมไปแล้ว");
+    print('ERROR');
   }
+  print('ERROR');
 }
 
 var ConfirmRefuel;
@@ -191,8 +201,8 @@ Future<void> PostPumpHistoryRefue(startdate, enddate) async {
   var result_date = response.data['data'];
   History_Refuel = result;
   BTW_date = result_date;
-  print('History_Refuel:::::$History_Refuel');
-  print('History_Refuel:::::$BTW_date');
+  // print('History_Refuel:::::$History_Refuel');
+  // print('History_Refuel:::::$BTW_date');
 }
 
 var History_Detail;

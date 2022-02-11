@@ -20,6 +20,7 @@ Future<void> GetapiQrCode(qrcode, BuildContext context) async {
         data: {
           "code": qrcode,
         });
+
     var status_code = response.data["status_code"][0]["code"];
     var result = response.data['results'][0];
     if (status_code == '200') {
@@ -73,7 +74,7 @@ Future<void> PostapiQrCodeNumber(qrcode, BuildContext context) async {
 
 var Oil_Details;
 var OilDetail_id;
-Future<void> PostOilConfrim_ADD(Qr_confrim) async {
+Future<void> PostOilConfrim_ADD(BuildContext context, Qr_confrim) async {
   String url = apiConfrimRefulOil;
   Dio dio = new Dio();
   Response response = await dio.post(url,
@@ -83,20 +84,31 @@ Future<void> PostOilConfrim_ADD(Qr_confrim) async {
       });
 
   print("response $response");
-  var result = response.data['results'][0];
-  OilDetail_id = result;
-  if (OilDetail_id != null) {
-    String url = '$apiRefuelDetail$OilDetail_id';
-    Dio dio = new Dio();
-    Response response = await dio.get(
-      url,
-      options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
-    );
-    print("response $response");
-    print("OilConfrim::::$Tokens_all");
+
+  var status_code = response.data['status_code'][0];
+  if (status_code['code'] == "200") {
     var result = response.data['results'][0];
-    Oil_Details = result;
-    Tabel_Staff_detail();
+    OilDetail_id = result;
+    if (OilDetail_id != null) {
+      String url = '$apiRefuelDetail$OilDetail_id';
+      Dio dio = new Dio();
+      Response response = await dio.get(
+        url,
+        options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+      );
+      print("responseTEST::: $response");
+      print("OilConfrim::::$Tokens_all");
+      var result = response.data['results'][0];
+      Oil_Details = result;
+
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => Loading_pang_Detail()),
+          (Route<dynamic> route) => false);
+      Tabel_Staff_detail();
+    }
+  } else {
+    Counpon_OilRefuel_PumpIn(context, "คูปองนี้ได้ถูกกดเติมไปแล้ว");
+    print('ERROR');
   }
 }
 

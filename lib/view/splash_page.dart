@@ -26,7 +26,7 @@ class _SplashPageState extends State<SplashPage> {
           "โปรดรอสักครู่...",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
         ),
-        navigator: LoginPage(),
+        navigator: Select_User(),
         durationInSeconds: 3,
         loaderColor: Colors.red,
       ),
