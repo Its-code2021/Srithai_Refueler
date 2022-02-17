@@ -1,4 +1,4 @@
-import 'package:cpac/view/login_test.dart';
+import 'package:cpac/view/login_pump_gas.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ class _Loading_Chang_PasswordState extends State<Loading_Chang_Password> {
       ),
       backgroundColor: Colors.white,
       showLoader: true,
-      navigator: LoginPage(),
+      navigator: Login_Pump_Gas(),
       durationInSeconds: 3,
       loaderColor: Colors.white,
     );

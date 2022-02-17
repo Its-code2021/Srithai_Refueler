@@ -1,7 +1,9 @@
+import 'package:cpac/controller/chang_password.dart';
 import 'package:cpac/controller/driver_employee.dart';
 import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/server/api.dart';
 import 'package:cpac/utility/my_alert.dart';
+import 'package:cpac/view/loading_chang_password.dart';
 import 'package:cpac/view/select_menu.dart';
 import 'package:cpac/view/splash_page.dart';
 import 'package:cpac/view/truck_driver/driver_profile.dart';
@@ -13,17 +15,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Login_Truck_Driver extends StatefulWidget {
+class Login_Pump_Gas extends StatefulWidget {
   @override
-  _Login_Truck_DriverState createState() => _Login_Truck_DriverState();
+  _Login_Pump_GasState createState() => _Login_Pump_GasState();
 }
 
-String result_token = "";
-bool _isChecked_Driver = true;
-TextEditingController _usernameControllers = TextEditingController();
-TextEditingController _passwordControllers = TextEditingController();
+String token = "";
+bool _isChecked_DriverPump = true;
+TextEditingController _usernameController = TextEditingController();
+TextEditingController _passwordController = TextEditingController();
 
-class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
+class _Login_Pump_GasState extends State<Login_Pump_Gas> {
   bool _isChecked = false;
   bool showPassword = true;
   String token = "";
@@ -59,22 +61,21 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
   }
 
   Future<Null> login() async {
-    String url = apiLoginDriver;
+    String url = apiLogin;
     try {
       Dio dio = new Dio();
       Response response = await dio.post(url, data: {
-        "username": _usernameControllers.text,
-        "password": _passwordControllers.text,
+        "username": _usernameController.text,
+        "password": _passwordController.text,
       });
 
       if (response.data['status_code'][0]['code'] == "200") {
         var result = response.data['results'][0];
-        result_token = result;
-        String username = _usernameControllers.text.toString();
-        String password = _passwordControllers.text.toString();
-
-        GetConfrimRememberDriverUser(context, result_token);
-        // GetapiDriverDouponList(context, result_token);
+        token = result;
+        String username = _usernameController.text.toString();
+        String password = _passwordController.text.toString();
+        GetConfrimRememberPumpUser(context, token);
+        // GetapiDriverDouponList(context, token);
       } else {
         myAlert_2(context, "รหัสผ่านหรือชื่อผู้ใช้งานไม่ถูกต้อง");
       }
@@ -134,7 +135,7 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
                     ),
                     Container(height: 30),
                     const Text(
-                      'เข้าสู่ระบบ สำหรับพนักงานขับรถเท่านั้น',
+                      'เข้าสู่ระบบ พนักงานเติมน้ำมัน / ปั้มน้ำมัน',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -152,7 +153,7 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
                     ),
                     Container(height: 10),
                     TextField(
-                        controller: _usernameControllers,
+                        controller: _usernameController,
                         onChanged: (value) => updateButtonState(value),
                         decoration: InputDecoration(
                           labelStyle: const TextStyle(
@@ -177,7 +178,7 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
                     Container(height: 10),
                     TextField(
                       maxLength: 16,
-                      controller: _passwordControllers,
+                      controller: _passwordController,
                       onChanged: (value) => updateButtonState(value),
                       obscureText: showPassword,
                       decoration: InputDecoration(
@@ -197,27 +198,7 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
                                     {this.showPassword = !this.showPassword});
                               })),
                     ),
-                    Container(height: 20),
-                    // Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    //   SizedBox(
-                    //       height: 24.0,
-                    //       width: 24.0,
-                    //       child: Theme(
-                    //         data: ThemeData(
-                    //             unselectedWidgetColor: Colors.grey // Your color
-                    //             ),
-                    //         child: Checkbox(
-                    //             activeColor: Colors.blue[900],
-                    //             value: _isChecked,
-                    //             onChanged: _handleRemeberme),
-                    //       )),
-                    //   const Text(
-                    //     "จำรหัสผ่าน",
-                    //     style: TextStyle(
-                    //         fontSize: 15, fontWeight: FontWeight.bold),
-                    //   )
-                    // ]),
-                    Container(height: 30),
+                    Container(height: 50),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: Colors.blue[900],
@@ -226,17 +207,17 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
                         ), //
                       ),
                       onPressed: () {
-                        if ((_usernameControllers.text != "" &&
-                            _passwordControllers.text != "")) {
+                        if ((_usernameController.text != "" &&
+                            _passwordController.text != "")) {
                           login();
                         } else {
-                          myAlert_2(
-                              context, 'ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง');
+                          myAlert_2(context,
+                              'ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้องsss');
                         }
                         print("username = " +
-                            _usernameControllers.text +
+                            _usernameController.text +
                             " password = " +
-                            _passwordControllers.text);
+                            _passwordController.text);
                       },
                       child: const Text('เข้าสู่ระบบ'),
                     ),
@@ -286,20 +267,20 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
     }
   }
 
-  void _Btn_DriverCheck(value) {
-    print("_isChecked_Driver");
-    _isChecked_Driver = value;
+  void _Btn_PumpCheck(value) {
+    print("_isChecked_DriverPump");
+    _isChecked_DriverPump = value;
     SharedPreferences.getInstance().then(
       (prefs) {
         prefs.setBool("remember_me", value);
-        prefs.setString('username', _usernameControllers.text);
-        prefs.setString('password', _passwordControllers.text);
-        prefs.setString('result_token', result_token.toString());
+        prefs.setString('username', _usernameController.text);
+        prefs.setString('password', _passwordController.text);
+        prefs.setString('token', token.toString());
       },
     );
     setState(() {
-      _isChecked_Driver = value;
-      result_token;
+      _isChecked_DriverPump = value;
+      token;
     });
   }
 
@@ -309,25 +290,25 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
       SharedPreferences _prefs = await SharedPreferences.getInstance();
       var _username = _prefs.getString("username") ?? "";
       var _password = _prefs.getString("password") ?? "";
-      var _result_token = _prefs.getString("result_token") ?? "";
+      var _token = _prefs.getString("token") ?? "";
       var _remeberMe = _prefs.getBool("remember_me") ?? false;
 
       print(_remeberMe);
       print(_username);
       print(_password);
-      print(_result_token);
+      print(_token);
       if (_remeberMe) {
         setState(() {
           _onLoading();
-          if (result_token != null || result_token != '') {
-            login_Remember(context, _username, _password);
+          if (token != null || token != '') {
+            login_Remember_pump(context, _username, _password);
           } else {}
           _isChecked = true;
-          _isChecked_Driver = true;
+          _isChecked_DriverPump = true;
         });
-        _usernameControllers.text = _username;
-        _passwordControllers.text = _password;
-        result_token = _result_token;
+        _usernameController.text = _username;
+        _passwordController.text = _password;
+        token = _token;
       }
     } catch (e) {
       print(e);
@@ -335,9 +316,9 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
   }
 }
 
-var Btn_DriverCheckS;
-bool _isChecked_Btn = true;
-Widget Btn_Logout(BuildContext context) {
+var Btn_PumpCheckS;
+bool _isChecked_Pump = true;
+Widget Btn_LogoutS(BuildContext context) {
   return Container(
       width: 200,
       child: ElevatedButton(
@@ -350,16 +331,17 @@ Widget Btn_Logout(BuildContext context) {
         onPressed: () async {
           final _prefs = await SharedPreferences.getInstance();
           await _prefs.clear();
-          bool _isChecked_Btn = true;
-          _Btn_DriverRemeberme(_isChecked_Btn);
-          _usernameControllers.clear();
-          _passwordControllers.clear();
-          result_token = '';
+          bool _isChecked_Pump = true;
+          _Btn_PumpRemeberme(_isChecked_Pump);
+          _usernameController.clear();
+          _passwordController.clear();
+          token = '';
+          // Tokens_all = '';
           Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => Loading_LogOut()),
+              MaterialPageRoute(builder: (context) => Loading_Chang_Password()),
               (Route<dynamic> route) => false);
 
-          print('ออกจากระบบ $result_token');
+          print('ออกจากระบบ $token');
           print('ออกจากระบบ $Logout');
         },
         child: Row(
@@ -411,9 +393,12 @@ Future<void> AlertConfrimChangPassword(BuildContext context,
                     onPressed: () {
                       var _oldpasswordControllers = _oldpasswordController.text;
                       var _newpasswordControllers = _newpasswordController.text;
-                      PosapiChangPasswordDriver(context,
-                          _oldpasswordControllers, _newpasswordControllers);
-
+                      PosapiChangPassword(context, _oldpasswordControllers,
+                          _newpasswordControllers);
+                      _Btn_PumpRemeberme(_isChecked_Pump);
+                      _usernameController.clear();
+                      _passwordController.clear();
+                      token = '';
                       print('เก่า $_oldpasswordControllers');
                       print('ใหม่ $_newpasswordControllers');
                     },
@@ -446,19 +431,20 @@ Future<void> AlertConfrimChangPassword(BuildContext context,
   );
 }
 
-void _Btn_DriverRemeberme(value) {
-  print("Btn_Driver");
-  _isChecked_Btn = value;
+void _Btn_PumpRemeberme(value) {
+  print("Btn_Pump");
+  _isChecked_Pump = value;
   SharedPreferences.getInstance().then(
     (prefs) {
-      prefs.setString('Btn_Driver', Btn_Driver.toString());
+      prefs.setString('Btn_Pump', Btn_Pump.toString());
     },
   );
-  _isChecked_Btn = value;
+  _isChecked_Pump = value;
 }
 
-Future<Null> login_Remember(BuildContext context, _username, _password) async {
-  String url = apiLoginDriver;
+Future<Null> login_Remember_pump(
+    BuildContext context, _username, _password) async {
+  String url = apiLogin;
   try {
     Dio dio = new Dio();
     Response response = await dio.post(url, data: {
@@ -467,11 +453,11 @@ Future<Null> login_Remember(BuildContext context, _username, _password) async {
     });
     if (response.data['status_code'][0]['code'] == "200") {
       var result = response.data['results'][0];
-      result_token = result;
-      GetapiDriverUser(context, result_token);
-      GetapiDriverDouponList(context, result_token);
+      token = result;
+      GetapiPumpUser(context, token);
+      // GetapiDriverDouponList(context, token);
     } else {
-      myAlert_2(context, "รหัสผ่านหรือชื่อผู้ใช้งานไม่ถูกต้อง");
+      // myAlert_2(context, "รหัสผ่านหรือชื่อผู้ใช้งานไม่ถูกต้อง");
     }
   } catch (e) {
     print(e);
@@ -480,22 +466,23 @@ Future<Null> login_Remember(BuildContext context, _username, _password) async {
   }
 }
 
-Widget Remember_Login(BuildContext context) {
+Widget Remember_Login_Pump(BuildContext context, token) {
   @override
-  void _Btn_DriverCheck(value) {
-    print("_isChecked_Driver");
-    _isChecked_Driver = value;
+  void _Btn_PumpCheck(value) {
+    print("_isChecked_DriverPump");
+    print("_isChecked_DriverPump $token");
+    _isChecked_DriverPump = value;
     SharedPreferences.getInstance().then(
       (prefs) {
         prefs.setBool("remember_me", value);
-        prefs.setString('username', _usernameControllers.text);
-        prefs.setString('password', _passwordControllers.text);
-        prefs.setString('result_token', result_token.toString());
+        prefs.setString('username', _usernameController.text);
+        prefs.setString('password', _passwordController.text);
+        prefs.setString('token', token);
       },
     );
     void setState(value) {
-      _isChecked_Driver = value;
-      result_token;
+      _isChecked_DriverPump = value;
+      token;
     }
   }
 
@@ -510,8 +497,8 @@ Widget Remember_Login(BuildContext context) {
       floatingActionButton: FloatingActionButton.extended(
         elevation: 0.0,
         onPressed: () {
-          GetapiDriverUser(context, result_token);
-          GetapiDriverDouponList(context, result_token);
+          GetapiPumpUser(context, token);
+          // GetapiDriverDouponList(context, token);
         },
         label: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -554,10 +541,13 @@ Widget Remember_Login(BuildContext context) {
                 primary: Colors.blue[900],
               ),
               onPressed: () {
-                GetapiDriverUser(context, result_token);
-                GetapiDriverDouponList(context, result_token);
-                result_token;
-                _Btn_DriverCheck(_isChecked_Driver);
+                token;
+                GetapiPumpUser(context, token);
+                // GetapiDriverDouponList(context, token);
+                token;
+                _Btn_PumpCheck(_isChecked_DriverPump);
+                print('จดจำการเข้าสู่ระบบ:::::::: $_isChecked_DriverPump');
+                print('จดจำการเข้าสู่ระบบ:::::::: $token');
               },
               child: Text('จดจำการเข้าสู่ระบบ'),
             ),

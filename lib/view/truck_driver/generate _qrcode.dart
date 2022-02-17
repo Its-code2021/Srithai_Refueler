@@ -39,27 +39,63 @@ class Generate_QrCodeState extends State<Generate_QrCode> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-                onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => Loading_Driver()),
-                      (route) => false);
-                },
-                icon: Icon(Icons.arrow_back)),
-            Image.asset('images/002.png', fit: BoxFit.cover),
-          ],
-        ),
-        centerTitle: true,
-        backgroundColor: Color(0xff438EB9),
-      ),
-      body: _contentWidget(),
-    );
+    Future<bool> showExitPopup() async {
+      return await showDialog(
+            //show confirm dialogue
+            context: context,
+            builder: (context) => AlertDialog(
+              // ignore: prefer_const_constructors
+              title: Text(
+                'คุณแน่ใจหรือไม่ที่จะปิดแอปพลิเคชัน',
+                style: TextStyle(fontSize: 18),
+              ),
+              actions: [
+                ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  // ignore: prefer_const_constructors
+                  child: Text('ยืนยัน'),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.grey,
+                  ),
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: Text('ยกเลิก'),
+                ),
+              ],
+            ),
+          ) ??
+          false;
+    }
+
+    return WillPopScope(
+        onWillPop: showExitPopup, //call function on back button press
+        child: Scaffold(
+          appBar: AppBar(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Loading_Driver()),
+                          (route) => false);
+                    },
+                    icon: Icon(Icons.arrow_back)),
+                Image.asset(
+                  'images/002.png',
+                  fit: BoxFit.cover,
+                  width: 250,
+                ),
+              ],
+            ),
+            centerTitle: true,
+            backgroundColor: Color(0xff438EB9),
+          ),
+          body: _contentWidget(),
+        ));
   }
 
   _contentWidget() {

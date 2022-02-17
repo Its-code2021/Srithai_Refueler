@@ -50,8 +50,8 @@ android {
         applicationId "com.srithai.refueler"
         minSdkVersion 20
         targetSdkVersion 30
-        versionCode 3
-        versionName '1.1.2'
+        versionCode 7
+        versionName '1.1.6'
     }
 
     signingConfigs {
@@ -65,6 +65,9 @@ android {
    buildTypes {
        release {
         signingConfig signingConfigs.release
+        shrinkResources false
+        minifyEnabled false
+        useProguard false 
        }
        debug {
         signingConfig signingConfigs.debug

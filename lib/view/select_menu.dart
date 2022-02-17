@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:cpac/view/login_test.dart';
+import 'package:cpac/view/login_pump_gas.dart';
+
 import 'package:cpac/view/truck_driver/login_truck_driver.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -52,10 +53,10 @@ class _Select_UserState extends State<Select_User> {
 
   void _load_Btn_DriverRemeberme() async {
     try {
-      SharedPreferences _prefs = await SharedPreferences.getInstance();
-      var _Btn_Driver = _prefs.getString("Btn_Driver") ?? "";
-      var _Btn_Pump = _prefs.getString("Btn_Pump") ?? "";
-      var _remeberMe = _prefs.getBool("remember_me") ?? true;
+      SharedPreferences _pref = await SharedPreferences.getInstance();
+      var _Btn_Driver = _pref.getString("Btn_Driver") ?? "";
+      var _Btn_Pump = _pref.getString("Btn_Pump") ?? "";
+      var _remeberMe = _pref.getBool("remember_me") ?? true;
 
       print(_remeberMe);
       print('$_Btn_Driver ');
@@ -71,7 +72,7 @@ class _Select_UserState extends State<Select_User> {
                 (Route<dynamic> route) => false);
           } else if (_Btn_Pump == '2') {
             Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => LoginPage()),
+                MaterialPageRoute(builder: (context) => Login_Pump_Gas()),
                 (Route<dynamic> route) => false);
           }
         });
@@ -89,91 +90,89 @@ class _Select_UserState extends State<Select_User> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SingleChildScrollView(
-            child: Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  // ignore: prefer_const_literals_to_create_immutables
-                  children: <Widget>[
-                    Image.asset(
-                      'images/001.png',
+            child: Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                // ignore: prefer_const_literals_to_create_immutables
+                children: <Widget>[
+                  Image.asset(
+                    'images/001.png',
+                  ),
+                  Container(height: 80),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.blue[900],
+                      minimumSize: Size.fromHeight(
+                        50,
+                      ), // fromHeight use double.infinity as width and 40 is the height
                     ),
-                    Container(height: 80),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.blue[900],
-                        minimumSize: Size.fromHeight(
-                          50,
-                        ), // fromHeight use double.infinity as width and 40 is the height
-                      ),
-                      onPressed: () {
-                        Btn_Driver;
-                        _isChecked_Btn;
-                        _Btn_DriverRemeberme(_isChecked_Btn);
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                                builder: (context) => Login_Truck_Driver()),
-                            (Route<dynamic> route) => false);
+                    onPressed: () {
+                      Btn_Driver;
+                      _isChecked_Btn;
+                      _Btn_DriverRemeberme(_isChecked_Btn);
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (context) => Login_Truck_Driver()),
+                          (Route<dynamic> route) => false);
 
-                        print('พนักงานขับรถ');
-                        print('Btn_Driver $Btn_Driver');
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        // ignore: prefer_const_literals_to_create_immutables
-                        children: [
-                          Text(
-                            'พนักงานขับรถ ',
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                          ),
-                          Icon(
-                            Icons.local_shipping_sharp,
-                            size: 30,
-                          )
-                        ],
-                      ),
+                      print('พนักงานขับรถ');
+                      print('Btn_Driver $Btn_Driver');
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      // ignore: prefer_const_literals_to_create_immutables
+                      children: [
+                        Text(
+                          'พนักงานขับรถ ',
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                        Icon(
+                          Icons.local_shipping_sharp,
+                          size: 30,
+                        )
+                      ],
                     ),
-                    Container(height: 30),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.blue[900],
-                        minimumSize: Size.fromHeight(
-                          50,
-                        ), // fromHeight use double.infinity as width and 40 is the height
-                      ),
-                      onPressed: () {
-                        Btn_Pump;
-                        _isChecked_Pump;
-                        _Btn_DriverRemeberme_Pump(_isChecked_Pump);
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                                builder: (context) => LoginPage()),
-                            (Route<dynamic> route) => false);
-                        print('Btn_Pump $Btn_Pump');
-                        print('เข้าสู่ระบบ พนักงานเติมน้ำมัน / ปั้มน้ำมัน');
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        // ignore: prefer_const_literals_to_create_immutables
-                        children: [
-                          Text(
-                            'พนักงานเติมน้ำมัน / ปั้มน้ำมัน',
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                          ),
-                          Icon(
-                            Icons.local_gas_station,
-                            size: 30,
-                          )
-                        ],
-                      ),
+                  ),
+                  Container(height: 30),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.blue[900],
+                      minimumSize: Size.fromHeight(
+                        50,
+                      ), // fromHeight use double.infinity as width and 40 is the height
                     ),
-                  ],
-                ),
+                    onPressed: () {
+                      Btn_Pump;
+                      _isChecked_Pump;
+                      _Btn_DriverRemeberme_Pump(_isChecked_Pump);
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (context) => Login_Pump_Gas()),
+                          (Route<dynamic> route) => false);
+                      print('Btn_Pump $Btn_Pump');
+                      print('เข้าสู่ระบบ พนักงานเติมน้ำมัน / ปั้มน้ำมัน');
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      // ignore: prefer_const_literals_to_create_immutables
+                      children: [
+                        Text(
+                          'พนักงานเติมน้ำมัน / ปั้มน้ำมัน',
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                        Icon(
+                          Icons.local_gas_station,
+                          size: 30,
+                        )
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

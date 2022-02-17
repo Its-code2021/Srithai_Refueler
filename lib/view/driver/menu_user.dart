@@ -3,7 +3,7 @@
 import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/view/driver/coupon_history.dart';
 import 'package:cpac/view/driver/user_profile.dart';
-import 'package:cpac/view/login_test.dart';
+import 'package:cpac/view/login_pump_gas.dart';
 import 'package:flutter/material.dart';
 import 'notifications.dart';
 
@@ -110,7 +110,7 @@ class _Menu_UserState extends State<Menu_User> {
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    MaterialPageRoute(builder: (context) => Login_Pump_Gas()),
                     (route) => false);
                 print('ออกจากระบบ');
               },

@@ -2,6 +2,8 @@ import 'package:cpac/controller/chang_password.dart';
 import 'package:cpac/utility/my_alert.dart';
 import 'package:flutter/material.dart';
 
+import 'login_pump_gas.dart';
+
 class Change_Password extends StatefulWidget {
   Change_Password({Key? key}) : super(key: key);
 
@@ -151,7 +153,8 @@ class _Change_PasswordState extends State<Change_Password> {
                             _newpasswordController.text)) {
                           if ((_newpasswordController.text ==
                               _con_newpasswordController.text)) {
-                            AlertConfrimChangPassword();
+                            AlertConfrimChangPassword(context,
+                                _oldpasswordController, _newpasswordController);
                           } else {
                             chang_password_new(
                                 context, 'รหัสผ่านใหม่ไม่ตรงกัน');
@@ -175,72 +178,72 @@ class _Change_PasswordState extends State<Change_Password> {
         ));
   }
 
-  Future<void> AlertConfrimChangPassword() async {
-    showDialog(
-      context: context,
-      builder: (context) => MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-        child: AlertDialog(
-          actions: [
-            Column(
-              children: [
-                Icon(
-                  Icons.warning,
-                  size: 50,
-                  color: Colors.red,
-                ),
-                Container(
-                  height: 5,
-                ),
-                Text(
-                  'ยืนยันการเปลี่ยนรหัสผ่าน',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Container(
-                  height: 20,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        var _oldpasswordControllers =
-                            _oldpasswordController.text;
-                        var _newpasswordControllers =
-                            _newpasswordController.text;
-                        PosapiChangPassword(context, _oldpasswordControllers,
-                            _newpasswordControllers);
-                        print('ตกลง');
-                      },
-                      child: const Center(
-                          child: Text(
-                        'ตกลง',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )),
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.red,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Center(
-                          child: Text(
-                        'ยกเลิก',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // Future<void> AlertConfrimChangPassword() async {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) => MediaQuery(
+  //       data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+  //       child: AlertDialog(
+  //         actions: [
+  //           Column(
+  //             children: [
+  //               Icon(
+  //                 Icons.warning,
+  //                 size: 50,
+  //                 color: Colors.red,
+  //               ),
+  //               Container(
+  //                 height: 5,
+  //               ),
+  //               Text(
+  //                 'ยืนยันการเปลี่ยนรหัสผ่าน',
+  //                 style: TextStyle(fontWeight: FontWeight.bold),
+  //               ),
+  //               Container(
+  //                 height: 20,
+  //               ),
+  //               Row(
+  //                 crossAxisAlignment: CrossAxisAlignment.end,
+  //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //                 children: [
+  //                   ElevatedButton(
+  //                     onPressed: () {
+  //                       var _oldpasswordControllers =
+  //                           _oldpasswordController.text;
+  //                       var _newpasswordControllers =
+  //                           _newpasswordController.text;
+  //                       PosapiChangPassword(context, _oldpasswordControllers,
+  //                           _newpasswordControllers);
+  //                       print('ตกลง');
+  //                     },
+  //                     child: const Center(
+  //                         child: Text(
+  //                       'ตกลง',
+  //                       style: TextStyle(fontWeight: FontWeight.bold),
+  //                     )),
+  //                   ),
+  //                   ElevatedButton(
+  //                     style: ElevatedButton.styleFrom(
+  //                       primary: Colors.red,
+  //                     ),
+  //                     onPressed: () {
+  //                       Navigator.of(context).pop();
+  //                     },
+  //                     child: const Center(
+  //                         child: Text(
+  //                       'ยกเลิก',
+  //                       style: TextStyle(fontWeight: FontWeight.bold),
+  //                     )),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ],
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   OutlineInputBorder myinputborder() {
     //return type is OutlineInputBorder

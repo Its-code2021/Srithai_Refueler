@@ -4,7 +4,7 @@ import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/view/driver/coupon_history.dart';
 import 'package:cpac/view/driver/user_profile.dart';
 import 'package:cpac/view/gas_station/gas_user_profile.dart';
-import 'package:cpac/view/login_test.dart';
+import 'package:cpac/view/login_pump_gas.dart';
 import 'package:flutter/material.dart';
 
 class Gas_Menu_User extends StatefulWidget {
@@ -110,7 +110,7 @@ class _Gas_Menu_UserState extends State<Gas_Menu_User> {
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    MaterialPageRoute(builder: (context) => Login_Pump_Gas()),
                     (route) => false);
                 print('ออกจากระบบ');
               },

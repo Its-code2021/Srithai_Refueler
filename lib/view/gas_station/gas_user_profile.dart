@@ -3,7 +3,7 @@
 import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/server/api.dart';
 import 'package:cpac/view/change_password.dart';
-import 'package:cpac/view/login_test.dart';
+import 'package:cpac/view/login_pump_gas.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -165,37 +165,7 @@ class _Gas_User_ProfileState extends State<Gas_User_Profile> {
             Container(
               height: 20,
             ),
-            Container(
-              width: 200,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.red[700],
-                  minimumSize: Size.fromHeight(
-                    50,
-                  ), // fromHeight use double.infinity as width and 40 is the height
-                ),
-                onPressed: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => LoginPage()),
-                      (Route<dynamic> route) => false);
-                  print('ออกจากระบบ');
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      'ออกจากระบบ',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    Icon(
-                      Icons.logout_outlined,
-                      size: 30,
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            Btn_LogoutS(context),
           ],
         )
 
