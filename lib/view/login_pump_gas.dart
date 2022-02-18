@@ -212,7 +212,7 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
                           login();
                         } else {
                           myAlert_2(context,
-                              'ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้องsss');
+                              'ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง');
                         }
                         print("username = " +
                             _usernameController.text +
