@@ -63,6 +63,7 @@ class _SplashPage_NewState extends State<SplashPage_New> {
   Widget build(BuildContext context) {
     setState(() {
       Check_Splash();
+      GetapiDriverDouponList(context, result_token);
       GetapiPumpUser(context, token);
       GetToken(token);
     });
