@@ -8,6 +8,7 @@ import 'package:cpac/view/truck_driver/driver_profile.dart';
 import 'package:cpac/view/truck_driver/home_driver.dart';
 import 'package:cpac/view/truck_driver/loading_driver.dart';
 import 'package:cpac/view/truck_driver/tabbar_driver_truck.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ String result_token = "";
 bool _isChecked_Driver = true;
 TextEditingController _usernameControllers = TextEditingController();
 TextEditingController _passwordControllers = TextEditingController();
+String model_device_android = "";
 
 class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
   bool _isChecked = false;
@@ -240,6 +242,19 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
                       },
                       child: const Text('เข้าสู่ระบบ'),
                     ),
+                    ElevatedButton(
+                        onPressed: () async {
+                          DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+                          AndroidDeviceInfo androidInfo =
+                              await deviceInfo.androidInfo;
+                          model_device_android = androidInfo.model.toString();
+                          print(
+                              'Model Name Android ::: $model_device_android'); // e.g. "Moto G (4)"
+                          IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+                          print(
+                              'Model Name IOS ::: ${iosInfo.utsname.machine}'); // e.g. "iPod7,1"
+                        },
+                        child: Text('Test Model Name'))
                   ]),
             ),
           ),

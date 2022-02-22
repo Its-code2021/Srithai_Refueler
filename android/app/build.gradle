@@ -50,8 +50,8 @@ android {
         applicationId "com.srithai.refueler"
         minSdkVersion 20
         targetSdkVersion 30
-        versionCode 8
-        versionName '1.1.7'
+        versionCode 9
+        versionName '1.1.8'
     }
 
     signingConfigs {
@@ -84,4 +84,5 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:multidex:1.0.3'
 }
-// apply plugin: 'com.google.gms.google-services'
+
+//  apply plugin: 'com.google.gms.google-services'

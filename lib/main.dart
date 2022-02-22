@@ -1,5 +1,3 @@
-import 'package:cpac/view/select_menu.dart';
-
 import 'package:cpac/view/splash_page.dart';
 import 'package:flutter/material.dart';
 
