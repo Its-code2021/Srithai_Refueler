@@ -24,6 +24,8 @@ String token = "";
 bool _isChecked_DriverPump = true;
 TextEditingController _usernameController = TextEditingController();
 TextEditingController _passwordController = TextEditingController();
+var password_chang;
+var username_chang;
 
 class _Login_Pump_GasState extends State<Login_Pump_Gas> {
   bool _isChecked = false;
@@ -74,6 +76,8 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
         token = result;
         String username = _usernameController.text.toString();
         String password = _passwordController.text.toString();
+        username_chang = username;
+        password_chang = password;
         GetConfrimRememberPumpUser(context, token);
         // GetapiDriverDouponList(context, token);
       } else {

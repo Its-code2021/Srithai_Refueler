@@ -1,5 +1,6 @@
 import 'package:cpac/server/api.dart';
 import 'package:cpac/utility/my_alert.dart';
+import 'package:cpac/view/truck_driver/frist_usertruck_login.dart';
 import 'package:cpac/view/truck_driver/loading_driver.dart';
 import 'package:cpac/view/truck_driver/login_truck_driver.dart';
 import 'package:dio/dio.dart';
@@ -31,9 +32,15 @@ Future<void> GetConfrimRememberDriverUser(
       options: Options(headers: {'Authorization': 'Token $result_token'}));
   var result = response.data['results'][0];
   if (response.data['status_code'][0]['code'] == "200") {
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => Remember_Login(context)),
-        (Route<dynamic> route) => false);
+    if (result['frist_login'] == 0) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => Remember_Login(context)),
+          (Route<dynamic> route) => false);
+    } else {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => Frist_UserTruck_Login()),
+          (Route<dynamic> route) => false);
+    }
   }
   Driver_ProfileUser = result;
   print(Driver_ProfileUser);

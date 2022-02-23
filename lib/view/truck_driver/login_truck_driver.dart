@@ -24,6 +24,10 @@ bool _isChecked_Driver = true;
 TextEditingController _usernameControllers = TextEditingController();
 TextEditingController _passwordControllers = TextEditingController();
 String model_device_android = "";
+var password_chang_driver;
+var username_chang_driver;
+var _username;
+var _password;
 
 class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
   bool _isChecked = false;
@@ -74,7 +78,8 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
         result_token = result;
         String username = _usernameControllers.text.toString();
         String password = _passwordControllers.text.toString();
-
+        username_chang_driver = username;
+        password_chang_driver = password;
         GetConfrimRememberDriverUser(context, result_token);
         // GetapiDriverDouponList(context, result_token);
       } else {

@@ -2,7 +2,9 @@ import 'package:cpac/controller/gas_qr_code.dart';
 import 'package:cpac/controller/qr_code.dart';
 import 'package:cpac/server/api.dart';
 import 'package:cpac/utility/date_time.dart';
+import 'package:cpac/utility/my_alert.dart';
 import 'package:cpac/view/driver/tabbar_driver_home.dart';
+import 'package:cpac/view/frist_user_login.dart';
 import 'package:cpac/view/gas_station/tabbar_gas%20home.dart';
 import 'package:cpac/view/login_pump_gas.dart';
 import 'package:dio/dio.dart';
@@ -68,10 +70,18 @@ Future<void> GetConfrimRememberPumpUser(BuildContext context, token) async {
       options: Options(headers: {'Authorization': 'Token $token'}));
   var result = response.data['results'][0];
   if (response.data['status_code'][0]['code'] == "200") {
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-            builder: (context) => Remember_Login_Pump(context, token)),
-        (Route<dynamic> route) => false);
+    if (result['frist_login'] == 0) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (context) => Remember_Login_Pump(context, token)),
+          (Route<dynamic> route) => false);
+    } else {
+      GetapiHeader(token); //pop dialog
+      GetToken(token);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => Frist_User_Login()),
+          (Route<dynamic> route) => false);
+    }
   }
   Profile = result;
   print(Profile);
