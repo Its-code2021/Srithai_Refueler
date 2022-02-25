@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cpac/controller/driver_employee.dart';
 import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/server/api.dart';
@@ -24,6 +26,7 @@ bool _isChecked_Driver = true;
 TextEditingController _usernameControllers = TextEditingController();
 TextEditingController _passwordControllers = TextEditingController();
 String model_device_android = "";
+String model_device_ios = "";
 var password_chang_driver;
 var username_chang_driver;
 var _username;
@@ -250,14 +253,18 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
                     ElevatedButton(
                         onPressed: () async {
                           DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-                          AndroidDeviceInfo androidInfo =
+                          if (Platform.isAndroid){
+AndroidDeviceInfo androidInfo =
                               await deviceInfo.androidInfo;
-                          model_device_android = androidInfo.model.toString();
+                                 model_device_android = androidInfo.model.toString();
+                                  print(
+                              'Model Name Android ::: $model_device_android'); 
+                          }else if(Platform.isIOS){
+ IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
+                          model_device_ios = iosDeviceInfo.identifierForVendor.toString();
                           print(
-                              'Model Name Android ::: $model_device_android'); // e.g. "Moto G (4)"
-                          IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-                          print(
-                              'Model Name IOS ::: ${iosInfo.utsname.machine}'); // e.g. "iPod7,1"
+                              'Model UUID IOS ::: $model_device_ios'); 
+                          }
                         },
                         child: Text('Test Model Name'))
                   ]),
