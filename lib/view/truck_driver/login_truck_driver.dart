@@ -31,6 +31,7 @@ var password_chang_driver;
 var username_chang_driver;
 var _username;
 var _password;
+var device_model;
 
 class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
   bool _isChecked = false;
@@ -74,6 +75,7 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
       Response response = await dio.post(url, data: {
         "username": _usernameControllers.text,
         "password": _passwordControllers.text,
+        "device_model": device_model.toString()
       });
 
       if (response.data['status_code'][0]['code'] == "200") {
@@ -83,7 +85,7 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
         String password = _passwordControllers.text.toString();
         username_chang_driver = username;
         password_chang_driver = password;
-        GetConfrimRememberDriverUser(context, result_token);
+        GetConfrimRememberDriverUser(context, result_token, device_model);
         // GetapiDriverDouponList(context, result_token);
       } else {
         myAlert_2(context, "รหัสผ่านหรือชื่อผู้ใช้งานไม่ถูกต้อง");
@@ -207,27 +209,7 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
                                     {this.showPassword = !this.showPassword});
                               })),
                     ),
-                    Container(height: 20),
-                    // Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    //   SizedBox(
-                    //       height: 24.0,
-                    //       width: 24.0,
-                    //       child: Theme(
-                    //         data: ThemeData(
-                    //             unselectedWidgetColor: Colors.grey // Your color
-                    //             ),
-                    //         child: Checkbox(
-                    //             activeColor: Colors.blue[900],
-                    //             value: _isChecked,
-                    //             onChanged: _handleRemeberme),
-                    //       )),
-                    //   const Text(
-                    //     "จำรหัสผ่าน",
-                    //     style: TextStyle(
-                    //         fontSize: 15, fontWeight: FontWeight.bold),
-                    //   )
-                    // ]),
-                    Container(height: 30),
+                    Container(height: 50),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: Colors.blue[900],
@@ -235,10 +217,24 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
                           50,
                         ), //
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         if ((_usernameControllers.text != "" &&
                             _passwordControllers.text != "")) {
-                          login();
+                          DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+                          if (Platform.isAndroid) {
+                            AndroidDeviceInfo androidInfo =
+                                await deviceInfo.androidInfo;
+                            device_model = androidInfo.model.toString();
+                            login();
+                            print('device_model Android:::$device_model');
+                          } else if (Platform.isIOS) {
+                            IosDeviceInfo iosDeviceInfo =
+                                await deviceInfo.iosInfo;
+                            device_model =
+                                iosDeviceInfo.identifierForVendor.toString();
+                            login();
+                            print('device_model IOS:::$device_model');
+                          }
                         } else {
                           myAlert_2(
                               context, 'ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง');
@@ -250,23 +246,24 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
                       },
                       child: const Text('เข้าสู่ระบบ'),
                     ),
-                    ElevatedButton(
-                        onPressed: () async {
-                          DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-                          if (Platform.isAndroid){
-AndroidDeviceInfo androidInfo =
-                              await deviceInfo.androidInfo;
-                                 model_device_android = androidInfo.model.toString();
-                                  print(
-                              'Model Name Android ::: $model_device_android'); 
-                          }else if(Platform.isIOS){
- IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
-                          model_device_ios = iosDeviceInfo.identifierForVendor.toString();
-                          print(
-                              'Model UUID IOS ::: $model_device_ios'); 
-                          }
-                        },
-                        child: Text('Test Model Name'))
+                    // ElevatedButton(
+                    //     onPressed: () async {
+                    //       DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+                    //       if (Platform.isAndroid) {
+                    //         AndroidDeviceInfo androidInfo =
+                    //             await deviceInfo.androidInfo;
+                    //         model_device_android = androidInfo.model.toString();
+                    //         print(
+                    //             'Model Name Android ::: $model_device_android');
+                    //       } else if (Platform.isIOS) {
+                    //         IosDeviceInfo iosDeviceInfo =
+                    //             await deviceInfo.iosInfo;
+                    //         model_device_ios =
+                    //             iosDeviceInfo.identifierForVendor.toString();
+                    //         print('Model UUID IOS ::: $model_device_ios');
+                    //       }
+                    //     },
+                    //     child: Text('Test Model Name'))
                   ]),
             ),
           ),
@@ -491,12 +488,14 @@ Future<Null> login_Remember(BuildContext context, _username, _password) async {
     Response response = await dio.post(url, data: {
       "username": _username,
       "password": _password,
+      "device_model": device_model.toString()
     });
     if (response.data['status_code'][0]['code'] == "200") {
       var result = response.data['results'][0];
       result_token = result;
-      GetapiDriverUser(context, result_token);
+      GetapiDriverUser(context, result_token, device_model);
       GetapiDriverDouponList(context, result_token);
+      print('device_model::: $device_model');
     } else {
       myAlert_2(context, "รหัสผ่านหรือชื่อผู้ใช้งานไม่ถูกต้อง");
     }
@@ -517,6 +516,7 @@ Widget Remember_Login(BuildContext context) {
         prefs.setBool("remember_me", value);
         prefs.setString('username', _usernameControllers.text);
         prefs.setString('password', _passwordControllers.text);
+        prefs.setString('device_model', device_model.toString());
         prefs.setString('result_token', result_token.toString());
       },
     );
@@ -537,7 +537,7 @@ Widget Remember_Login(BuildContext context) {
       floatingActionButton: FloatingActionButton.extended(
         elevation: 0.0,
         onPressed: () {
-          GetapiDriverUser(context, result_token);
+          GetapiDriverUser(context, result_token, device_model);
           GetapiDriverDouponList(context, result_token);
         },
         label: Row(
@@ -581,7 +581,7 @@ Widget Remember_Login(BuildContext context) {
                 primary: Colors.blue[900],
               ),
               onPressed: () {
-                GetapiDriverUser(context, result_token);
+                GetapiDriverUser(context, result_token, device_model);
                 GetapiDriverDouponList(context, result_token);
                 result_token;
                 _Btn_DriverCheck(_isChecked_Driver);

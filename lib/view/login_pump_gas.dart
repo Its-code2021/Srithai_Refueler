@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cpac/controller/chang_password.dart';
 import 'package:cpac/controller/driver_employee.dart';
 import 'package:cpac/controller/user_profile.dart';
@@ -10,6 +12,7 @@ import 'package:cpac/view/truck_driver/driver_profile.dart';
 import 'package:cpac/view/truck_driver/home_driver.dart';
 import 'package:cpac/view/truck_driver/loading_driver.dart';
 import 'package:cpac/view/truck_driver/tabbar_driver_truck.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +29,7 @@ TextEditingController _usernameController = TextEditingController();
 TextEditingController _passwordController = TextEditingController();
 var password_chang;
 var username_chang;
+var device_model_pump;
 
 class _Login_Pump_GasState extends State<Login_Pump_Gas> {
   bool _isChecked = false;
@@ -69,6 +73,7 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
       Response response = await dio.post(url, data: {
         "username": _usernameController.text,
         "password": _passwordController.text,
+        "device_model": device_model_pump.toString()
       });
 
       if (response.data['status_code'][0]['code'] == "200") {
@@ -78,7 +83,7 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
         String password = _passwordController.text.toString();
         username_chang = username;
         password_chang = password;
-        GetConfrimRememberPumpUser(context, token);
+        GetConfrimRememberPumpUser(context, token, device_model_pump);
         // GetapiDriverDouponList(context, token);
       } else {
         myAlert_2(context, "รหัสผ่านหรือชื่อผู้ใช้งานไม่ถูกต้อง");
@@ -210,10 +215,24 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
                           50,
                         ), //
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         if ((_usernameController.text != "" &&
                             _passwordController.text != "")) {
-                          login();
+                          DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+                          if (Platform.isAndroid) {
+                            AndroidDeviceInfo androidInfo =
+                                await deviceInfo.androidInfo;
+                            device_model_pump = androidInfo.model.toString();
+                            login();
+                            print('device_model Android:::$device_model_pump');
+                          } else if (Platform.isIOS) {
+                            IosDeviceInfo iosDeviceInfo =
+                                await deviceInfo.iosInfo;
+                            device_model_pump =
+                                iosDeviceInfo.identifierForVendor.toString();
+                            login();
+                            print('device_model IOS:::$device_model_pump');
+                          }
                         } else {
                           myAlert_2(
                               context, 'ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง');

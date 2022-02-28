@@ -64,7 +64,7 @@ class _SplashPage_NewState extends State<SplashPage_New> {
     setState(() {
       Check_Splash();
       GetapiDriverDouponList(context, result_token);
-      GetapiDriverUser(context, result_token);
+      GetapiDriverUser(context, result_token, device_model_pump);
       GetapiPumpUser(context, token);
       GetToken(token);
     });

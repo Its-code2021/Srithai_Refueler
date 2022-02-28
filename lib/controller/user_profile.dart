@@ -6,6 +6,7 @@ import 'package:cpac/utility/my_alert.dart';
 import 'package:cpac/view/driver/tabbar_driver_home.dart';
 import 'package:cpac/view/frist_user_login.dart';
 import 'package:cpac/view/gas_station/tabbar_gas%20home.dart';
+import 'package:cpac/view/loading_chang_password.dart';
 import 'package:cpac/view/login_pump_gas.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -63,23 +64,30 @@ Future<void> GetapiPumpUser(BuildContext context, token) async {
   print('Token::: $token');
 }
 
-Future<void> GetConfrimRememberPumpUser(BuildContext context, token) async {
+Future<void> GetConfrimRememberPumpUser(
+    BuildContext context, token, device_model_pump) async {
   var dio = Dio();
   String url = apiUser;
   final response = await dio.get(url,
       options: Options(headers: {'Authorization': 'Token $token'}));
   var result = response.data['results'][0];
   if (response.data['status_code'][0]['code'] == "200") {
-    if (result['frist_login'] == 0) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (context) => Remember_Login_Pump(context, token)),
-          (Route<dynamic> route) => false);
+    if (result['device_model'] == device_model_pump) {
+      if (result['frist_login'] == 0) {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (context) => Remember_Login_Pump(context, token)),
+            (Route<dynamic> route) => false);
+      } else {
+        GetapiHeader(token); //pop dialog
+        GetToken(token);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => Frist_User_Login()),
+            (Route<dynamic> route) => false);
+      }
     } else {
-      GetapiHeader(token); //pop dialog
-      GetToken(token);
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => Frist_User_Login()),
+          MaterialPageRoute(builder: (context) => Loading_Chang_Password()),
           (Route<dynamic> route) => false);
     }
   }

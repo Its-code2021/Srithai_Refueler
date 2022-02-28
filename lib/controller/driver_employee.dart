@@ -1,23 +1,33 @@
+import 'dart:io';
+
 import 'package:cpac/server/api.dart';
 import 'package:cpac/utility/my_alert.dart';
 import 'package:cpac/view/truck_driver/frist_usertruck_login.dart';
 import 'package:cpac/view/truck_driver/loading_driver.dart';
 import 'package:cpac/view/truck_driver/login_truck_driver.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 var Driver_ProfileUser;
-Future<void> GetapiDriverUser(BuildContext context, result_token) async {
+Future<void> GetapiDriverUser(
+    BuildContext context, result_token, device_model) async {
   var dio = Dio();
   String url = apiDriverUser;
   final response = await dio.get(url,
       options: Options(headers: {'Authorization': 'Token $result_token'}));
   var result = response.data['results'][0];
   if (response.data['status_code'][0]['code'] == "200") {
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => Loading_Driver()),
-        (Route<dynamic> route) => false);
+    if (result['device_model'] == device_model) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => Loading_Driver()),
+          (Route<dynamic> route) => false);
+    } else {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => Btn_Logout(context)),
+          (Route<dynamic> route) => false);
+    }
   }
   Driver_ProfileUser = result;
   print(Driver_ProfileUser);
@@ -25,22 +35,26 @@ Future<void> GetapiDriverUser(BuildContext context, result_token) async {
 }
 
 Future<void> GetConfrimRememberDriverUser(
-    BuildContext context, result_token) async {
+    BuildContext context, result_token, device_model) async {
   var dio = Dio();
   String url = apiDriverUser;
   final response = await dio.get(url,
       options: Options(headers: {'Authorization': 'Token $result_token'}));
   var result = response.data['results'][0];
   if (response.data['status_code'][0]['code'] == "200") {
-    if (result['frist_login'] == 0) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => Remember_Login(context)),
-          (Route<dynamic> route) => false);
-    } else {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => Frist_UserTruck_Login()),
-          (Route<dynamic> route) => false);
+    if (result['device_model'] == device_model) {
+      if (result['frist_login'] == 0) {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => Remember_Login(context)),
+            (Route<dynamic> route) => false);
+      } else {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => Frist_UserTruck_Login()),
+            (Route<dynamic> route) => false);
+      }
     }
+  } else {
+    myAlert_2(context, "เข้าสู่ระบบไม่ได้เนื่องจากมีอุปกรณ์อื่นใช้งานอยู่");
   }
   Driver_ProfileUser = result;
   print(Driver_ProfileUser);
@@ -164,5 +178,19 @@ Future<void> PosapiChangPasswordDriver(BuildContext context,
     }
   } on Exception catch (e) {
     print(e);
+  }
+}
+
+Future<void> GetDevice() async {
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  if (Platform.isAndroid) {
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    device_model = androidInfo.model.toString();
+
+    print('device_model Android:::$device_model');
+  } else if (Platform.isIOS) {
+    IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
+    device_model = iosDeviceInfo.identifierForVendor.toString();
+    print('device_model IOS:::$device_model');
   }
 }

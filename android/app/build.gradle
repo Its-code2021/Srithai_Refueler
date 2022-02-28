@@ -50,8 +50,8 @@ android {
         applicationId "com.srithai.refueler"
         minSdkVersion 20
         targetSdkVersion 30
-        versionCode 9
-        versionName '1.1.8'
+        versionCode 11
+        versionName '1.1.10'
     }
 
     signingConfigs {
@@ -69,9 +69,6 @@ android {
         minifyEnabled false
         useProguard false 
        }
-       debug {
-        signingConfig signingConfigs.debug
-       }
        
    }
 }
@@ -83,6 +80,5 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.google.gms:google-services:3.0.0'
 }
-
-//  apply plugin: 'com.google.gms.google-services'
