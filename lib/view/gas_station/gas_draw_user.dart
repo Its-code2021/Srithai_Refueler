@@ -299,7 +299,7 @@ class _Gas_Draw_UserState extends State<Gas_Draw_User> {
                 Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text(
-                    'กรุณากรอกลายเซ็นเพื่อยืนยัน เติมน้ำมัน',
+                    'กรุณาให้พนักงานขับรถเซ็นรับทราบ (ตัวบรรจง)',
                     textAlign: TextAlign.left,
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.black),

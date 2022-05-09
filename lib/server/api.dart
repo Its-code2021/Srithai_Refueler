@@ -3,9 +3,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
 // String api = "https://stms.srithaigroup.com/v2/api";
-String api = "http://192.168.1.113/project/tms/api"; //Demo Wifi GPS
-// String api = "http://192.168.1.67/project/tms/api"; //Demo Wifi FLM
-// String api = "http://192.168.1.37/project/tms/api"; //Demo Wifi [บ้าน]
+// String api = "http://192.168.1.113/project/tms/api"; //Demo Wifi GPS
+// String apimail = "http://192.168.1.113/project/tms/service"; //Demo Wifi GPS
+// String api = "http://192.168.1.72/project/tms/api"; //Demo Wifi RS
+// String api = "http://192.168.1.202/project/tms/api"; //Demo Wifi FLM
+String api = "http://192.168.1.55/project/tms/api"; //Demo Wifi [บ้าน]
+String apimail = "http://192.168.1.55/project/tms/service"; //Demo Wifi [บ้าน]
+
 String apiLogin = api + "/auth/?p=user-login"; //เข้าสู่ระบบ
 String apiUser = api + "/auth/?p=user-data"; //user
 String apiChangPassword = api + "/auth/?p=user-change-password"; //user
@@ -41,6 +45,7 @@ String apiPumpHistoryRefue =
 
 String apiPumpHistoryRefueDetail =
     api + "/pump/?p=history-detail&id="; // ประวัติการเติมน้ำมัน
+String apiSendEmail = apimail + "/pump/?p=send-email"; // ส่งเมล
 //API Driver(พขร.)
 String apiLoginDriver = api + "/auth/?p=driver-login"; //เข้าสู่ระบบ
 String apiDriverUser = api + "/auth/?p=driver-data"; //user

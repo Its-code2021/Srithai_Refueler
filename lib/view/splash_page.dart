@@ -43,7 +43,7 @@ class _SplashPage_NewState extends State<SplashPage_New> {
           if (result_token != null && result_token != '') {
             login_Remember(context, _username, _password);
           } else if (token != null && token != '') {
-            Remember_Login_Pump(context, token);
+            // Remember_Login_Pump(context, token);
           }
         });
         result_token = _result_token;

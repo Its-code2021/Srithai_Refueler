@@ -84,6 +84,7 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
         username_chang = username;
         password_chang = password;
         GetConfrimRememberPumpUser(context, token, device_model_pump);
+        _Btn_PumpCheck(_isChecked_DriverPump);
         // GetapiDriverDouponList(context, token);
       } else {
         myAlert_2(context, "รหัสผ่านหรือชื่อผู้ใช้งานไม่ถูกต้อง");
@@ -144,7 +145,7 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
                     ),
                     Container(height: 30),
                     const Text(
-                      'เข้าสู่ระบบ พนักงานเติมน้ำมัน / ปั้มน้ำมัน',
+                      'เข้าสู่ระบบ ปั้มน้ำมัน',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -250,6 +251,24 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
         ));
   }
 
+  void _Btn_PumpCheck(value) {
+    print("_isChecked_DriverPump");
+    print("_isChecked_DriverPump $token");
+    _isChecked_DriverPump = value;
+    SharedPreferences.getInstance().then(
+      (prefs) {
+        prefs.setBool("remember_me", value);
+        prefs.setString('username', _usernameController.text);
+        // prefs.setString('password', _passwordController.text);
+        // prefs.setString('token', token);
+      },
+    );
+    void setState(value) {
+      _isChecked_DriverPump = value;
+      token;
+    }
+  }
+
   field(TextEditingController controller, Icon icon, String label) {
     return Container(
       decoration: BoxDecoration(
@@ -290,23 +309,6 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
     }
   }
 
-  void _Btn_PumpCheck(value) {
-    print("_isChecked_DriverPump");
-    _isChecked_DriverPump = value;
-    SharedPreferences.getInstance().then(
-      (prefs) {
-        prefs.setBool("remember_me", value);
-        prefs.setString('username', _usernameController.text);
-        prefs.setString('password', _passwordController.text);
-        prefs.setString('token', token.toString());
-      },
-    );
-    setState(() {
-      _isChecked_DriverPump = value;
-      token;
-    });
-  }
-
   void _loadUserEmailPassword() async {
     print("Load Username");
     try {
@@ -322,9 +324,15 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
       print(_token);
       if (_remeberMe) {
         setState(() {
-          _onLoading();
+          // _onLoading();
           if (token != null || token != '') {
-            login_Remember_pump(context, _username, _password);
+            token;
+            GetapiPumpUser(context, token);
+            // GetapiDriverDouponList(context, token);
+            token;
+            _Btn_PumpCheck(_isChecked_DriverPump);
+            print('จดจำการเข้าสู่ระบบ:::::::: $_isChecked_DriverPump');
+            print('จดจำการเข้าสู่ระบบ:::::::: $token');
           } else {}
           _isChecked = true;
           _isChecked_DriverPump = true;
@@ -343,7 +351,7 @@ var Btn_PumpCheckS;
 bool _isChecked_Pump = true;
 Widget Btn_LogoutS(BuildContext context) {
   return Container(
-      width: 200,
+      width: 250,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: Colors.red[700],
@@ -356,7 +364,7 @@ Widget Btn_LogoutS(BuildContext context) {
           await _prefs.clear();
           bool _isChecked_Pump = true;
           _Btn_PumpRemeberme(_isChecked_Pump);
-          _usernameController.clear();
+          // _usernameController.clear();
           _passwordController.clear();
           token = '';
           // Tokens_all = '';
@@ -489,94 +497,94 @@ Future<Null> login_Remember_pump(
   }
 }
 
-Widget Remember_Login_Pump(BuildContext context, token) {
-  @override
-  void _Btn_PumpCheck(value) {
-    print("_isChecked_DriverPump");
-    print("_isChecked_DriverPump $token");
-    _isChecked_DriverPump = value;
-    SharedPreferences.getInstance().then(
-      (prefs) {
-        prefs.setBool("remember_me", value);
-        prefs.setString('username', _usernameController.text);
-        prefs.setString('password', _passwordController.text);
-        prefs.setString('token', token);
-      },
-    );
-    void setState(value) {
-      _isChecked_DriverPump = value;
-      token;
-    }
-  }
+// Widget Remember_Login_Pump(BuildContext context, token) {
+//   @override
+//   void _Btn_PumpCheck(value) {
+//     print("_isChecked_DriverPump");
+//     print("_isChecked_DriverPump $token");
+//     _isChecked_DriverPump = value;
+//     SharedPreferences.getInstance().then(
+//       (prefs) {
+//         prefs.setBool("remember_me", value);
+//         prefs.setString('username', _usernameController.text);
+//         // prefs.setString('password', _passwordController.text);
+//         // prefs.setString('token', token);
+//       },
+//     );
+//     void setState(value) {
+//       _isChecked_DriverPump = value;
+//       token;
+//     }
+//   }
 
-  return MediaQuery(
-    data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-    child: Scaffold(
-      appBar: AppBar(
-        title: Image.asset('images/002.png', fit: BoxFit.cover),
-        centerTitle: true,
-        backgroundColor: Color(0xff438EB9),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        elevation: 0.0,
-        onPressed: () {
-          GetapiPumpUser(context, token);
-          // GetapiDriverDouponList(context, token);
-        },
-        label: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text(
-              'ข้าม',
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            ),
-            Icon(Icons.double_arrow, color: Colors.black),
-          ],
-        ),
-        backgroundColor: Colors.transparent,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.lock,
-              color: Colors.black,
-              size: 100,
-            ),
-            Container(
-              height: 50,
-            ),
-            Text(
-              'คุณต้องการบันทึกรหัสผ่านและชื่อผู้ใช้หรือไม่?',
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            ),
-            Container(
-              height: 50,
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.blue[900],
-              ),
-              onPressed: () {
-                token;
-                GetapiPumpUser(context, token);
-                // GetapiDriverDouponList(context, token);
-                token;
-                _Btn_PumpCheck(_isChecked_DriverPump);
-                print('จดจำการเข้าสู่ระบบ:::::::: $_isChecked_DriverPump');
-                print('จดจำการเข้าสู่ระบบ:::::::: $token');
-              },
-              child: Text('จดจำการเข้าสู่ระบบ'),
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
-}
+//   return MediaQuery(
+//     data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+//     child: Scaffold(
+//       appBar: AppBar(
+//         title: Image.asset('images/002.png', fit: BoxFit.cover),
+//         centerTitle: true,
+//         backgroundColor: Color(0xff438EB9),
+//       ),
+//       floatingActionButton: FloatingActionButton.extended(
+//         elevation: 0.0,
+//         onPressed: () {
+//           GetapiPumpUser(context, token);
+//           // GetapiDriverDouponList(context, token);
+//         },
+//         label: Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceAround,
+//           crossAxisAlignment: CrossAxisAlignment.center,
+//           children: [
+//             const Text(
+//               'ข้าม',
+//               style:
+//                   TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+//             ),
+//             Icon(Icons.double_arrow, color: Colors.black),
+//           ],
+//         ),
+//         backgroundColor: Colors.transparent,
+//       ),
+//       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+//       body: Padding(
+//         padding: const EdgeInsets.all(10.0),
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Icon(
+//               Icons.lock,
+//               color: Colors.black,
+//               size: 100,
+//             ),
+//             Container(
+//               height: 50,
+//             ),
+//             Text(
+//               'คุณต้องการบันทึกรหัสผ่านและชื่อผู้ใช้หรือไม่?',
+//               style:
+//                   TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+//             ),
+//             Container(
+//               height: 50,
+//             ),
+//             ElevatedButton(
+//               style: ElevatedButton.styleFrom(
+//                 primary: Colors.blue[900],
+//               ),
+//               onPressed: () {
+//                 token;
+//                 GetapiPumpUser(context, token);
+//                 // GetapiDriverDouponList(context, token);
+//                 token;
+//                 _Btn_PumpCheck(_isChecked_DriverPump);
+//                 print('จดจำการเข้าสู่ระบบ:::::::: $_isChecked_DriverPump');
+//                 print('จดจำการเข้าสู่ระบบ:::::::: $token');
+//               },
+//               child: Text('จดจำการเข้าสู่ระบบ'),
+//             ),
+//           ],
+//         ),
+//       ),
+//     ),
+//   );
+// }

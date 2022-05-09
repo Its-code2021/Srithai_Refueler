@@ -40,7 +40,7 @@ class _History_Detail_GasState extends State<History_Detail_Gas> {
             Container(
               height: 10,
             ),
-            Tabel_History_detail_Gas(),
+            Tabel_History_detail_Gas(context),
           ],
         ),
       ),

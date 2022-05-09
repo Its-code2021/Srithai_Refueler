@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'gas_station/gas_loading_page.dart';
 import 'login_pump_gas.dart';
 
 class Frist_User_Login extends StatefulWidget {
@@ -321,8 +322,7 @@ class _Frist_User_LoginState extends State<Frist_User_Login> {
     if (response.data['status_code'][0]['code'] == "200") {
       if (result['frist_login'] == 0) {
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(
-                builder: (context) => Remember_Login_Pump(context, token)),
+            MaterialPageRoute(builder: (context) => Loading_Page_Date()),
             (Route<dynamic> route) => false);
       } else {
         GetapiHeader(token); //pop dialog

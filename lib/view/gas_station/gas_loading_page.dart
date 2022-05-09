@@ -2,10 +2,13 @@ import 'package:cpac/view/gas_station/gas_bill_amount.dart';
 import 'package:cpac/view/gas_station/gas_draw_user.dart';
 import 'package:cpac/view/gas_station/gas_history_detail.dart';
 import 'package:cpac/view/gas_station/gas_qr_code.dart';
+import 'package:cpac/view/gas_station/gas_screenshot_bin_history.dart';
 import 'package:cpac/view/gas_station/tabbar_Gas.dart';
 import 'package:cpac/view/gas_station/tabbar_gas%20home.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'gas_screenshot_bin.dart';
 
 class Gas_Loading_Page extends StatefulWidget {
   Gas_Loading_Page({Key? key}) : super(key: key);
@@ -148,6 +151,56 @@ class _Loading_Page_History_DetailState
       backgroundColor: Colors.white,
       showLoader: true,
       navigator: History_Detail_Gas(),
+      durationInSeconds: 2,
+      loaderColor: Colors.white,
+    );
+  }
+}
+
+class Loading_Bin_History_Detail extends StatefulWidget {
+  @override
+  _Loading_Bin_History_DetailState createState() =>
+      _Loading_Bin_History_DetailState();
+}
+
+class _Loading_Bin_History_DetailState
+    extends State<Loading_Bin_History_Detail> {
+  @override
+  Widget build(BuildContext context) {
+    var Bin_Detail_id;
+    return EasySplashScreen(
+      logo: Image.asset(
+        'images/loading.gif',
+        fit: BoxFit.cover,
+        alignment: Alignment.center,
+      ),
+      backgroundColor: Colors.white,
+      showLoader: true,
+      navigator: gas_screenshot_bin(Bin_Detail_id),
+      durationInSeconds: 2,
+      loaderColor: Colors.white,
+    );
+  }
+}
+
+class Loading_Bin__Detail extends StatefulWidget {
+  @override
+  _Loading_Bin__DetailState createState() => _Loading_Bin__DetailState();
+}
+
+class _Loading_Bin__DetailState extends State<Loading_Bin__Detail> {
+  @override
+  Widget build(BuildContext context) {
+    var Bin_history_id;
+    return EasySplashScreen(
+      logo: Image.asset(
+        'images/loading.gif',
+        fit: BoxFit.cover,
+        alignment: Alignment.center,
+      ),
+      backgroundColor: Colors.white,
+      showLoader: true,
+      navigator: gas_screenshot_bin_history(Bin_history_id),
       durationInSeconds: 2,
       loaderColor: Colors.white,
     );

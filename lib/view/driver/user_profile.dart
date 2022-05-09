@@ -101,21 +101,21 @@ class _User_ProfileState extends State<User_Profile> {
               ),
             ),
           ),
-          // Card(
-          //   child: ListTile(
-          //     leading: Text(
-          //       'โทรศัพท์:',
-          //       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-          //     ),
-          //     title: Text(
-          //       Profile['telephone'].toString(),
-          //       style: TextStyle(
-          //         color: Color(0xff438EB9),
-          //         fontWeight: FontWeight.bold,
-          //       ),
-          //     ),
-          //   ),
-          // ),
+          Card(
+            child: ListTile(
+              leading: Text(
+                'โทรศัพท์:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
+              title: Text(
+                Profile['telephone'].toString(),
+                style: TextStyle(
+                  color: Color(0xff438EB9),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
           Container(
             height: 20,
           ),

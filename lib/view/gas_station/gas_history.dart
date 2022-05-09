@@ -22,9 +22,12 @@ class _Gas_HistoryState extends State<Gas_History> {
   void initState() {
     dateinputStartDate.text = ""; //set the initial value of text field
     dateinpuEndtDatet.text = "";
+
     super.initState();
   }
 
+  var startdates;
+  var enddates;
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   @override
   Widget build(BuildContext context) {
@@ -216,8 +219,59 @@ class _Gas_HistoryState extends State<Gas_History> {
             ),
 
             Tabel_Header_Gas_History(),
-            Tabel_Body_Gas_History(),
+            Tabel_Body_Gas_History(context),
             // Tabel_Body_Gas_History_Summary(),
+            if (BTW_date['coupon_total'] != 0 &&
+                BTW_date['coupon_total'] != '') ...{
+              Container(height: 10),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue[900],
+                    minimumSize: const Size.fromHeight(
+                      50,
+                    ), //
+                  ),
+                  onPressed: () {
+                    startdates = BTW_date['startdate'].toString();
+                    enddates = BTW_date['enddate'].toString();
+                    GetSendMail_Gas(context, startdates, enddates);
+                    print(BTW_date['startdate']);
+                    print(BTW_date['enddate']);
+                    print('ยืนยัน');
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('ส่งเมล์  '),
+                      Icon(Icons.send_sharp),
+                    ],
+                  ),
+                ),
+              ),
+            } else ...{
+              Container(height: 10),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.grey,
+                    minimumSize: const Size.fromHeight(
+                      50,
+                    ), //
+                  ),
+                  onPressed: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('ส่งเมล์  '),
+                      Icon(Icons.send_sharp),
+                    ],
+                  ),
+                ),
+              ),
+            },
 
             // ElevatedButton(
             //   onPressed: _refreshAction,

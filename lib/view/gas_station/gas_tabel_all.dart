@@ -6,7 +6,9 @@ import 'package:cpac/view/gas_station/gas_date_picker.dart';
 import 'package:cpac/view/gas_station/gas_draw_user.dart';
 import 'package:cpac/view/gas_station/gas_history_detail.dart';
 import 'package:cpac/view/gas_station/gas_loading_page.dart';
+import 'package:cpac/view/gas_station/gas_send_email.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 Widget Tabel_Gas_detail() {
   return Container(
@@ -818,7 +820,7 @@ Widget Tabel_Header_Gas_History() {
   );
 }
 
-Widget Tabel_Body_Gas_History() {
+Widget Tabel_Body_Gas_History(BuildContext context) {
   var sum_amount;
   return Column(
     children: [
@@ -926,15 +928,21 @@ Widget Tabel_Body_Gas_History() {
                         children: [
                           IconButton(
                               onPressed: () {
-                                var History_id = History_Refuel[index]['id'];
+                                var Bin_history_id =
+                                    History_Refuel[index]['id'];
                                 print(History_Refuel[index]['id']);
-                                GetHistory_Detail_Gas(History_id);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          Loading_Page_History_Detail()),
-                                );
+                                GetBin_history_detail_Gas(
+                                    context, Bin_history_id);
+                                print(Bin_history_id);
+                                // var History_id = History_Refuel[index]['id'];
+                                // print(History_Refuel[index]['id']);
+                                // GetHistory_Detail_Gas(History_id);
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //       builder: (context) =>
+                                //           Loading_Page_History_Detail()),
+                                // );
                               },
                               icon: Icon(
                                 Icons.assignment,
@@ -996,7 +1004,8 @@ Widget Tabel_Body_Gas_History() {
                     ),
                     Expanded(
                       child: Text(
-                        BTW_date['refuel_amount_total'].toString(),
+                        NumberFormat("#,###.##")
+                            .format(BTW_date['refuel_amount_total']),
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.blue[900]),
@@ -1022,7 +1031,8 @@ Widget Tabel_Body_Gas_History() {
                     ),
                     Expanded(
                       child: Text(
-                        BTW_date['bill_amount_total'].toString(),
+                        NumberFormat("#,###.##")
+                            .format(BTW_date['bill_amount_total']),
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.blue[900]),
@@ -1043,223 +1053,261 @@ Widget Tabel_Body_Gas_History() {
   );
 }
 
-Widget Tabel_History_detail_Gas() {
+Widget Tabel_History_detail_Gas(BuildContext context) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 5.0),
-    child: Table(
-      border: TableBorder.all(
-          color: Colors.black, style: BorderStyle.solid, width: 2),
+    child: Column(
       children: [
-        TableRow(
+        Table(
+          border: TableBorder.all(
+              color: Colors.black, style: BorderStyle.solid, width: 2),
           children: [
-            Container(
-              color: const Color(0xffC3C3C3),
-              height: 40,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    'เลขที่ คูปอง ',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
-            ),
-            Container(
-              height: 40,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    History_Detail['code'].toString(),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-        TableRow(
-          children: [
-            Container(
-              color: const Color(0xffC3C3C3),
-              height: 40,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    'ทะเบียนรถ',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
-            ),
-            Container(
-              height: 40,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    History_Detail["truck_license"].toString(),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
-                    textAlign: TextAlign.center,
+            TableRow(
+              children: [
+                Container(
+                  color: const Color(0xffC3C3C3),
+                  height: 40,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        'เลขที่ คูปอง ',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
                   ),
-                ],
-              ),
+                ),
+                Container(
+                  height: 40,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        History_Detail['code'].toString(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff428BCA)),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            TableRow(
+              children: [
+                Container(
+                  color: const Color(0xffC3C3C3),
+                  height: 40,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        'ทะเบียนรถ',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        History_Detail["truck_license"].toString(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff428BCA)),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            TableRow(
+              children: [
+                Container(
+                  color: const Color(0xffC3C3C3),
+                  height: 40,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        'ชื่อพนักงานขับรถ',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        History_Detail['driver'].toString(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff428BCA)),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            TableRow(
+              children: [
+                Container(
+                  color: const Color(0xffC3C3C3),
+                  height: 40,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        'จำนวนลิตร',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        History_Detail['refuel_amount'].toString(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff428BCA)),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            TableRow(
+              children: [
+                Container(
+                  color: const Color(0xffC3C3C3),
+                  height: 40,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        'ชื่อปั้มที่เติม',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        History_Detail['refueler_name'].toString(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff428BCA)),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            TableRow(
+              children: [
+                Container(
+                  color: const Color(0xffC3C3C3),
+                  height: 40,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        'สถานะ',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
+                ),
+                Status_Gas_History(),
+              ],
+            ),
+            TableRow(
+              children: [
+                Container(
+                  color: const Color(0xffC3C3C3),
+                  height: 40,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        'วัน/เวลาที่เติม',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        History_Detail['refuel_at'].toString(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.green),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),
-        TableRow(
-          children: [
-            Container(
-              color: const Color(0xffC3C3C3),
-              height: 40,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    'ชื่อพนักงานขับรถ',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  )
-                ],
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              minimumSize: Size.fromHeight(
+                50,
               ),
+              primary: Colors.blue[900],
+              // fromHeight use double.infinity as width and 40 is the height
             ),
-            Container(
-              height: 40,
-              child: Column(
+            onPressed: () {
+              var Bin_history_id = History_Detail['id'];
+              GetBin_history_detail_Gas(context, Bin_history_id);
+              print(Bin_history_id);
+            },
+            child: Center(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    History_Detail['driver'].toString(),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-        TableRow(
-          children: [
-            Container(
-              color: const Color(0xffC3C3C3),
-              height: 40,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    'จำนวนลิตร',
+                    'บันทึกสลิปอีกครั้ง ',
                     style: TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  )
+                  ),
+                  Icon(Icons.receipt_long)
                 ],
               ),
             ),
-            Container(
-              height: 40,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    History_Detail['refuel_amount'].toString(),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-        TableRow(
-          children: [
-            Container(
-              color: const Color(0xffC3C3C3),
-              height: 40,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    'ชื่อปั้มที่เติม',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
-            ),
-            Container(
-              height: 40,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    History_Detail['refueler_name'].toString(),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-        TableRow(
-          children: [
-            Container(
-              color: const Color(0xffC3C3C3),
-              height: 40,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    'สถานะ',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
-            ),
-            Status_Gas_History(),
-          ],
-        ),
-        TableRow(
-          children: [
-            Container(
-              color: const Color(0xffC3C3C3),
-              height: 40,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    'วัน/เวลาที่เติม',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
-            ),
-            Container(
-              height: 40,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    History_Detail['refuel_at'].toString(),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.green),
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
       ],
     ),

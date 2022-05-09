@@ -2,6 +2,7 @@ import 'package:cpac/controller/gas_qr_code.dart';
 import 'package:cpac/utility/my_alert.dart';
 import 'package:cpac/utility/status_all.dart';
 import 'package:cpac/view/gas_station/gas_done.dart';
+import 'package:cpac/view/gas_station/gas_loading_page.dart';
 import 'package:cpac/view/gas_station/gas_tabel_all.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
@@ -150,11 +151,17 @@ class _Gas_Bill_AmountState extends State<Gas_Bill_Amount> {
                             var id = BilDetail['id'].toString();
                             var bill_amount = total_result.toString();
                             var oil_rate = _texthController.text;
-                            PostConfirmtBilAmount(id, bill_amount, oil_rate);
-                            Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                    builder: (context) => Gas_Done()),
-                                (Route<dynamic> route) => false);
+                            PostConfirmtBilAmount(
+                                context, id, bill_amount, oil_rate);
+                            var Bin_Detail_id = id;
+                            print(Bin_Detail_id);
+
+                            print('Screen Shot');
+
+                            // Navigator.of(context).pushAndRemoveUntil(
+                            //     MaterialPageRoute(
+                            //         builder: (context) => Gas_Done()),
+                            //     (Route<dynamic> route) => false);
                             total_results.toString();
                             print(bill_amount);
                           },

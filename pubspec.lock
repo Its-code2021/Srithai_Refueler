@@ -50,6 +50,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.15.0"
+  cross_file:
+    dependency: transitive
+    description:
+      name: cross_file
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.2"
   crypto:
     dependency: transitive
     description:
@@ -181,6 +188,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  flutter_mailer:
+    dependency: "direct main"
+    description:
+      name: flutter_mailer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.5"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -191,6 +212,20 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  gallery_saver:
+    dependency: "direct main"
+    description:
+      name: gallery_saver
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.2"
+  http:
+    dependency: transitive
+    description:
+      name: http
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.13.4"
   http_parser:
     dependency: transitive
     description:
@@ -205,6 +240,48 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.1"
+  image_gallery_saver:
+    dependency: "direct main"
+    description:
+      name: image_gallery_saver
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.7.1"
+  image_picker:
+    dependency: "direct main"
+    description:
+      name: image_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.5"
+  image_picker_android:
+    dependency: transitive
+    description:
+      name: image_picker_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.4+11"
+  image_picker_for_web:
+    dependency: transitive
+    description:
+      name: image_picker_for_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.6"
+  image_picker_ios:
+    dependency: transitive
+    description:
+      name: image_picker_ios
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.4+11"
+  image_picker_platform_interface:
+    dependency: transitive
+    description:
+      name: image_picker_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.4.4"
   intl:
     dependency: "direct main"
     description:
@@ -303,6 +380,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.5"
+  pattern_formatter:
+    dependency: "direct main"
+    description:
+      name: pattern_formatter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   petitparser:
     dependency: transitive
     description:
@@ -366,6 +450,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  screenshot:
+    dependency: "direct main"
+    description:
+      name: screenshot
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.3"
+  share_files_and_screenshot_widgets_plus:
+    dependency: "direct main"
+    description:
+      name: share_files_and_screenshot_widgets_plus
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
   shared_preferences:
     dependency: "direct main"
     description:

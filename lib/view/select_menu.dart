@@ -153,7 +153,7 @@ class _Select_UserState extends State<Select_User> {
                               builder: (context) => Login_Pump_Gas()),
                           (Route<dynamic> route) => false);
                       print('Btn_Pump $Btn_Pump');
-                      print('เข้าสู่ระบบ พนักงานเติมน้ำมัน / ปั้มน้ำมัน');
+                      print('เข้าสู่ระบบ ปั้มน้ำมัน');
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -161,7 +161,7 @@ class _Select_UserState extends State<Select_User> {
                       // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         Text(
-                          'พนักงานเติมน้ำมัน / ปั้มน้ำมัน',
+                          'ปั้มน้ำมัน',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),

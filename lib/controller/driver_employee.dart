@@ -20,6 +20,7 @@ Future<void> GetapiDriverUser(
   var result = response.data['results'][0];
   if (response.data['status_code'][0]['code'] == "200") {
     if (result['device_model'] == device_model) {
+      GetapiDriverDouponList(context, result_token);
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => Loading_Driver()),
           (Route<dynamic> route) => false);
@@ -44,9 +45,10 @@ Future<void> GetConfrimRememberDriverUser(
   if (response.data['status_code'][0]['code'] == "200") {
     if (result['device_model'] == device_model) {
       if (result['frist_login'] == 0) {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => Remember_Login(context)),
-            (Route<dynamic> route) => false);
+        GetapiDriverUser(context, result_token, device_model);
+        // Navigator.of(context).pushAndRemoveUntil(
+        //     MaterialPageRoute(builder: (context) => Loading_Driver()),
+        //     (Route<dynamic> route) => false);
       } else {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => Frist_UserTruck_Login()),
@@ -102,7 +104,7 @@ Future<void> GetHistory_Detail_Gas(BuildContext context, Driver_id) async {
     }
   } else {
     Driver_CouponDetail =
-        Counpon_Null(context, 'คูปองได้ถูกใช้ไปเรียบรอยแล้ว!!!');
+        Counpon_Null(context, 'คูปองได้ถูกใช้ไปเรียบร้อยแล้ว!!!');
   }
   print('Driver_id:::::$Driver_id');
   print('Driver_CouponDetail:::::$Driver_CouponDetail');

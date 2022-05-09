@@ -85,8 +85,12 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
         String password = _passwordControllers.text.toString();
         username_chang_driver = username;
         password_chang_driver = password;
-        GetConfrimRememberDriverUser(context, result_token, device_model);
-        // GetapiDriverDouponList(context, result_token);
+        // GetConfrimRememberDriverUser(context, result_token, device_model);
+        GetapiDriverUser(context, result_token, device_model);
+
+        result_token;
+        _Btn_DriverCheck(_isChecked_Driver);
+        GetapiDriverDouponList(context, result_token);
       } else {
         myAlert_2(context, "รหัสผ่านหรือชื่อผู้ใช้งานไม่ถูกต้อง");
       }
@@ -317,8 +321,8 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
       (prefs) {
         prefs.setBool("remember_me", value);
         prefs.setString('username', _usernameControllers.text);
-        prefs.setString('password', _passwordControllers.text);
-        prefs.setString('result_token', result_token.toString());
+        // prefs.setString('password', _passwordControllers.text);
+        // prefs.setString('result_token', result_token.toString());
       },
     );
     setState(() {
@@ -342,9 +346,10 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
       print(_result_token);
       if (_remeberMe) {
         setState(() {
-          _onLoading();
+          // _onLoading();
           if (result_token != null || result_token != '') {
-            login_Remember(context, _username, _password);
+            GetapiDriverUser(context, result_token, device_model);
+            // GetapiDriverDouponList(context, result_token);
           } else {}
           _isChecked = true;
           _isChecked_Driver = true;
@@ -493,7 +498,7 @@ Future<Null> login_Remember(BuildContext context, _username, _password) async {
     if (response.data['status_code'][0]['code'] == "200") {
       var result = response.data['results'][0];
       result_token = result;
-      GetapiDriverUser(context, result_token, device_model);
+      // GetapiDriverUser(context, result_token, device_model);
       GetapiDriverDouponList(context, result_token);
       print('device_model::: $device_model');
     } else {
@@ -506,91 +511,91 @@ Future<Null> login_Remember(BuildContext context, _username, _password) async {
   }
 }
 
-Widget Remember_Login(BuildContext context) {
-  @override
-  void _Btn_DriverCheck(value) {
-    print("_isChecked_Driver");
-    _isChecked_Driver = value;
-    SharedPreferences.getInstance().then(
-      (prefs) {
-        prefs.setBool("remember_me", value);
-        prefs.setString('username', _usernameControllers.text);
-        prefs.setString('password', _passwordControllers.text);
-        prefs.setString('device_model', device_model.toString());
-        prefs.setString('result_token', result_token.toString());
-      },
-    );
-    void setState(value) {
-      _isChecked_Driver = value;
-      result_token;
-    }
-  }
+// Widget Remember_Login(BuildContext context) {
+//   @override
+//   void _Btn_DriverCheck(value) {
+//     print("_isChecked_Driver");
+//     _isChecked_Driver = value;
+//     SharedPreferences.getInstance().then(
+//       (prefs) {
+//         prefs.setBool("remember_me", value);
+//         prefs.setString('username', _usernameControllers.text);
+//         prefs.setString('password', _passwordControllers.text);
+//         prefs.setString('device_model', device_model.toString());
+//         prefs.setString('result_token', result_token.toString());
+//       },
+//     );
+//     void setState(value) {
+//       _isChecked_Driver = value;
+//       result_token;
+//     }
+//   }
 
-  return MediaQuery(
-    data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-    child: Scaffold(
-      appBar: AppBar(
-        title: Image.asset('images/002.png', fit: BoxFit.cover),
-        centerTitle: true,
-        backgroundColor: Color(0xff438EB9),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        elevation: 0.0,
-        onPressed: () {
-          GetapiDriverUser(context, result_token, device_model);
-          GetapiDriverDouponList(context, result_token);
-        },
-        label: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text(
-              'ข้าม',
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            ),
-            Icon(Icons.double_arrow, color: Colors.black),
-          ],
-        ),
-        backgroundColor: Colors.transparent,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.lock,
-              color: Colors.black,
-              size: 100,
-            ),
-            Container(
-              height: 50,
-            ),
-            Text(
-              'คุณต้องการบันทึกรหัสผ่านและชื่อผู้ใช้หรือไม่?',
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            ),
-            Container(
-              height: 50,
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.blue[900],
-              ),
-              onPressed: () {
-                GetapiDriverUser(context, result_token, device_model);
-                GetapiDriverDouponList(context, result_token);
-                result_token;
-                _Btn_DriverCheck(_isChecked_Driver);
-              },
-              child: Text('จดจำการเข้าสู่ระบบ'),
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
-}
+//   return MediaQuery(
+//     data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+//     child: Scaffold(
+//       appBar: AppBar(
+//         title: Image.asset('images/002.png', fit: BoxFit.cover),
+//         centerTitle: true,
+//         backgroundColor: Color(0xff438EB9),
+//       ),
+//       floatingActionButton: FloatingActionButton.extended(
+//         elevation: 0.0,
+//         onPressed: () {
+//           GetapiDriverUser(context, result_token, device_model);
+//           GetapiDriverDouponList(context, result_token);
+//         },
+//         label: Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceAround,
+//           crossAxisAlignment: CrossAxisAlignment.center,
+//           children: [
+//             const Text(
+//               'ข้าม',
+//               style:
+//                   TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+//             ),
+//             Icon(Icons.double_arrow, color: Colors.black),
+//           ],
+//         ),
+//         backgroundColor: Colors.transparent,
+//       ),
+//       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+//       body: Padding(
+//         padding: const EdgeInsets.all(10.0),
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Icon(
+//               Icons.lock,
+//               color: Colors.black,
+//               size: 100,
+//             ),
+//             Container(
+//               height: 50,
+//             ),
+//             Text(
+//               'คุณต้องการบันทึกรหัสผ่านและชื่อผู้ใช้หรือไม่?',
+//               style:
+//                   TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+//             ),
+//             Container(
+//               height: 50,
+//             ),
+//             ElevatedButton(
+//               style: ElevatedButton.styleFrom(
+//                 primary: Colors.blue[900],
+//               ),
+//               onPressed: () {
+//                 GetapiDriverUser(context, result_token, device_model);
+//                 GetapiDriverDouponList(context, result_token);
+//                 result_token;
+//                 _Btn_DriverCheck(_isChecked_Driver);
+//               },
+//               child: Text('จดจำการเข้าสู่ระบบ'),
+//             ),
+//           ],
+//         ),
+//       ),
+//     ),
+//   );
+// }

@@ -320,7 +320,7 @@ class _Frist_UserTruck_LoginState extends State<Frist_UserTruck_Login> {
       String _password = password_chang_driver;
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-            builder: (context) => Remember_Login(context),
+            builder: (context) => Loading_Driver(),
           ),
           (Route<dynamic> route) => false);
     }

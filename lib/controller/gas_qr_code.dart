@@ -1,5 +1,4 @@
 // ignore_for_file: non_constant_identifier_names
-
 import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/server/api.dart';
 import 'package:cpac/utility/date_time.dart';
@@ -173,16 +172,24 @@ Future<void> GetBilDetail_Gas(id) async {
 }
 
 var ConfirmtBilAmount;
-Future<void> PostConfirmtBilAmount(
-    String id, String bill_amount, String oil_rate) async {
+Future<void> PostConfirmtBilAmount(BuildContext context, String id,
+    String bill_amount, String oil_rate) async {
   String url = apiPumpConfirmBillAmount;
-
   Dio dio = new Dio();
   Response response = await dio.post(url,
       options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
       data: {"id": id, "bill_amount": bill_amount, "oil_rate": oil_rate});
   var result = response.data['results'][0];
-  ConfirmtBilAmount = result;
+  var status_code = response.data["status_code"][0]["code"];
+  if (status_code == '200') {
+    ConfirmtBilAmount = result;
+    GetBin_Detail_Gas(id);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Loading_Bin_History_Detail()),
+    );
+  }
+
   print('bill_amount:::::$ConfirmtBilAmount');
 }
 
@@ -201,8 +208,8 @@ Future<void> PostPumpHistoryRefue(startdate, enddate) async {
   var result_date = response.data['data'];
   History_Refuel = result;
   BTW_date = result_date;
-  // print('History_Refuel:::::$History_Refuel');
-  // print('History_Refuel:::::$BTW_date');
+  print('History_Refuel:::::$History_Refuel');
+  print('History_Refuel:::::$BTW_date');
 }
 
 var History_Detail;
@@ -217,4 +224,109 @@ Future<void> GetHistory_Detail_Gas(History_id) async {
   History_Detail = result;
 
   print('History_Detail:::::$History_Detail');
+}
+
+var Bin_Detail;
+Future<void> GetBin_Detail_Gas(Bin_Detail_id) async {
+  String url = '$apiPumprefuelBillDetail$Bin_Detail_id';
+  Dio dio = new Dio();
+  Response response = await dio.get(
+    url,
+    options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+  );
+  var result = response.data['results'][0];
+  var status_code = response.data["status_code"][0]["code"];
+  if (status_code == '200') {
+    Bin_Detail = result;
+  }
+  print('Bin_Detail:::::$Bin_Detail');
+}
+
+var Bin_history_detail;
+Future<void> GetBin_history_detail_Gas(
+    BuildContext context, Bin_history_id) async {
+  String url = '$apiPumprefuelBillDetail$Bin_history_id';
+  Dio dio = new Dio();
+  Response response = await dio.get(
+    url,
+    options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+  );
+  var result = response.data['results'][0];
+  var status_code = response.data["status_code"][0]["code"];
+  if (status_code == '200') {
+    Bin_history_detail = result;
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Loading_Bin__Detail()),
+    );
+  }
+  print('Bin_Detail:::::$Bin_history_detail');
+}
+
+var SendMail;
+Future<void> GetSendMail_Gas(BuildContext context, startdates, enddates) async {
+  String url = '$apiSendEmail&sdate=$startdates&edate=$enddates';
+  Dio dio = Dio();
+  Response response = await dio.get(
+    url,
+    options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+  );
+  var result = response.data;
+  if (result != '') {
+    AlertSendDone(context);
+    Future.delayed(Duration(seconds: 1), () {
+      Navigator.pop(context);
+    });
+
+    print('result:::::$result');
+  }
+}
+
+Future<void> AlertSendDone(BuildContext context) async {
+  showDialog(
+    context: context,
+    builder: (context) => MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+      child: AlertDialog(
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Column(
+              children: [
+                Center(
+                  child: Column(
+                    children: [
+                      const Icon(
+                        Icons.check_circle_outline,
+                        color: Colors.green,
+                        size: 40,
+                      ),
+                      const Text(
+                        'ส่งเมลไปยัง ',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Container(
+                        height: 5,
+                      ),
+                      Text(Profile['email'].toString(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue[900])),
+                      Container(
+                        height: 5,
+                      ),
+                      const Text(
+                        'สำเสร็จ',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    ),
+  );
 }

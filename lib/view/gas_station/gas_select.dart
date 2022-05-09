@@ -1,4 +1,11 @@
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+import 'package:cpac/controller/gas_qr_code.dart';
+import 'package:cpac/view/gas_station/gas_loading_page.dart';
+import 'package:cpac/view/gas_station/gas_screenshot_bin.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'gas_qr_code.dart';
 
 class Gas_Select extends StatefulWidget {
