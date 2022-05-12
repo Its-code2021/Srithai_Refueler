@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.srithai.refueler",
+  "applicationId": "com.srithai.refuelers",
   "variantName": "processDebugResources",
   "elements": [
     {

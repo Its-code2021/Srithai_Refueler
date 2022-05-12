@@ -131,7 +131,7 @@ MERGED from [com.journeyapps:zxing-android-embedded:4.1.0] C:\Users\Bannawich-NB
 		ADDED from D:\Work\Flutter\cpac\android\app\src\main\AndroidManifest.xml:12:9-32
 	android:icon
 		ADDED from D:\Work\Flutter\cpac\android\app\src\main\AndroidManifest.xml:13:9-43
-activity#com.srithai.refueler.MainActivity
+activity#com.srithai.refuelers.MainActivity
 ADDED from D:\Work\Flutter\cpac\android\app\src\main\AndroidManifest.xml:14:9-33:20
 	android:launchMode
 		ADDED from D:\Work\Flutter\cpac\android\app\src\main\AndroidManifest.xml:16:13-43
