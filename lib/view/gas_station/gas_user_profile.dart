@@ -198,6 +198,9 @@ class _Gas_User_ProfileState extends State<Gas_User_Profile> {
                 height: 20,
               ),
               Btn_LogoutS(context),
+              Container(
+                height: 30,
+              ),
             ],
           ),
         )

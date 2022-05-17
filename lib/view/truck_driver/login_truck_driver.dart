@@ -14,6 +14,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login_Truck_Driver extends StatefulWidget {
@@ -148,14 +149,14 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
                     Image.asset(
                       'images/001.png',
                     ),
-                    Container(height: 30),
+                    Container(height: 10),
                     const Text(
                       'เข้าสู่ระบบ สำหรับพนักงานขับรถเท่านั้น',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Container(height: 30),
+                    Container(height: 20),
                     Container(
                       child: const SizedBox(
                         width: double.infinity,
@@ -166,10 +167,16 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
                         ),
                       ),
                     ),
-                    Container(height: 10),
+                    Container(height: 3),
                     TextField(
                         controller: _usernameControllers,
+                        maxLength: 10,
                         onChanged: (value) => updateButtonState(value),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r'[a-zA-Z0-9]')),
+                        ],
+                        keyboardType: TextInputType.visiblePassword,
                         decoration: InputDecoration(
                           labelStyle: const TextStyle(
                             fontSize: 20,
@@ -179,7 +186,7 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
                           enabledBorder: myinputborder(),
                           focusedBorder: myfocusborder(),
                         )),
-                    Container(height: 10),
+                    Container(height: 3),
                     Container(
                       child: const SizedBox(
                         width: double.infinity,
@@ -190,9 +197,14 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
                         ),
                       ),
                     ),
-                    Container(height: 10),
+                    Container(height: 5),
                     TextField(
                       maxLength: 16,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'[a-zA-Z0-9]')),
+                      ],
+                      keyboardType: TextInputType.visiblePassword,
                       controller: _passwordControllers,
                       onChanged: (value) => updateButtonState(value),
                       obscureText: showPassword,
@@ -213,7 +225,7 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
                                     {this.showPassword = !this.showPassword});
                               })),
                     ),
-                    Container(height: 50),
+                    Container(height: 15),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: Colors.blue[900],
