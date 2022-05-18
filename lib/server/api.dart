@@ -8,8 +8,8 @@ String apimail = "https://stms.srithaigroup.com/v2/service"; //Demo Wifi [บ้
 // String apimail = "http://192.168.1.113/project/tms/service"; //Demo Wifi GPS
 // String api = "http://192.168.1.72/project/tms/api"; //Demo Wifi RS
 // String api = "http://192.168.1.202/project/tms/api"; //Demo Wifi FLM
-// String api = "http://192.168.1.55/project/tms/api"; //Demo Wifi [บ้าน]
-// String apimail = "http://192.168.1.55/project/tms/service"; //Demo Wifi [บ้าน]
+// String api = "http://192.168.1.44/project/tms/api"; //Demo Wifi [บ้าน]
+// String apimail = "http://192.168.1.44/project/tms/service"; //Demo Wifi [บ้าน]
 
 String apiLogin = api + "/auth/?p=user-login"; //เข้าสู่ระบบ
 String apiUser = api + "/auth/?p=user-data"; //user

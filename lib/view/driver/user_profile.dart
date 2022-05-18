@@ -120,7 +120,7 @@ class _User_ProfileState extends State<User_Profile> {
             height: 20,
           ),
           Container(
-            width: 200,
+            width: 250,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 minimumSize: Size.fromHeight(

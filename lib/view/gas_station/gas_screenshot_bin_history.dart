@@ -97,7 +97,7 @@ class _gas_screenshot_bin_historyState
                   ),
                   Center(
                     child: Text(
-                      'บักทึกสลิปสำเร็จ',
+                      'บันทึกใบเติมน้ำมันสำเร็จ',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -186,7 +186,7 @@ class _gas_screenshot_bin_historyState
                   children: [
                     TableRow(children: [
                       Text(
-                        'เลขที่ คูปอง:',
+                        'เลขที่คูปอง:',
                         textAlign: TextAlign.end,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),

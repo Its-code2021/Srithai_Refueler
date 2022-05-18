@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, duplicate_ignore
 
 import 'package:cpac/controller/gas_qr_code.dart';
+import 'package:cpac/controller/qr_code.dart';
 import 'package:cpac/utility/date_time.dart';
+import 'package:cpac/view/driver/staff_done.dart';
 import 'package:cpac/view/gas_station/gas_done.dart';
 import 'package:cpac/view/gas_station/gas_loading_page.dart';
 import 'package:cpac/view/gas_station/gas_qr_code.dart';
@@ -16,14 +18,14 @@ import 'dart:typed_data';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:intl/intl.dart';
 
-class gas_screenshot_bin extends StatefulWidget {
-  const gas_screenshot_bin(bin_detail_id, {Key? key}) : super(key: key);
+class inpump_screenshot_bin extends StatefulWidget {
+  const inpump_screenshot_bin(pump_detail_id, {Key? key}) : super(key: key);
 
   @override
-  _gas_screenshot_binState createState() => _gas_screenshot_binState();
+  _inpump_screenshot_binState createState() => _inpump_screenshot_binState();
 }
 
-class _gas_screenshot_binState extends State<gas_screenshot_bin> {
+class _inpump_screenshot_binState extends State<inpump_screenshot_bin> {
   // This key is used for the RepaintBoundary widget
   final GlobalKey _key = GlobalKey();
 
@@ -51,7 +53,7 @@ class _gas_screenshot_binState extends State<gas_screenshot_bin> {
         AlertBinDoneS();
         Future.delayed(Duration(seconds: 2), () {
           Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => Gas_Done()),
+              MaterialPageRoute(builder: (context) => Staff_Done()),
               (Route<dynamic> route) => false);
         });
       }
@@ -189,7 +191,7 @@ class _gas_screenshot_binState extends State<gas_screenshot_bin> {
                       Padding(
                         padding: EdgeInsets.all(3.0),
                         child: Text(
-                          Bin_Detail['code'].toString(),
+                          Bin_Detail_pump['code'].toString(),
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -214,7 +216,7 @@ class _gas_screenshot_binState extends State<gas_screenshot_bin> {
                       Padding(
                         padding: EdgeInsets.all(3.0),
                         child: Text(
-                          Bin_Detail["truck_license"].toString(),
+                          Bin_Detail_pump["truck_license"].toString(),
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -237,7 +239,7 @@ class _gas_screenshot_binState extends State<gas_screenshot_bin> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        Bin_Detail['driver'].toString(),
+                        Bin_Detail_pump['driver'].toString(),
                         textAlign: TextAlign.start,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -261,7 +263,7 @@ class _gas_screenshot_binState extends State<gas_screenshot_bin> {
                       Padding(
                         padding: EdgeInsets.all(3.0),
                         child: Text(
-                          Bin_Detail['refuel_amount'].toString(),
+                          Bin_Detail_pump['refuel_amount'].toString(),
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -269,58 +271,58 @@ class _gas_screenshot_binState extends State<gas_screenshot_bin> {
                         ),
                       ),
                     ]),
-                    TableRow(children: const [
-                      Text(
-                        '',
-                      ),
-                      Text(
-                        '',
-                      ),
-                    ]),
-                    TableRow(children: [
-                      Text(
-                        'ราคาต่อลิตร:',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(3.0),
-                        child: Text(
-                          Bin_Detail['oil_rate'].toStringAsFixed(2),
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xff428BCA)),
-                        ),
-                      ),
-                    ]),
-                    TableRow(children: const [
-                      Text(
-                        '',
-                      ),
-                      Text(
-                        '',
-                      ),
-                    ]),
-                    TableRow(children: [
-                      Text(
-                        'จำนวนเงินทั้งหมด:',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(3.0),
-                        child: Text(
-                          NumberFormat("#,###.00")
-                              .format(Bin_Detail['bill_amount']),
-                          // Bin_Detail['bill_amount'].toStringAsFixed(2),
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xff428BCA)),
-                        ),
-                      ),
-                    ]),
+                    // TableRow(children: const [
+                    //   Text(
+                    //     '',
+                    //   ),
+                    //   Text(
+                    //     '',
+                    //   ),
+                    // ]),
+                    // TableRow(children: [
+                    //   Text(
+                    //     'ราคาต่อลิตร:',
+                    //     textAlign: TextAlign.right,
+                    //     style: TextStyle(fontWeight: FontWeight.bold),
+                    //   ),
+                    //   Padding(
+                    //     padding: EdgeInsets.all(3.0),
+                    //     child: Text(
+                    //       Bin_Detail_pump['oil_rate'].toStringAsFixed(2),
+                    //       textAlign: TextAlign.start,
+                    //       style: TextStyle(
+                    //           fontWeight: FontWeight.bold,
+                    //           color: Color(0xff428BCA)),
+                    //     ),
+                    //   ),
+                    // ]),
+                    // TableRow(children: const [
+                    //   Text(
+                    //     '',
+                    //   ),
+                    //   Text(
+                    //     '',
+                    //   ),
+                    // ]),
+                    // TableRow(children: [
+                    //   Text(
+                    //     'จำนวนเงินทั้งหมด:',
+                    //     textAlign: TextAlign.right,
+                    //     style: TextStyle(fontWeight: FontWeight.bold),
+                    //   ),
+                    //   Padding(
+                    //     padding: EdgeInsets.all(3.0),
+                    //     child: Text(
+                    //       NumberFormat("#,###.00")
+                    //           .format(Bin_Detail_pump['bill_amount']),
+                    //       // Bin_Detail_pump['bill_amount'].toStringAsFixed(2),
+                    //       textAlign: TextAlign.start,
+                    //       style: TextStyle(
+                    //           fontWeight: FontWeight.bold,
+                    //           color: Color(0xff428BCA)),
+                    //     ),
+                    //   ),
+                    // ]),
                     TableRow(children: const [
                       Text(
                         '',
@@ -338,7 +340,7 @@ class _gas_screenshot_binState extends State<gas_screenshot_bin> {
                       Padding(
                         padding: EdgeInsets.all(3.0),
                         child: Text(
-                          Bin_Detail['refueler_name'].toString(),
+                          Bin_Detail_pump['refueler_name'].toString(),
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -363,7 +365,7 @@ class _gas_screenshot_binState extends State<gas_screenshot_bin> {
                       Padding(
                         padding: EdgeInsets.all(3.0),
                         child: Text(
-                          Bin_Detail['refuel_at'].toString(),
+                          Bin_Detail_pump['refuel_at'].toString(),
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -408,7 +410,7 @@ class _gas_screenshot_binState extends State<gas_screenshot_bin> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: (Image(
-                    image: NetworkImage(Bin_Detail['driver_signed']),
+                    image: NetworkImage(Bin_Detail_pump['driver_signed']),
                   )),
                 ),
                 Container(

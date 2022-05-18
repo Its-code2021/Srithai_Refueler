@@ -2,6 +2,7 @@ import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/server/api.dart';
 import 'package:cpac/utility/my_alert.dart';
 import 'package:cpac/utility/status_all.dart';
+import 'package:cpac/view/driver/inpump_screenshot_bin.dart';
 import 'package:cpac/view/driver/loading_page.dart';
 import 'package:cpac/view/driver/qr_code.dart';
 import 'package:cpac/view/driver/refueling_all.dart';
@@ -127,10 +128,12 @@ Future<void> PostConfirmRefuelAmount(BuildContext context, String id,
       });
   var result = response.data['results'][0];
   var status_code = response.data['status_code'][0];
+  var pump_detail_id = id;
   if (status_code['code'] == '200') {
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => Staff_Done()),
-        (Route<dynamic> route) => false);
+    // Navigator.of(context).pushAndRemoveUntil(
+    //     MaterialPageRoute(builder: (context) => Staff_Done()),
+    //     (Route<dynamic> route) => false);
+    GetBin_Detail_Pump(context, pump_detail_id);
   }
   print('status_code:::::$status_code');
   ConfirmRefuel = result;
@@ -146,4 +149,24 @@ Future<void> PostQrcode_Agein(OilDetail_id) async {
   var result = response.data['results'][0];
   Oil_Details = result;
   Tabel_Staff_detail();
+}
+
+var Bin_Detail_pump;
+Future<void> GetBin_Detail_Pump(BuildContext context, pump_detail_id) async {
+  String url = '$apiPumprefuelBillDetail$pump_detail_id';
+  Dio dio = new Dio();
+  Response response = await dio.get(
+    url,
+    options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+  );
+  var result = response.data['results'][0];
+  var status_code = response.data["status_code"][0]["code"];
+  if (status_code == '200') {
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (context) => inpump_screenshot_bin(pump_detail_id)),
+        (Route<dynamic> route) => false);
+    Bin_Detail_pump = result;
+  }
+  print('Bin_Detail:::::$Bin_Detail_pump');
 }

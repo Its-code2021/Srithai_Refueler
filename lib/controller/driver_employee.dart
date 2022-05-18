@@ -98,7 +98,7 @@ Future<void> GetHistory_Detail_Gas(BuildContext context, Driver_id) async {
 
     Driver_CouponDetail = result;
     if (Driver_CouponDetail['is_refuel'] == 0) {
-      Status_GasStation = '(เติมอู่)';
+      Status_GasStation = 'ปั้มบริษัท(เติมอู่)';
     } else {
       Status_GasStation = '(เติมปั๊มนอก)';
     }
