@@ -19,14 +19,20 @@ Future<void> GetapiDriverUser(
       options: Options(headers: {'Authorization': 'Token $result_token'}));
   var result = response.data['results'][0];
   if (response.data['status_code'][0]['code'] == "200") {
-    if (result['device_model'] == device_model) {
-      GetapiDriverDouponList(context, result_token);
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => Loading_Driver()),
-          (Route<dynamic> route) => false);
+    if (result['frist_login'] == 0) {
+      if (result['device_model'] == device_model) {
+        GetapiDriverDouponList(context, result_token);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => Loading_Driver()),
+            (Route<dynamic> route) => false);
+      } else {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => Btn_Logout(context)),
+            (Route<dynamic> route) => false);
+      }
     } else {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => Btn_Logout(context)),
+          MaterialPageRoute(builder: (context) => Frist_UserTruck_Login()),
           (Route<dynamic> route) => false);
     }
   }
