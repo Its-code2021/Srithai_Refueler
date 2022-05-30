@@ -11,12 +11,15 @@ import 'package:cpac/view/splash_page.dart';
 import 'package:cpac/view/truck_driver/driver_profile.dart';
 import 'package:cpac/view/truck_driver/home_driver.dart';
 import 'package:cpac/view/truck_driver/loading_driver.dart';
+import 'package:cpac/view/truck_driver/login_truck_driver.dart';
 import 'package:cpac/view/truck_driver/tabbar_driver_truck.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Login_Pump_Gas extends StatefulWidget {
   @override
@@ -30,6 +33,7 @@ TextEditingController _passwordController = TextEditingController();
 var password_chang;
 var username_chang;
 var device_model_pump;
+String storeVersions = '1.0.21';
 
 class _Login_Pump_GasState extends State<Login_Pump_Gas> {
   bool _isChecked = false;
@@ -66,6 +70,80 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
     );
   }
 
+  final Uri _url = Uri.parse(
+      'https://play.google.com/store/apps/details?id=com.srithai.refuelers');
+  void _launchUrl() async {
+    if (!await launchUrl(_url)) throw 'Could not launch $_url';
+  }
+
+  Future<void> AlertUpdate_App(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (context) => MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+        child: AlertDialog(
+          actions: [
+            Column(
+              children: [
+                Icon(
+                  Icons.error_outline,
+                  size: 50,
+                  color: Colors.red,
+                ),
+                Container(
+                  height: 10,
+                ),
+                const Text(
+                  'กรุณาอัพเดตแอปเวอร์ชั่นใหม่',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  textAlign: TextAlign.center,
+                ),
+                Container(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.red,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context);
+                        GetConfrimRememberPumpUser(
+                            context, token, device_model_pump);
+                        _Btn_PumpCheck(_isChecked_DriverPump);
+                      },
+                      child: const Center(
+                          child: Text(
+                        'ข้าม',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                      ),
+                      onPressed: () {
+                        _launchUrl();
+                        Navigator.of(context).pop();
+                      },
+                      child: const Center(
+                          child: Text(
+                        'อัพเดท',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  ],
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
   Future<Null> login() async {
     String url = apiLogin;
     try {
@@ -83,8 +161,25 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
         String password = _passwordController.text.toString();
         username_chang = username;
         password_chang = password;
-        GetConfrimRememberPumpUser(context, token, device_model_pump);
-        _Btn_PumpCheck(_isChecked_DriverPump);
+        DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+        if (Platform.isAndroid) {
+          AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+          PackageInfo packageInfo = await PackageInfo.fromPlatform();
+          String versions = packageInfo.version;
+          if (versions != storeVersions) {
+            AlertUpdate_App(context);
+            print("เวอร์ชั้นเก่า $versions");
+            print("เวอร์ชั้นใหม่ $storeVersions");
+          } else {
+            GetConfrimRememberPumpUser(context, token, device_model_pump);
+            _Btn_PumpCheck(_isChecked_DriverPump);
+          }
+        } else if (Platform.isIOS) {
+          IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
+          device_model = iosDeviceInfo.identifierForVendor.toString();
+          print('device_model IOS:::$device_model');
+        }
+
         // GetapiDriverDouponList(context, token);
       } else {
         myAlert_2(context, "รหัสผ่านหรือชื่อผู้ใช้งานไม่ถูกต้อง");

@@ -59,7 +59,14 @@ dependencies:
   image_picker: ^0.8.5
   flutter_mailer: ^2.0.1
   pattern_formatter: ^2.0.0
-
+  imei_plugin: ^1.2.0
+  device_information: ^0.0.4
+  unique_identifier: ^0.2.2
+  package_info_plus: ^1.4.2
+  flutter_app_version_checker: ^0.0.3
+  url_launcher: ^6.1.2
+  
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

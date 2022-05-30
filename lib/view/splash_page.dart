@@ -15,7 +15,10 @@ import 'package:cpac/view/truck_driver/tabbar_driver_truck.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_version_checker/flutter_app_version_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+String? storeVersions;
 
 class SplashPage_New extends StatefulWidget {
   @override
@@ -55,13 +58,24 @@ class _SplashPage_NewState extends State<SplashPage_New> {
   }
 
   void initState() {
+    checkVersion();
     _loadUserEmailPassword();
     super.initState();
+  }
+
+  Uri _url = Uri.parse(
+      'https://play.google.com/store/apps/details?id=com.srithai.refuelers');
+  final _storeVersion = AppVersionChecker(
+      appId: "com.srithai.refuelers", androidStore: AndroidStore.apkPure);
+
+  void checkVersion() async {
+    storeVersions = (await _storeVersion.checkUpdate()).toString();
   }
 
   @override
   Widget build(BuildContext context) {
     setState(() {
+      checkVersion();
       Check_Splash();
       GetapiDriverDouponList(context, result_token);
       GetapiDriverUser(context, result_token, device_model_pump);
