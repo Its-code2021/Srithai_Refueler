@@ -120,7 +120,14 @@ class _Driver_ProfileState extends State<Driver_Profile> {
             ),
           ),
           Container(
-            height: 30,
+            height: 20,
+          ),
+          Text(
+            'เวอร์ชั่นปัจจุบัน : $versions',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+          ),
+          Container(
+            height: 20,
           ),
           Container(
             width: 200,

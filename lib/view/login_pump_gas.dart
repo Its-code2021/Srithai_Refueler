@@ -19,6 +19,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:store_redirect/store_redirect.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Login_Pump_Gas extends StatefulWidget {
@@ -33,7 +34,8 @@ TextEditingController _passwordController = TextEditingController();
 var password_chang;
 var username_chang;
 var device_model_pump;
-String storeVersions = '1.0.21';
+String storeVersions = '1.0.22';
+var versions;
 
 class _Login_Pump_GasState extends State<Login_Pump_Gas> {
   bool _isChecked = false;
@@ -76,73 +78,77 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
     if (!await launchUrl(_url)) throw 'Could not launch $_url';
   }
 
-  Future<void> AlertUpdate_App(BuildContext context) async {
-    showDialog(
-      context: context,
-      builder: (context) => MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-        child: AlertDialog(
-          actions: [
-            Column(
-              children: [
-                Icon(
-                  Icons.error_outline,
-                  size: 50,
-                  color: Colors.red,
-                ),
-                Container(
-                  height: 10,
-                ),
-                const Text(
-                  'กรุณาอัพเดตแอปเวอร์ชั่นใหม่',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                  textAlign: TextAlign.center,
-                ),
-                Container(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.red,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context);
-                        GetConfrimRememberPumpUser(
-                            context, token, device_model_pump);
-                        _Btn_PumpCheck(_isChecked_DriverPump);
-                      },
-                      child: const Center(
-                          child: Text(
-                        'ข้าม',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )),
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.green,
-                      ),
-                      onPressed: () {
-                        _launchUrl();
-                        Navigator.of(context).pop();
-                      },
-                      child: const Center(
-                          child: Text(
-                        'อัพเดท',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )),
-                    ),
-                  ],
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
+  // Future<void> AlertUpdate_App(BuildContext context) async {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) => MediaQuery(
+  //       data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+  //       child: AlertDialog(
+  //         actions: [
+  //           Column(
+  //             children: [
+  //               Icon(
+  //                 Icons.error_outline,
+  //                 size: 50,
+  //                 color: Colors.red,
+  //               ),
+  //               Container(
+  //                 height: 10,
+  //               ),
+  //               const Text(
+  //                 'กรุณาอัพเดตแอปเวอร์ชั่นใหม่',
+  //                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+  //                 textAlign: TextAlign.center,
+  //               ),
+  //               Container(
+  //                 height: 10,
+  //               ),
+  //               Row(
+  //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //                 children: [
+  //                   ElevatedButton(
+  //                     style: ElevatedButton.styleFrom(
+  //                       primary: Colors.red,
+  //                     ),
+  //                     onPressed: () {
+  //                       Navigator.of(context);
+  //                       GetConfrimRememberPumpUser(
+  //                           context, token, device_model_pump);
+  //                       _Btn_PumpCheck(_isChecked_DriverPump);
+  //                     },
+  //                     child: const Center(
+  //                         child: Text(
+  //                       'ข้าม',
+  //                       style: TextStyle(fontWeight: FontWeight.bold),
+  //                     )),
+  //                   ),
+  //                   ElevatedButton(
+  //                     style: ElevatedButton.styleFrom(
+  //                       primary: Colors.green,
+  //                     ),
+  //                     onPressed: () {
+  //                       // _launchUrl();
+  //                       StoreRedirect.redirect(
+  //                         androidAppId: "com.srithai.refuelers",
+  //                         // iOSAppId: "585027354",
+  //                       );
+  //                       Navigator.of(context).pop();
+  //                     },
+  //                     child: const Center(
+  //                         child: Text(
+  //                       'อัพเดท',
+  //                       style: TextStyle(fontWeight: FontWeight.bold),
+  //                     )),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ],
+  //           )
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Future<Null> login() async {
     String url = apiLogin;
@@ -165,15 +171,9 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
         if (Platform.isAndroid) {
           AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
           PackageInfo packageInfo = await PackageInfo.fromPlatform();
-          String versions = packageInfo.version;
-          if (versions != storeVersions) {
-            AlertUpdate_App(context);
-            print("เวอร์ชั้นเก่า $versions");
-            print("เวอร์ชั้นใหม่ $storeVersions");
-          } else {
-            GetConfrimRememberPumpUser(context, token, device_model_pump);
-            _Btn_PumpCheck(_isChecked_DriverPump);
-          }
+          versions = packageInfo.version;
+          GetConfrimRememberPumpUser(context, token, device_model_pump);
+          _Btn_PumpCheck(_isChecked_DriverPump);
         } else if (Platform.isIOS) {
           IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
           device_model = iosDeviceInfo.identifierForVendor.toString();

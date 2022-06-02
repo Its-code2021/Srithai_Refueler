@@ -4,8 +4,10 @@ import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/server/api.dart';
 import 'package:cpac/view/change_password.dart';
 import 'package:cpac/view/login_pump_gas.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class Gas_User_Profile extends StatefulWidget {
   Gas_User_Profile({Key? key}) : super(key: key);
@@ -154,7 +156,14 @@ class _Gas_User_ProfileState extends State<Gas_User_Profile> {
               //   ),
               // ),
               Container(
-                height: 30,
+                height: 20,
+              ),
+              Text(
+                'เวอร์ชั่นปัจจุบัน : $versions',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              ),
+              Container(
+                height: 20,
               ),
               Container(
                 width: 250,

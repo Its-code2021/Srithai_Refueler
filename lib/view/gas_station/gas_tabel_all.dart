@@ -930,10 +930,15 @@ Widget Tabel_Body_Gas_History(BuildContext context) {
                               onPressed: () {
                                 var Bin_history_id =
                                     History_Refuel[index]['id'];
-                                print(History_Refuel[index]['id']);
+                                var Bin_Amount =
+                                    History_Refuel[index]['bill_amount'];
+
+                                ///
+
                                 GetBin_history_detail_Gas(
-                                    context, Bin_history_id);
+                                    context, Bin_history_id, Bin_Amount);
                                 print(Bin_history_id);
+                                print(Bin_Amount);
                                 // var History_id = History_Refuel[index]['id'];
                                 // print(History_Refuel[index]['id']);
                                 // GetHistory_Detail_Gas(History_id);
@@ -1292,7 +1297,9 @@ Widget Tabel_History_detail_Gas(BuildContext context) {
             ),
             onPressed: () {
               var Bin_history_id = History_Detail['id'];
-              GetBin_history_detail_Gas(context, Bin_history_id);
+              var History_Refuel = History_Detail['bill_amount'];
+              GetBin_history_detail_Gas(
+                  context, Bin_history_id, History_Refuel);
               print(Bin_history_id);
             },
             child: Center(

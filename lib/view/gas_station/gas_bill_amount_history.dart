@@ -8,15 +8,16 @@ import 'package:cpac/view/gas_station/gas_tabel_all.dart';
 import 'package:cpac/view/login_pump_gas.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class Gas_Bill_Amount extends StatefulWidget {
-  Gas_Bill_Amount({Key? key}) : super(key: key);
+class Gas_Bill_Amount_Hstory extends StatefulWidget {
+  Gas_Bill_Amount_Hstory(bin_history_id, {Key? key}) : super(key: key);
 
   @override
-  State<Gas_Bill_Amount> createState() => _Gas_Bill_AmountState();
+  State<Gas_Bill_Amount_Hstory> createState() => _Gas_Bill_Amount_HstoryState();
 }
 
-class _Gas_Bill_AmountState extends State<Gas_Bill_Amount> {
+class _Gas_Bill_Amount_HstoryState extends State<Gas_Bill_Amount_Hstory> {
   Widget Gas_Amount_Btn() {
     return Container(
       width: 150,
@@ -153,7 +154,7 @@ class _Gas_Bill_AmountState extends State<Gas_Bill_Amount> {
                             var id = BilDetail['id'].toString();
                             var bill_amount = total_result.toString();
                             var oil_rate = _texthController.text;
-                            PostConfirmtBilAmount(
+                            PostConfirmtBilAmount_History(
                                 context, id, bill_amount, oil_rate);
                             var Bin_Detail_id = id;
                             print(Bin_Detail_id);
@@ -278,23 +279,26 @@ class BtnConfrim_BilAmount extends StatefulWidget {
 
 bool _validate = false;
 var _texthController = TextEditingController();
+
 bool _text = false;
-var oil_rate = 0;
+var oil_rate = BilDetail['cerrent_oil_rate'];
+var refuel_amount = BilDetail['refuel_amount'] * BilDetail['cerrent_oil_rate'];
 
 class BtnConfrim_BilAmountState extends State<BtnConfrim_BilAmount> {
   @override
   void initState() {
+    GetapiHeader(token);
+    GetToken(token);
     super.initState();
-    var oil_rate = BilDetail['cerrent_oil_rate'];
-    var refuel_amount =
-        BilDetail['refuel_amount'] * BilDetail['cerrent_oil_rate'];
     if (oil_rate > 0) {
       _texthController.text = oil_rate.toString();
       _refreshAction(total_results);
+
       total_results = refuel_amount;
     } else {
       _texthController.text = '';
     }
+
     _text = true; //variable to control enable property of textfield
   }
 
@@ -332,7 +336,7 @@ class BtnConfrim_BilAmountState extends State<BtnConfrim_BilAmount> {
             textInputAction: TextInputAction.done,
             onChanged: (total_ref) {
               total_result = (Decimal.parse(_texthController.text) *
-                  Decimal.parse(BilDetail['refuel_amount'].toString()));
+                  Decimal.parse(BilDetail['refuel_amount']));
               total_results = total_result;
               _refreshAction(total_results);
               print("$total_results");

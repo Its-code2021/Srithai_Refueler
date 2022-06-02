@@ -187,7 +187,7 @@ packages:
       name: flutter_app_version_checker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.3"
+    version: "0.3.1"
   flutter_colorpicker:
     dependency: "direct main"
     description:
@@ -303,6 +303,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  in_app_update:
+    dependency: transitive
+    description:
+      name: in_app_update
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   intl:
     dependency: "direct main"
     description:
@@ -338,6 +345,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
+  native_updater:
+    dependency: "direct main"
+    description:
+      name: native_updater
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
+  package_info:
+    dependency: transitive
+    description:
+      name: package_info
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2"
   package_info_plus:
     dependency: "direct main"
     description:
@@ -609,6 +630,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.10.0"
+  store_redirect:
+    dependency: "direct main"
+    description:
+      name: store_redirect
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
   stream_channel:
     dependency: transitive
     description:

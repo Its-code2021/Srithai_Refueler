@@ -11,6 +11,7 @@ import 'package:cpac/view/loading_chang_password.dart';
 import 'package:cpac/view/login_pump_gas.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:store_redirect/store_redirect.dart';
 
 import 'driver_employee.dart';
 
@@ -60,12 +61,91 @@ Future<void> GetapiPumpUser(BuildContext context, token) async {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => TabBar_Menu_Gas_Home()),
           (Route<dynamic> route) => false);
+      // if (Profile['device_version'] == versions) {
+      //   print(Profile['device_version']);
+      // } else {
+      //   print('device_version::::::');
+      //   AlertUpdate_App(context);
+      //   print(versions);
+      // }
     }
   }
 
   print('Profile::: $Profile');
   print('Token::: $token');
 }
+
+// Future<void> AlertUpdate_App(BuildContext context) async {
+//   showDialog(
+//     context: context,
+//     builder: (context) => MediaQuery(
+//       data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+//       child: AlertDialog(
+//         actions: [
+//           Column(
+//             children: [
+//               Icon(
+//                 Icons.error_outline,
+//                 size: 50,
+//                 color: Colors.red,
+//               ),
+//               Container(
+//                 height: 10,
+//               ),
+//               const Text(
+//                 'กรุณาอัพเดตแอปเวอร์ชั่นใหม่',
+//                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+//                 textAlign: TextAlign.center,
+//               ),
+//               Container(
+//                 height: 10,
+//               ),
+//               Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                 children: [
+//                   ElevatedButton(
+//                     style: ElevatedButton.styleFrom(
+//                       primary: Colors.red,
+//                     ),
+//                     onPressed: () {
+//                       Navigator.of(context).pushAndRemoveUntil(
+//                           MaterialPageRoute(
+//                               builder: (context) => TabBar_Menu_Gas_Home()),
+//                           (Route<dynamic> route) => false);
+//                     },
+//                     child: const Center(
+//                         child: Text(
+//                       'ข้าม',
+//                       style: TextStyle(fontWeight: FontWeight.bold),
+//                     )),
+//                   ),
+//                   ElevatedButton(
+//                     style: ElevatedButton.styleFrom(
+//                       primary: Colors.green,
+//                     ),
+//                     onPressed: () {
+//                       // _launchUrl();
+//                       StoreRedirect.redirect(
+//                         androidAppId: "com.srithai.refuelers",
+//                         // iOSAppId: "585027354",
+//                       );
+//                       Navigator.of(context).pop();
+//                     },
+//                     child: const Center(
+//                         child: Text(
+//                       'อัพเดท',
+//                       style: TextStyle(fontWeight: FontWeight.bold),
+//                     )),
+//                   ),
+//                 ],
+//               ),
+//             ],
+//           )
+//         ],
+//       ),
+//     ),
+//   );
+// }
 
 Future<void> GetConfrimRememberPumpUser(
     BuildContext context, token, device_model_pump) async {

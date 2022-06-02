@@ -3,12 +3,14 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:cpac/controller/gas_qr_code.dart';
+import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/main.dart';
 import 'package:cpac/utility/my_alert.dart';
 import 'package:cpac/view/gas_station/gas_bill_amount.dart';
 import 'package:cpac/view/gas_station/gas_done.dart';
 import 'package:cpac/view/gas_station/gas_loading_page.dart';
 import 'package:cpac/view/gas_station/gas_tabel_all.dart';
+import 'package:cpac/view/login_pump_gas.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -130,7 +132,9 @@ class _Gas_Draw_UserState extends State<Gas_Draw_User> {
                         var id = Gas_Details['id'].toString();
                         var refuel_amount = total_Refuel_all;
                         var images = base64Image;
-                        //print(images);
+                        print(Gas_Details);
+                        GetapiHeader(token);
+                        GetToken(token);
                         PostGasConfirmRefuelAmount(
                             context, id, refuel_amount, images);
                       },

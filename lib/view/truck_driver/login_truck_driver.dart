@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:store_redirect/store_redirect.dart';
 import 'package:unique_identifier/unique_identifier.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -36,7 +37,8 @@ var username_chang_driver;
 var _username;
 var _password;
 var device_model;
-String storeVersions = '1.0.21';
+// String storeVersions = '1.0.22';
+var versions;
 
 class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
   bool _isChecked = false;
@@ -79,75 +81,79 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
     if (!await launchUrl(_url)) throw 'Could not launch $_url';
   }
 
-  Future<void> AlertUpdate_App(BuildContext context) async {
-    showDialog(
-      context: context,
-      builder: (context) => MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-        child: AlertDialog(
-          actions: [
-            Column(
-              children: [
-                Icon(
-                  Icons.error_outline,
-                  size: 50,
-                  color: Colors.red,
-                ),
-                Container(
-                  height: 10,
-                ),
-                const Text(
-                  'กรุณาอัพเดตแอปเวอร์ชั่นใหม่',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                  textAlign: TextAlign.center,
-                ),
-                Container(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.red,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context);
-                        GetapiDriverUser(context, result_token, device_model);
+  // Future<void> AlertUpdate_App(BuildContext context) async {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) => MediaQuery(
+  //       data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+  //       child: AlertDialog(
+  //         actions: [
+  //           Column(
+  //             children: [
+  //               Icon(
+  //                 Icons.error_outline,
+  //                 size: 50,
+  //                 color: Colors.red,
+  //               ),
+  //               Container(
+  //                 height: 10,
+  //               ),
+  //               const Text(
+  //                 'กรุณาอัพเดตแอปเวอร์ชั่นใหม่',
+  //                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+  //                 textAlign: TextAlign.center,
+  //               ),
+  //               Container(
+  //                 height: 10,
+  //               ),
+  //               Row(
+  //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //                 children: [
+  //                   ElevatedButton(
+  //                     style: ElevatedButton.styleFrom(
+  //                       primary: Colors.red,
+  //                     ),
+  //                     onPressed: () {
+  //                       Navigator.of(context);
+  //                       GetapiDriverUser(context, result_token, device_model);
 
-                        result_token;
-                        _Btn_DriverCheck(_isChecked_Driver);
-                        GetapiDriverDouponList(context, result_token);
-                      },
-                      child: const Center(
-                          child: Text(
-                        'ข้าม',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )),
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.green,
-                      ),
-                      onPressed: () {
-                        _launchUrl();
-                        Navigator.of(context).pop();
-                      },
-                      child: const Center(
-                          child: Text(
-                        'อัพเดท',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )),
-                    ),
-                  ],
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
+  //                       result_token;
+  //                       _Btn_DriverCheck(_isChecked_Driver);
+  //                       GetapiDriverDouponList(context, result_token);
+  //                     },
+  //                     child: const Center(
+  //                         child: Text(
+  //                       'ข้าม',
+  //                       style: TextStyle(fontWeight: FontWeight.bold),
+  //                     )),
+  //                   ),
+  //                   ElevatedButton(
+  //                     style: ElevatedButton.styleFrom(
+  //                       primary: Colors.green,
+  //                     ),
+  //                     onPressed: () {
+  //                       // _launchUrl();
+  //                       StoreRedirect.redirect(
+  //                         androidAppId: "com.srithai.refuelers",
+  //                         // iOSAppId: "585027354",
+  //                       );
+  //                       Navigator.of(context).pop();
+  //                     },
+  //                     child: const Center(
+  //                         child: Text(
+  //                       'อัพเดท',
+  //                       style: TextStyle(fontWeight: FontWeight.bold),
+  //                     )),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ],
+  //           )
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Future<Null> login() async {
     String url = apiLoginDriver;
@@ -170,18 +176,12 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
         if (Platform.isAndroid) {
           AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
           PackageInfo packageInfo = await PackageInfo.fromPlatform();
-          String versions = packageInfo.version;
-          if (versions != storeVersions) {
-            AlertUpdate_App(context);
-            print("เวอร์ชั้นเก่า $versions");
-            print("เวอร์ชั้นใหม่ $storeVersions");
-          } else {
-            GetapiDriverUser(context, result_token, device_model);
+          versions = packageInfo.version;
+          GetapiDriverUser(context, result_token, device_model);
 
-            result_token;
-            _Btn_DriverCheck(_isChecked_Driver);
-            GetapiDriverDouponList(context, result_token);
-          }
+          result_token;
+          _Btn_DriverCheck(_isChecked_Driver);
+          GetapiDriverDouponList(context, result_token);
         } else if (Platform.isIOS) {
           IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
           device_model = iosDeviceInfo.identifierForVendor.toString();

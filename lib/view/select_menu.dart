@@ -5,13 +5,13 @@ import 'dart:io';
 import 'package:cpac/utility/my_alert.dart';
 import 'package:cpac/view/login_pump_gas.dart';
 import 'package:cpac/view/splash_page.dart';
-import 'package:cpac/view/test_version.dart';
 
 import 'package:cpac/view/truck_driver/login_truck_driver.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_version_checker/flutter_app_version_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:store_redirect/store_redirect.dart';
 import 'package:unique_identifier/unique_identifier.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,7 +27,7 @@ bool _isChecked_Btn = false;
 bool _isChecked_Pump = false;
 var Btn_Driver = 1;
 var Btn_Pump = 2;
-String storeVersions = '1.0.21';
+String storeVersions = '1.0.22';
 
 class _Select_UserState extends State<Select_User> {
   @override
@@ -152,7 +152,11 @@ class _Select_UserState extends State<Select_User> {
                         primary: Colors.green,
                       ),
                       onPressed: () {
-                        _launchUrl();
+                        // _launchUrl();
+                        StoreRedirect.redirect(
+                          androidAppId: "com.srithai.refuelers",
+                          // iOSAppId: "585027354",
+                        );
                         Navigator.of(context).pop();
                       },
                       child: const Center(
@@ -171,76 +175,80 @@ class _Select_UserState extends State<Select_User> {
     );
   }
 
-  Future<void> AlertUpdate_App_pump(BuildContext context) async {
-    showDialog(
-      context: context,
-      builder: (context) => MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-        child: AlertDialog(
-          actions: [
-            Column(
-              children: [
-                Icon(
-                  Icons.error_outline,
-                  size: 50,
-                  color: Colors.red,
-                ),
-                Container(
-                  height: 10,
-                ),
-                const Text(
-                  'กรุณาอัพเดตแอปเวอร์ชั่นใหม่',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                  textAlign: TextAlign.center,
-                ),
-                Container(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.red,
-                      ),
-                      onPressed: () {
-                        Btn_Pump;
-                        _isChecked_Pump;
-                        _Btn_DriverRemeberme_Pump(_isChecked_Pump);
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                                builder: (context) => Login_Pump_Gas()),
-                            (Route<dynamic> route) => false);
-                      },
-                      child: const Center(
-                          child: Text(
-                        'ข้าม',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )),
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.green,
-                      ),
-                      onPressed: () {
-                        _launchUrl();
-                        Navigator.of(context).pop();
-                      },
-                      child: const Center(
-                          child: Text(
-                        'อัพเดท',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )),
-                    ),
-                  ],
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
+  // Future<void> AlertUpdate_App_pump(BuildContext context) async {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) => MediaQuery(
+  //       data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+  //       child: AlertDialog(
+  //         actions: [
+  //           Column(
+  //             children: [
+  //               Icon(
+  //                 Icons.error_outline,
+  //                 size: 50,
+  //                 color: Colors.red,
+  //               ),
+  //               Container(
+  //                 height: 10,
+  //               ),
+  //               const Text(
+  //                 'กรุณาอัพเดตแอปเวอร์ชั่นใหม่',
+  //                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+  //                 textAlign: TextAlign.center,
+  //               ),
+  //               Container(
+  //                 height: 10,
+  //               ),
+  //               Row(
+  //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //                 children: [
+  //                   ElevatedButton(
+  //                     style: ElevatedButton.styleFrom(
+  //                       primary: Colors.red,
+  //                     ),
+  //                     onPressed: () {
+  //                       Btn_Pump;
+  //                       _isChecked_Pump;
+  //                       _Btn_DriverRemeberme_Pump(_isChecked_Pump);
+  //                       Navigator.of(context).pushAndRemoveUntil(
+  //                           MaterialPageRoute(
+  //                               builder: (context) => Login_Pump_Gas()),
+  //                           (Route<dynamic> route) => false);
+  //                     },
+  //                     child: const Center(
+  //                         child: Text(
+  //                       'ข้าม',
+  //                       style: TextStyle(fontWeight: FontWeight.bold),
+  //                     )),
+  //                   ),
+  //                   ElevatedButton(
+  //                     style: ElevatedButton.styleFrom(
+  //                       primary: Colors.green,
+  //                     ),
+  //                     onPressed: () {
+  //                       // _launchUrl();
+  //                       StoreRedirect.redirect(
+  //                         androidAppId: "com.srithai.refuelers",
+  //                         // iOSAppId: "585027354",
+  //                       );
+  //                       Navigator.of(context).pop();
+  //                     },
+  //                     child: const Center(
+  //                         child: Text(
+  //                       'อัพเดท',
+  //                       style: TextStyle(fontWeight: FontWeight.bold),
+  //                     )),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ],
+  //           )
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -323,34 +331,35 @@ class _Select_UserState extends State<Select_User> {
                       ), // fromHeight use double.infinity as width and 40 is the height
                     ),
                     onPressed: () async {
-                      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-                      if (Platform.isAndroid) {
-                        AndroidDeviceInfo androidInfo =
-                            await deviceInfo.androidInfo;
-                        PackageInfo packageInfo =
-                            await PackageInfo.fromPlatform();
-                        String versions = packageInfo.version;
-                        if (versions == storeVersions.toString()) {
-                          Btn_Pump;
-                          _isChecked_Pump;
-                          _Btn_DriverRemeberme_Pump(_isChecked_Pump);
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                  builder: (context) => Login_Pump_Gas()),
-                              (Route<dynamic> route) => false);
-                        } else {
-                          AlertUpdate_App_pump(context);
-                          print("เวอร์ชั้นเก่า $versions");
-                          print(storeVersions);
-                        }
-                        print('พนักงานขับรถ');
-                        print('Btn_Driver $Btn_Driver');
-                      } else if (Platform.isIOS) {
-                        IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
-                        device_model =
-                            iosDeviceInfo.identifierForVendor.toString();
-                        print('device_model IOS:::$device_model');
-                      }
+                      Btn_Pump;
+                      _isChecked_Pump;
+                      _Btn_DriverRemeberme_Pump(_isChecked_Pump);
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (context) => Login_Pump_Gas()),
+                          (Route<dynamic> route) => false);
+                      // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+                      // if (Platform.isAndroid) {
+                      //   AndroidDeviceInfo androidInfo =
+                      //       await deviceInfo.androidInfo;
+                      //   PackageInfo packageInfo =
+                      //       await PackageInfo.fromPlatform();
+                      //   String versions = packageInfo.version;
+
+                      //   // if (versions == storeVersions.toString()) {
+                      //   // } else {
+                      //   //   // AlertUpdate_App_pump(context);
+                      //   //   print("เวอร์ชั้นเก่า $versions");
+                      //   //   print(storeVersions);
+                      //   // }
+                      //   print('พนักงานขับรถ');
+                      //   print('Btn_Driver $Btn_Driver');
+                      // } else if (Platform.isIOS) {
+                      //   IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
+                      //   device_model =
+                      //       iosDeviceInfo.identifierForVendor.toString();
+                      //   print('device_model IOS:::$device_model');
+                      // }
 
                       print('Btn_Pump $Btn_Pump');
                       print('เข้าสู่ระบบ ปั้มน้ำมัน');

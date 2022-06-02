@@ -1,13 +1,14 @@
 // ignore_for_file: prefer_const_constructors, duplicate_ignore
 
 import 'package:cpac/controller/gas_qr_code.dart';
+import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/utility/date_time.dart';
 import 'package:cpac/view/gas_station/gas_done.dart';
-import 'package:cpac/view/gas_station/gas_history.dart';
 import 'package:cpac/view/gas_station/gas_loading_page.dart';
 import 'package:cpac/view/gas_station/gas_qr_code.dart';
 import 'package:cpac/view/gas_station/tabbar_gas%20home.dart';
 import 'package:cpac/view/gas_station/tabbar_gas%20home_history.dart';
+import 'package:cpac/view/login_pump_gas.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart'; // In order to use RepaintBoundary, RenderRepaintBoundary
 
@@ -18,17 +19,17 @@ import 'dart:typed_data';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:intl/intl.dart';
 
-class gas_screenshot_bin_history extends StatefulWidget {
-  const gas_screenshot_bin_history(Bin_history_detail_id, {Key? key})
+class gas_screenshot_bin_agin_history extends StatefulWidget {
+  const gas_screenshot_bin_agin_history(bin_detail_id, {Key? key})
       : super(key: key);
 
   @override
-  _gas_screenshot_bin_historyState createState() =>
-      _gas_screenshot_bin_historyState();
+  _gas_screenshot_bin_agin_historyState createState() =>
+      _gas_screenshot_bin_agin_historyState();
 }
 
-class _gas_screenshot_bin_historyState
-    extends State<gas_screenshot_bin_history> {
+class _gas_screenshot_bin_agin_historyState
+    extends State<gas_screenshot_bin_agin_history> {
   // This key is used for the RepaintBoundary widget
   final GlobalKey _key = GlobalKey();
 
@@ -53,8 +54,9 @@ class _gas_screenshot_bin_historyState
       if (result != "") {
         print('$result TEST+++');
         _canShowButton2 = true;
-        AlertBinDone();
-        Future.delayed(Duration(seconds: 1), () {
+        AlertBinDoneS();
+
+        Future.delayed(Duration(seconds: 2), () {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
                   builder: (context) => TabBar_Menu_Gas_Home_History()),
@@ -81,7 +83,7 @@ class _gas_screenshot_bin_historyState
     });
   }
 
-  Future<void> AlertBinDone() async {
+  Future<void> AlertBinDoneS() async {
     showDialog(
       context: context,
       builder: (context) => MediaQuery(
@@ -195,7 +197,7 @@ class _gas_screenshot_bin_historyState
                       Padding(
                         padding: EdgeInsets.all(3.0),
                         child: Text(
-                          Bin_history_detail['code'].toString(),
+                          Bin_Detail['code'].toString(),
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -220,7 +222,7 @@ class _gas_screenshot_bin_historyState
                       Padding(
                         padding: EdgeInsets.all(3.0),
                         child: Text(
-                          Bin_history_detail["truck_license"].toString(),
+                          Bin_Detail["truck_license"].toString(),
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -243,7 +245,7 @@ class _gas_screenshot_bin_historyState
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        Bin_history_detail['driver'].toString(),
+                        Bin_Detail['driver'].toString(),
                         textAlign: TextAlign.start,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -267,7 +269,7 @@ class _gas_screenshot_bin_historyState
                       Padding(
                         padding: EdgeInsets.all(3.0),
                         child: Text(
-                          Bin_history_detail['refuel_amount'].toString(),
+                          Bin_Detail['refuel_amount'].toString(),
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -292,7 +294,7 @@ class _gas_screenshot_bin_historyState
                       Padding(
                         padding: EdgeInsets.all(3.0),
                         child: Text(
-                          Bin_history_detail['oil_rate'].toStringAsFixed(2),
+                          Bin_Detail['oil_rate'].toStringAsFixed(2),
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -318,8 +320,8 @@ class _gas_screenshot_bin_historyState
                         padding: EdgeInsets.all(3.0),
                         child: Text(
                           NumberFormat("#,###.00")
-                              .format(Bin_history_detail['bill_amount']),
-                          // Bin_history_detail['bill_amount'].toStringAsFixed(2),
+                              .format(Bin_Detail['bill_amount']),
+                          // Bin_Detail['bill_amount'].toStringAsFixed(2),
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -344,7 +346,7 @@ class _gas_screenshot_bin_historyState
                       Padding(
                         padding: EdgeInsets.all(3.0),
                         child: Text(
-                          Bin_history_detail['refueler_name'].toString(),
+                          Bin_Detail['refueler_name'].toString(),
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -369,7 +371,7 @@ class _gas_screenshot_bin_historyState
                       Padding(
                         padding: EdgeInsets.all(3.0),
                         child: Text(
-                          Bin_history_detail['refuel_at'].toString(),
+                          Bin_Detail['refuel_at'].toString(),
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -414,7 +416,7 @@ class _gas_screenshot_bin_historyState
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: (Image(
-                    image: NetworkImage(Bin_history_detail['driver_signed']),
+                    image: NetworkImage(Bin_Detail['driver_signed']),
                   )),
                 ),
                 Container(

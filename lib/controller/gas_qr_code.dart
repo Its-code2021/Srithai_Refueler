@@ -5,6 +5,7 @@ import 'package:cpac/utility/date_time.dart';
 import 'package:cpac/utility/my_alert.dart';
 import 'package:cpac/view/gas_station/gas_loading_page.dart';
 import 'package:cpac/view/gas_station/gas_tabel_all.dart';
+import 'package:cpac/view/login_pump_gas.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -133,6 +134,8 @@ Future<void> PostGasConfirmRefuelAmount(
   var result = response.data['results'][0];
   var status_code = response.data['status_code'][0];
   if (status_code['code'] == '200') {
+    GetapiHeader(token);
+    GetToken(token);
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => Loading_Page_Bill_Amount()),
         (Route<dynamic> route) => false);
@@ -193,6 +196,29 @@ Future<void> PostConfirmtBilAmount(BuildContext context, String id,
   print('bill_amount:::::$ConfirmtBilAmount');
 }
 
+Future<void> PostConfirmtBilAmount_History(BuildContext context, String id,
+    String bill_amount, String oil_rate) async {
+  String url = apiPumpConfirmBillAmount;
+  Dio dio = new Dio();
+  Response response = await dio.post(url,
+      options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+      data: {"id": id, "bill_amount": bill_amount, "oil_rate": oil_rate});
+  var result = response.data['results'][0];
+  var status_code = response.data["status_code"][0]["code"];
+  if (status_code == '200') {
+    ConfirmtBilAmount = result;
+    GetBin_Detail_Gas(id);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => Loading_Bin_History_Detail_Again()),
+    );
+  }
+
+  print('bill_amount:::::$ConfirmtBilAmount');
+}
+
 var History_Refuel;
 var BTW_date;
 Future<void> PostPumpHistoryRefue(startdate, enddate) async {
@@ -244,7 +270,7 @@ Future<void> GetBin_Detail_Gas(Bin_Detail_id) async {
 
 var Bin_history_detail;
 Future<void> GetBin_history_detail_Gas(
-    BuildContext context, Bin_history_id) async {
+    BuildContext context, Bin_history_id, Bin_Amount) async {
   String url = '$apiPumprefuelBillDetail$Bin_history_id';
   Dio dio = new Dio();
   Response response = await dio.get(
@@ -254,12 +280,23 @@ Future<void> GetBin_history_detail_Gas(
   var result = response.data['results'][0];
   var status_code = response.data["status_code"][0]["code"];
   if (status_code == '200') {
+    if (Bin_Amount != 0 && Bin_Amount != '0') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Loading_Bin__Detail()),
+      );
+    } else {
+      OilDetail_id = Bin_history_id;
+      GetBilDetail_Gas(Bin_history_id);
+      PostQrcodeGas_Agein(OilDetail_id);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Loading_Bin_Amount_History()),
+      );
+    }
     Bin_history_detail = result;
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Loading_Bin__Detail()),
-    );
   }
+  print('Bin_Detail:::::$Bin_Amount');
   print('Bin_Detail:::::$Bin_history_detail');
 }
 
