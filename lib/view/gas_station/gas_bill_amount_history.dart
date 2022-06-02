@@ -377,7 +377,7 @@ class BtnConfrim_BilAmountState extends State<BtnConfrim_BilAmount> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
                   Text(
-                    'เลขที่ คูปอง ',
+                    'เลขที่คูปอง ',
                     style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )

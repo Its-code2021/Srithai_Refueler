@@ -364,6 +364,15 @@ class BtnConfrimState extends State<BtnConfrim> {
         children: <Widget>[
           Center(
             child: TextField(
+              inputFormatters: [
+                CommaFormatter_driver(),
+                FilteringTextInputFormatter.allow(
+                  RegExp(
+                    //r'^[-]{0,1}[0-9]*[,]?[0-9]*', //signed regex
+                    r'^[0-9]*?[0-9]*',
+                  ),
+                ),
+              ],
               controller: _texthController,
               autofocus: true,
               decoration: InputDecoration(
@@ -378,6 +387,22 @@ class BtnConfrimState extends State<BtnConfrim> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class CommaFormatter_driver extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    String _text = newValue.text;
+    //This is only if you need signed numbers. Will convert the first '.'(dot) to '-'(minus)
+    //if (_text.isNotEmpty && _text[0] == '.')
+    //  _text = _text.replaceFirst('.', '-');
+    return newValue.copyWith(
+      text: _text.replaceAll('.', ','),
     );
   }
 }

@@ -1239,7 +1239,7 @@ Widget Tabel_Staff_detail_new() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
                   Text(
-                    'เลขที่ คูปอง ',
+                    'เลขที่คูปอง ',
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.black87),
                     textAlign: TextAlign.center,

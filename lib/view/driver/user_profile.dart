@@ -17,150 +17,159 @@ class _User_ProfileState extends State<User_Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            height: 10,
-          ),
-          Container(
-            width: double.infinity,
-            height: 60,
-            alignment: Alignment.center,
-            color: Color(0xff438EB9),
-            child: Text(
-              'ข้อมูลส่วนตัว',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              height: 10,
             ),
-          ),
-          Container(
-            height: 5,
-          ),
-          Card(
-            child: ListTile(
-              leading: Text(
-                'ชื่อ:',
+            Container(
+              width: double.infinity,
+              height: 60,
+              alignment: Alignment.center,
+              color: Color(0xff438EB9),
+              child: Text(
+                'ข้อมูลส่วนตัว',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-              title: Text(
-                Profile['fullname'].toString(),
                 style: TextStyle(
-                  color: Color(0xff438EB9),
-                  fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+            ),
+            Container(
+              height: 5,
+            ),
+            Card(
+              child: ListTile(
+                leading: Text(
+                  'ชื่อ:',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                title: Text(
+                  Profile['fullname'].toString(),
+                  style: TextStyle(
+                    color: Color(0xff438EB9),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-          ),
-          Card(
-            child: ListTile(
-              leading: Text(
-                'ชื่อผู้ใช้งาน:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-              title: Text(
-                Profile['username'].toString(),
-                style: TextStyle(
-                  color: Color(0xff438EB9),
-                  fontWeight: FontWeight.bold,
+            Card(
+              child: ListTile(
+                leading: Text(
+                  'ชื่อผู้ใช้งาน:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                title: Text(
+                  Profile['username'].toString(),
+                  style: TextStyle(
+                    color: Color(0xff438EB9),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-          ),
-          Card(
-            child: ListTile(
-              leading: Text(
-                'หน่วยงาน:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-              title: Text(
-                Profile['site_name'].toString(),
-                style: TextStyle(
-                  color: Color(0xff438EB9),
-                  fontWeight: FontWeight.bold,
+            Card(
+              child: ListTile(
+                leading: Text(
+                  'หน่วยงาน:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                title: Text(
+                  Profile['site_name'].toString(),
+                  style: TextStyle(
+                    color: Color(0xff438EB9),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-          ),
-          Card(
-            child: ListTile(
-              leading: Text(
-                'กิจการ:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-              title: Text(
-                Profile['business_name'].toString(),
-                style: TextStyle(
-                  color: Color(0xff438EB9),
-                  fontWeight: FontWeight.bold,
+            Card(
+              child: ListTile(
+                leading: Text(
+                  'กิจการ:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                title: Text(
+                  Profile['business_name'].toString(),
+                  style: TextStyle(
+                    color: Color(0xff438EB9),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-          ),
-          Card(
-            child: ListTile(
-              leading: Text(
-                'โทรศัพท์:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-              title: Text(
-                Profile['telephone'].toString(),
-                style: TextStyle(
-                  color: Color(0xff438EB9),
-                  fontWeight: FontWeight.bold,
+            Card(
+              child: ListTile(
+                leading: Text(
+                  'โทรศัพท์:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                title: Text(
+                  Profile['telephone'].toString(),
+                  style: TextStyle(
+                    color: Color(0xff438EB9),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-          ),
-          Container(
-            height: 20,
-          ),
-          Container(
-            width: 250,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size.fromHeight(
-                  50,
+            Container(
+              height: 10,
+            ),
+            Text(
+              'เวอร์ชั่นปัจจุบัน : 1.0.24',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            ),
+            Container(
+              height: 10,
+            ),
+            Container(
+              width: 250,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size.fromHeight(
+                    50,
+                  ),
+                  primary: Colors.blue[900],
+                  // fromHeight use double.infinity as width and 40 is the height
                 ),
-                primary: Colors.blue[900],
-                // fromHeight use double.infinity as width and 40 is the height
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Change_Password()),
-                );
-                print('เปลี่ยนรหัสผ่าน');
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    'เปลี่ยนรหัสผ่าน ',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Change_Password()),
+                  );
+                  print('เปลี่ยนรหัสผ่าน');
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      'เปลี่ยนรหัสผ่าน ',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Icon(
+                      Icons.lock,
+                      size: 25,
                       color: Colors.white,
                     ),
-                  ),
-                  Icon(
-                    Icons.lock,
-                    size: 25,
-                    color: Colors.white,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          Container(
-            height: 20,
-          ),
-          Btn_LogoutS(context),
-        ],
+            Container(
+              height: 20,
+            ),
+            Btn_LogoutS(context),
+          ],
+        ),
       ),
     );
   }

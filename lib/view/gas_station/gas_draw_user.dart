@@ -377,6 +377,15 @@ class BtnConfrim_Oil_TotalState extends State<BtnConfrim_Oil_Total> {
           // ),
           Center(
             child: TextField(
+              inputFormatters: [
+                CommaFormatter(),
+                FilteringTextInputFormatter.allow(
+                  RegExp(
+                    //r'^[-]{0,1}[0-9]*[,]?[0-9]*', //signed regex
+                    r'^[0-9]*?[0-9]*',
+                  ),
+                ),
+              ],
               enabled: _text,
               controller: _text ? _texthController : null,
               autofocus: true,
@@ -387,12 +396,28 @@ class BtnConfrim_Oil_TotalState extends State<BtnConfrim_Oil_Total> {
                     borderSide: BorderSide(color: Colors.teal)),
                 // errorText: _validate ? 'กรุณากรอกจะจำนวนลิตรที่เติมจริง' : null,
               ),
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
               textAlign: TextAlign.center,
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class CommaFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    String _text = newValue.text;
+    //This is only if you need signed numbers. Will convert the first '.'(dot) to '-'(minus)
+    //if (_text.isNotEmpty && _text[0] == '.')
+    //  _text = _text.replaceFirst('.', '-');
+    return newValue.copyWith(
+      text: _text.replaceAll('.', ','),
     );
   }
 }
