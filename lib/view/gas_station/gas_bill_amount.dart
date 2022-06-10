@@ -1,11 +1,9 @@
 import 'package:cpac/controller/gas_qr_code.dart';
-import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/utility/my_alert.dart';
 import 'package:cpac/utility/status_all.dart';
 import 'package:cpac/view/gas_station/gas_done.dart';
 import 'package:cpac/view/gas_station/gas_loading_page.dart';
 import 'package:cpac/view/gas_station/gas_tabel_all.dart';
-import 'package:cpac/view/login_pump_gas.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 
@@ -212,6 +210,15 @@ class _Gas_Bill_AmountState extends State<Gas_Bill_Amount> {
       _text = true; //variable to control enable property of textfield
     }
 
+    Future<void> _refresh() async {
+      setState(() {
+        var Bin_history_id = BilDetail['id'];
+        var Bin_Amount = BilDetail['bill_amount'];
+        GetBin_history_detail_Gas_reload(context, Bin_history_id, Bin_Amount);
+      });
+      return Future.delayed(Duration(seconds: 2));
+    }
+
     final key = GlobalKey<ScaffoldState>();
     // ignore: unnecessary_new
 
@@ -223,42 +230,45 @@ class _Gas_Bill_AmountState extends State<Gas_Bill_Amount> {
         centerTitle: true,
         backgroundColor: const Color(0xff438EB9),
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-            child: Column(
-          children: [
-            Container(
-              height: 10,
-            ),
-            Container(
-              width: double.infinity,
-              height: 60,
-              alignment: Alignment.center,
-              color: const Color(0xff438EB9),
-              // ignore: prefer_const_constructors
-              child: Text(
-                'กรอกจำนวนราคาต่อลิตร',
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
+      body: RefreshIndicator(
+        onRefresh: _refresh,
+        child: SingleChildScrollView(
+          child: SafeArea(
+              child: Column(
+            children: [
+              Container(
+                height: 10,
               ),
-            ),
-            Container(
-              height: 10,
-            ),
-            // Tabel_Bill_Amount(),
-            BtnConfrim_BilAmount(),
-            Container(
-              height: 20,
-            ),
-            Gas_Amount_Btn(),
-            Container(
-              height: 20,
-            ),
-          ],
-        )),
+              Container(
+                width: double.infinity,
+                height: 60,
+                alignment: Alignment.center,
+                color: const Color(0xff438EB9),
+                // ignore: prefer_const_constructors
+                child: Text(
+                  'กรอกจำนวนราคาต่อลิตร',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+              ),
+              Container(
+                height: 10,
+              ),
+              // Tabel_Bill_Amount(),
+              BtnConfrim_BilAmount(),
+              Container(
+                height: 20,
+              ),
+              Gas_Amount_Btn(),
+              Container(
+                height: 20,
+              ),
+            ],
+          )),
+        ),
       ),
     );
   }
@@ -279,33 +289,26 @@ class BtnConfrim_BilAmount extends StatefulWidget {
 bool _validate = false;
 var _texthController = TextEditingController();
 bool _text = false;
-var oil_rate = 0;
 
 class BtnConfrim_BilAmountState extends State<BtnConfrim_BilAmount> {
   @override
   void initState() {
     super.initState();
-    var oil_rate = BilDetail['cerrent_oil_rate'];
-    var refuel_amount =
-        BilDetail['refuel_amount'] * BilDetail['cerrent_oil_rate'];
-    if (oil_rate > 0) {
-      _texthController.text = oil_rate.toString();
-      _refreshAction(total_results);
-      total_results = refuel_amount;
-    } else {
-      _texthController.text = '';
-    }
+
+    _texthController.text = '';
     _text = true; //variable to control enable property of textfield
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: <Widget>[
-          Tavle_all(),
-        ],
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: <Widget>[
+            Tavle_all(),
+          ],
+        ),
       ),
     );
   }

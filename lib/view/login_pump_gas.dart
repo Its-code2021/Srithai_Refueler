@@ -21,6 +21,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:store_redirect/store_redirect.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:version_check/version_check.dart';
 
 class Login_Pump_Gas extends StatefulWidget {
   @override
@@ -34,18 +35,38 @@ TextEditingController _passwordController = TextEditingController();
 var password_chang;
 var username_chang;
 var device_model_pump;
-String storeVersions = '1.0.22';
 var versions;
 
 class _Login_Pump_GasState extends State<Login_Pump_Gas> {
   bool _isChecked = false;
   bool showPassword = true;
   String token = "";
-
+  String? version = '';
+  String? storeVersion = '';
+  String? storeUrl = '';
+  String? packageName = '';
   @override
   void initState() {
+    checkVersion();
     _loadUserEmailPassword();
     super.initState();
+  }
+
+  final versionCheck = VersionCheck(
+    packageName:
+        Platform.isIOS ? 'com.srithai.refuelers' : 'com.srithai.refuelers',
+    packageVersion: versions,
+    showUpdateDialog: customShowUpdateDialog_Pump,
+  );
+
+  Future checkVersion() async {
+    await versionCheck.checkVersion(context);
+    setState(() {
+      version = versionCheck.packageVersion;
+      packageName = versionCheck.packageName;
+      storeVersion = versionCheck.storeVersion;
+      storeUrl = versionCheck.storeUrl;
+    });
   }
 
   void _onLoading() {
@@ -340,6 +361,14 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
                       },
                       child: const Text('เข้าสู่ระบบ'),
                     ),
+                    Container(
+                      height: 20,
+                    ),
+                    Text(
+                      'V.$version',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
                   ]),
             ),
           ),
@@ -440,6 +469,52 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
       print(e);
     }
   }
+}
+
+void customShowUpdateDialog_Pump(
+    BuildContext context, VersionCheck versionCheck) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) => AlertDialog(
+      title: Center(child: Text('กรุณาอัพเดตแอปพลิเคชันเวอร์ชั่นใหม่!')),
+      actions: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            ElevatedButton(
+              child: Text(
+                'อัพเดท',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+              ),
+              onPressed: () async {
+                StoreRedirect.redirect(
+                    // androidAppId: "com.srithai.refuelers",
+                    //// iOSAppId: "585027354",
+                    );
+                Navigator.of(context).pop();
+              },
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.red,
+              ),
+              child: Text(
+                'ข้าม',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
 }
 
 var Btn_PumpCheckS;

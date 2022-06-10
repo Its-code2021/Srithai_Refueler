@@ -58,7 +58,6 @@ class _SplashPage_NewState extends State<SplashPage_New> {
   }
 
   void initState() {
-    checkVersion();
     _loadUserEmailPassword();
     super.initState();
   }
@@ -68,14 +67,9 @@ class _SplashPage_NewState extends State<SplashPage_New> {
   final _storeVersion = AppVersionChecker(
       appId: "com.srithai.refuelers", androidStore: AndroidStore.apkPure);
 
-  void checkVersion() async {
-    storeVersions = (await _storeVersion.checkUpdate()).toString();
-  }
-
   @override
   Widget build(BuildContext context) {
     setState(() {
-      checkVersion();
       Check_Splash();
       GetapiDriverDouponList(context, result_token);
       GetapiDriverUser(context, result_token, device_model_pump);

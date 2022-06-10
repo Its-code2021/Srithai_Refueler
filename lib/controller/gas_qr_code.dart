@@ -156,7 +156,23 @@ Future<void> PostQrcodeGas_Agein(OilDetail_id) async {
   );
   var result = response.data['results'][0];
   Gas_Details = result;
+  Tabel_Gas_detail_draw();
+}
 
+Future<void> PostQrcodeGas_Agein_reload(
+    BuildContext context, OilDetail_id) async {
+  String url = '$apiRefuelDetailPump$OilDetail_id';
+  Dio dio = new Dio();
+  Response response = await dio.get(
+    url,
+    options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+  );
+  var result = response.data['results'][0];
+  print(result);
+  Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => Loading_Page_Detail_Gas()),
+      (Route<dynamic> route) => false);
+  Gas_Details = result;
   Tabel_Gas_detail_draw();
 }
 
@@ -208,7 +224,6 @@ Future<void> PostConfirmtBilAmount_History(BuildContext context, String id,
   if (status_code == '200') {
     ConfirmtBilAmount = result;
     GetBin_Detail_Gas(id);
-
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -293,6 +308,36 @@ Future<void> GetBin_history_detail_Gas(
         context,
         MaterialPageRoute(builder: (context) => Loading_Bin_Amount_History()),
       );
+    }
+    Bin_history_detail = result;
+  }
+  print('Bin_Detail:::::$Bin_Amount');
+  print('Bin_Detail:::::$Bin_history_detail');
+}
+
+Future<void> GetBin_history_detail_Gas_reload(
+    BuildContext context, Bin_history_id, Bin_Amount) async {
+  String url = '$apiPumprefuelBillDetail$Bin_history_id';
+  Dio dio = new Dio();
+  Response response = await dio.get(
+    url,
+    options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+  );
+  var result = response.data['results'][0];
+  var status_code = response.data["status_code"][0]["code"];
+  if (status_code == '200') {
+    if (Bin_Amount != 0 && Bin_Amount != '0') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Loading_Bin__Detail()),
+      );
+    } else {
+      OilDetail_id = Bin_history_id;
+      GetBilDetail_Gas(Bin_history_id);
+      PostQrcodeGas_Agein(OilDetail_id);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => Loading_Page_Bill_Amount()),
+          (Route<dynamic> route) => false);
     }
     Bin_history_detail = result;
   }

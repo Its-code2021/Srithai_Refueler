@@ -50,10 +50,21 @@ class _gas_screenshot_binState extends State<gas_screenshot_bin> {
         _canShowButton2 = true;
         AlertBinDoneS();
         Future.delayed(Duration(seconds: 2), () {
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => Gas_Done()),
-              (Route<dynamic> route) => false);
+          setState(() {
+            _canShowButton4 = !_canShowButton4;
+            if (_canShowButton4 == true) {
+              Navigator.pop(context);
+              _canShowButton4 == true;
+            }
+          });
         });
+        // Future.delayed(Duration(seconds: 2), () {
+        //   Navigator.pop(context);
+
+        //   // Navigator.of(context).pushAndRemoveUntil(
+        //   //     MaterialPageRoute(builder: (context) => Gas_Done()),
+        //   //     (Route<dynamic> route) => false);
+        // });
       }
 
       setState(() {
@@ -62,8 +73,15 @@ class _gas_screenshot_binState extends State<gas_screenshot_bin> {
     }
   }
 
+  @override
+  void initState() {
+    hideWidget();
+    super.initState();
+  }
+
   bool _canShowButton = true;
   bool _canShowButton2 = false;
+  bool _canShowButton4 = false;
   void hideWidget() {
     setState(() {
       _canShowButton = !_canShowButton;
@@ -71,6 +89,16 @@ class _gas_screenshot_binState extends State<gas_screenshot_bin> {
         Future.delayed(Duration(seconds: 1), () {
           _takeScreenshot();
         });
+      }
+    });
+  }
+
+  void BtnBacks() {
+    setState(() {
+      _canShowButton4 = !_canShowButton4;
+      if (_canShowButton4 == true) {
+        print('testsssss $_canShowButton4');
+        _canShowButton4 == true;
       }
     });
   }
@@ -105,50 +133,51 @@ class _gas_screenshot_binState extends State<gas_screenshot_bin> {
       ),
     );
   }
-  // Widget BtnBack() {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-  //     children: [
-  //       Container(
-  //         height: 50,
-  //         child: ElevatedButton(
-  //           style: ElevatedButton.styleFrom(
-  //             primary: Color(0xff4782D2),
-  //           ),
-  //           onPressed: () {
-  //             PostPumpHistoryRefue(startdate, enddate);
-  //             Navigator.of(context).pushAndRemoveUntil(
-  //                 MaterialPageRoute(
-  //                     builder: (context) => TabBar_Menu_Gas_Home()),
-  //                 (Route<dynamic> route) => false);
-  //             print('กลับหน้าหลัก');
-  //           },
-  //           child: Text(
-  //             'กลับหน้าหลัก',
-  //             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-  //           ),
-  //         ),
-  //       ),
-  //       Container(
-  //         height: 50,
-  //         child: ElevatedButton(
-  //           style: ElevatedButton.styleFrom(
-  //             primary: Color(0xff4782D2),
-  //           ),
-  //           onPressed: () {
-  //             Navigator.of(context).pushAndRemoveUntil(
-  //                 MaterialPageRoute(builder: (context) => Gas_Qr_Code()),
-  //                 (Route<dynamic> route) => false);
-  //           },
-  //           child: Text(
-  //             'Scan QRCode',
-  //             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
+
+  Widget BtnBack() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Container(
+          height: 50,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Color(0xff4782D2),
+            ),
+            onPressed: () {
+              PostPumpHistoryRefue(startdate, enddate);
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) => TabBar_Menu_Gas_Home()),
+                  (Route<dynamic> route) => false);
+              print('กลับหน้าหลัก');
+            },
+            child: Text(
+              'กลับหน้าหลัก',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+        Container(
+          height: 50,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Color(0xff4782D2),
+            ),
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => Gas_Qr_Code()),
+                  (Route<dynamic> route) => false);
+            },
+            child: Text(
+              'Scan QRCode',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -426,7 +455,6 @@ class _gas_screenshot_binState extends State<gas_screenshot_bin> {
                           ),
                           onPressed: () {
                             hideWidget();
-
                             //_number();
                           },
                           child: Row(
@@ -438,6 +466,9 @@ class _gas_screenshot_binState extends State<gas_screenshot_bin> {
                             ],
                           )),
                 ),
+                if (_canShowButton4 == true) ...{
+                  BtnBack(),
+                }
               ],
             ),
           ),

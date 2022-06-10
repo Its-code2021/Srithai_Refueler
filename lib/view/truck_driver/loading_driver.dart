@@ -109,3 +109,28 @@ class _Loading_LogOutState extends State<Loading_LogOut> {
     );
   }
 }
+
+class Reload_Home extends StatefulWidget {
+  Reload_Home({Key? key}) : super(key: key);
+
+  @override
+  State<Reload_Home> createState() => _Reload_HomeState();
+}
+
+class _Reload_HomeState extends State<Reload_Home> {
+  @override
+  Widget build(BuildContext context) {
+    return EasySplashScreen(
+      logo: Image.asset(
+        'images/loading.gif',
+        fit: BoxFit.cover,
+        alignment: Alignment.center,
+      ),
+      backgroundColor: Colors.white,
+      showLoader: true,
+      navigator: Tabbar_Driver(),
+      durationInSeconds: 3,
+      loaderColor: Colors.white,
+    );
+  }
+}

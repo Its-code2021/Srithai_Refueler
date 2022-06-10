@@ -50,8 +50,8 @@ android {
         applicationId "com.srithai.refuelers"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 24
-        versionName '1.0.24'
+        versionCode 27
+        versionName '1.0.27'
     }
 
     signingConfigs {

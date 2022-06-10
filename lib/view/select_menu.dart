@@ -283,19 +283,19 @@ class _Select_UserState extends State<Select_User> {
                         PackageInfo packageInfo =
                             await PackageInfo.fromPlatform();
                         String versions = packageInfo.version;
-                        if (versions == storeVersions.toString()) {
-                          Btn_Driver;
-                          _isChecked_Btn;
-                          _Btn_DriverRemeberme(_isChecked_Btn);
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                  builder: (context) => Login_Truck_Driver()),
-                              (Route<dynamic> route) => false);
-                        } else {
-                          AlertUpdate_App(context);
-                          print("เวอร์ชั้นเก่า $versions");
-                          print(storeVersions);
-                        }
+                        Btn_Driver;
+                        _isChecked_Btn;
+                        _Btn_DriverRemeberme(_isChecked_Btn);
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (context) => Login_Truck_Driver()),
+                            (Route<dynamic> route) => false);
+                        // if (versions == storeVersions.toString()) {
+                        // } else {
+                        //   AlertUpdate_App(context);
+                        //   print("เวอร์ชั้นเก่า $versions");
+                        //   print(storeVersions);
+                        // }
                         print('พนักงานขับรถ');
                         print('Btn_Driver $Btn_Driver');
                       } else if (Platform.isIOS) {

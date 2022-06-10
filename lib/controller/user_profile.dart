@@ -61,13 +61,6 @@ Future<void> GetapiPumpUser(BuildContext context, token) async {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => TabBar_Menu_Gas_Home()),
           (Route<dynamic> route) => false);
-      // if (Profile['device_version'] == versions) {
-      //   print(Profile['device_version']);
-      // } else {
-      //   print('device_version::::::');
-      //   AlertUpdate_App(context);
-      //   print(versions);
-      // }
     }
   }
 

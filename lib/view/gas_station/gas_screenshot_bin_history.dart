@@ -1,13 +1,17 @@
 // ignore_for_file: prefer_const_constructors, duplicate_ignore
 
+import 'package:cpac/controller/driver_employee.dart';
 import 'package:cpac/controller/gas_qr_code.dart';
+import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/utility/date_time.dart';
 import 'package:cpac/view/gas_station/gas_done.dart';
 import 'package:cpac/view/gas_station/gas_history.dart';
 import 'package:cpac/view/gas_station/gas_loading_page.dart';
 import 'package:cpac/view/gas_station/gas_qr_code.dart';
+import 'package:cpac/view/gas_station/gas_tabel_all.dart';
 import 'package:cpac/view/gas_station/tabbar_gas%20home.dart';
 import 'package:cpac/view/gas_station/tabbar_gas%20home_history.dart';
+import 'package:cpac/view/login_pump_gas.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart'; // In order to use RepaintBoundary, RenderRepaintBoundary
 
@@ -54,14 +58,16 @@ class _gas_screenshot_bin_historyState
         print('$result TEST+++');
         _canShowButton2 = true;
         AlertBinDone();
-        Future.delayed(Duration(seconds: 1), () {
+
+        Future.delayed(Duration(seconds: 2), () {
+          PostPumpHistoryRefue(startdate, enddate);
+          Tabel_Body_Gas_History(context);
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
                   builder: (context) => TabBar_Menu_Gas_Home_History()),
               (Route<dynamic> route) => false);
         });
       }
-
       setState(() {
         _message = 'บันทึกใบเติมน้ำมันเรียบร้อย';
       });
@@ -111,50 +117,6 @@ class _gas_screenshot_bin_historyState
       ),
     );
   }
-  // Widget BtnBack() {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-  //     children: [
-  //       Container(
-  //         height: 50,
-  //         child: ElevatedButton(
-  //           style: ElevatedButton.styleFrom(
-  //             primary: Color(0xff4782D2),
-  //           ),
-  //           onPressed: () {
-  //             PostPumpHistoryRefue(startdate, enddate);
-  //             Navigator.of(context).pushAndRemoveUntil(
-  //                 MaterialPageRoute(
-  //                     builder: (context) => TabBar_Menu_Gas_Home()),
-  //                 (Route<dynamic> route) => false);
-  //             print('กลับหน้าหลัก');
-  //           },
-  //           child: Text(
-  //             'กลับหน้าหลัก',
-  //             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-  //           ),
-  //         ),
-  //       ),
-  //       Container(
-  //         height: 50,
-  //         child: ElevatedButton(
-  //           style: ElevatedButton.styleFrom(
-  //             primary: Color(0xff4782D2),
-  //           ),
-  //           onPressed: () {
-  //             Navigator.of(context).pushAndRemoveUntil(
-  //                 MaterialPageRoute(builder: (context) => Gas_Qr_Code()),
-  //                 (Route<dynamic> route) => false);
-  //           },
-  //           child: Text(
-  //             'Scan QRCode',
-  //             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {

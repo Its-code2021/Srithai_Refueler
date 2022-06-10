@@ -20,6 +20,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:store_redirect/store_redirect.dart';
 import 'package:unique_identifier/unique_identifier.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:version_check/version_check.dart';
 
 class Login_Truck_Driver extends StatefulWidget {
   @override
@@ -44,11 +45,33 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
   bool _isChecked = false;
   bool showPassword = true;
   String token = "";
+  String? version = '';
+  String? storeVersion = '';
+  String? storeUrl = '';
+  String? packageName = '';
 
   @override
   void initState() {
+    checkVersion();
     _loadUserEmailPassword();
     super.initState();
+  }
+
+  final versionCheck = VersionCheck(
+    packageName:
+        Platform.isIOS ? 'com.srithai.refuelers' : 'com.srithai.refuelers',
+    packageVersion: versions,
+    showUpdateDialog: customShowUpdateDialog,
+  );
+
+  Future checkVersion() async {
+    await versionCheck.checkVersion(context);
+    setState(() {
+      version = versionCheck.packageVersion;
+      packageName = versionCheck.packageName;
+      storeVersion = versionCheck.storeVersion;
+      storeUrl = versionCheck.storeUrl;
+    });
   }
 
   void _onLoading() {
@@ -178,7 +201,7 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
           PackageInfo packageInfo = await PackageInfo.fromPlatform();
           versions = packageInfo.version;
           GetapiDriverUser(context, result_token, device_model);
-
+          print('device_model android:::$device_model');
           result_token;
           _Btn_DriverCheck(_isChecked_Driver);
           GetapiDriverDouponList(context, result_token);
@@ -361,6 +384,14 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
                       },
                       child: const Text('เข้าสู่ระบบ'),
                     ),
+                    Container(
+                      height: 20,
+                    ),
+                    Text(
+                      'V.$version',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
                     // ElevatedButton(
                     //     onPressed: () async {
                     //       DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -473,6 +504,51 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
       print(e);
     }
   }
+}
+
+void customShowUpdateDialog(BuildContext context, VersionCheck versionCheck) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) => AlertDialog(
+      title: Center(child: Text('กรุณาอัพเดตแอปพลิเคชันเวอร์ชั่นใหม่!')),
+      actions: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            ElevatedButton(
+              child: Text(
+                'อัพเดท',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+              ),
+              onPressed: () async {
+                StoreRedirect.redirect(
+                    // androidAppId: "com.srithai.refuelers",
+                    //// iOSAppId: "585027354",
+                    );
+                Navigator.of(context).pop();
+              },
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.red,
+              ),
+              child: Text(
+                'ข้าม',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
 }
 
 var Btn_DriverCheckS;

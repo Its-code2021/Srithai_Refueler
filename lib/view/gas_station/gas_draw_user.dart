@@ -43,6 +43,7 @@ class _Gas_Draw_UserState extends State<Gas_Draw_User> {
   @override
   void initState() {
     super.initState();
+
     _controller.addListener(() => print('Value changed'));
   }
 
@@ -257,6 +258,15 @@ class _Gas_Draw_UserState extends State<Gas_Draw_User> {
     );
   }
 
+  Future<void> _refresh() async {
+    setState(() {
+      Gas_Details;
+      PostQrcodeGas_Agein_reload(context, OilDetail_id);
+      Tabel_Gas_detail_draw();
+    });
+    return Future.delayed(Duration(seconds: 2));
+  }
+
   @override
   Widget build(BuildContext context) {
     final key = new GlobalKey<ScaffoldState>();
@@ -269,77 +279,84 @@ class _Gas_Draw_UserState extends State<Gas_Draw_User> {
         centerTitle: true,
         backgroundColor: Color(0xff438EB9),
       ),
-      body: SingleChildScrollView(
-        child: new SafeArea(
-            child: Column(
-          children: [
-            Container(
-              height: 10,
-            ),
-            Container(
-              width: double.infinity,
-              height: 60,
-              alignment: Alignment.center,
-              color: Color(0xff438EB9),
-              child: Text(
-                'รายละเอียดการเติมน้ำมัน',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-            ),
-            Container(
-              height: 10,
-            ),
-            Tabel_Gas_detail_draw(),
-            Container(
-              height: 5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
-                Padding(
-                  padding: EdgeInsets.all(8.0),
+      body: RefreshIndicator(
+        onRefresh: _refresh,
+        child: SingleChildScrollView(
+          physics: ScrollPhysics(),
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: new SafeArea(
+                child: Column(
+              children: [
+                Container(
+                  height: 10,
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 60,
+                  alignment: Alignment.center,
+                  color: Color(0xff438EB9),
                   child: Text(
-                    'กรุณาให้พนักงานขับรถเซ็นรับทราบ (ตัวบรรจง)',
-                    textAlign: TextAlign.left,
+                    'รายละเอียดการเติมน้ำมัน',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.black),
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                 ),
-              ],
-            ),
-            //SIGNATURE CANVAS
-            Container(
-              margin: const EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 2),
-              ),
-              child: Signature(
-                controller: _controller,
-                height: 150,
-                backgroundColor: Colors.white,
-              ),
-            ),
-            //OK AND CLEAR BUTTONS
+                Container(
+                  height: 10,
+                ),
+                Tabel_Gas_detail_draw(),
+                Container(
+                  height: 5,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        'กรุณาให้พนักงานขับรถเซ็นรับทราบ (ตัวบรรจง)',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
+                    ),
+                  ],
+                ),
+                //SIGNATURE CANVAS
+                Container(
+                  margin: const EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 2),
+                  ),
+                  child: Signature(
+                    controller: _controller,
+                    height: 150,
+                    backgroundColor: Colors.white,
+                  ),
+                ),
+                //OK AND CLEAR BUTTONS
 
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Confrim_Oil(),
-                  Confrim_Clear(),
-                ],
-              ),
-            ),
-            Container(
-              height: 20,
-            ),
-          ],
-        )),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Confrim_Oil(),
+                      Confrim_Clear(),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 20,
+                ),
+              ],
+            )),
+          ),
+        ),
       ),
     );
   }
@@ -390,7 +407,7 @@ class BtnConfrim_Oil_TotalState extends State<BtnConfrim_Oil_Total> {
               controller: _text ? _texthController : null,
               autofocus: true,
               decoration: const InputDecoration(
-                hintText: '0.00',
+                hintText: '0',
                 contentPadding: EdgeInsets.symmetric(vertical: 0.1),
                 border: const OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.teal)),

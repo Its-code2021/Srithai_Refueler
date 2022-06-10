@@ -2,9 +2,12 @@
 
 import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/view/change_password.dart';
-import 'package:cpac/view/login_pump_gas.dart';
+
+import 'package:cpac/view/splash_page.dart';
 import 'package:cpac/view/truck_driver/login_truck_driver.dart';
 import 'package:flutter/material.dart';
+
+import '../login_pump_gas.dart';
 
 class User_Profile extends StatefulWidget {
   User_Profile({Key? key}) : super(key: key);
@@ -121,7 +124,7 @@ class _User_ProfileState extends State<User_Profile> {
               height: 10,
             ),
             Text(
-              'เวอร์ชั่นปัจจุบัน : 1.0.24',
+              'เวอร์ชั่นปัจจุบัน :1.0.27',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
             ),
             Container(

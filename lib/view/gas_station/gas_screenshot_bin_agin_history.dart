@@ -6,6 +6,7 @@ import 'package:cpac/utility/date_time.dart';
 import 'package:cpac/view/gas_station/gas_done.dart';
 import 'package:cpac/view/gas_station/gas_loading_page.dart';
 import 'package:cpac/view/gas_station/gas_qr_code.dart';
+import 'package:cpac/view/gas_station/gas_tabel_all.dart';
 import 'package:cpac/view/gas_station/tabbar_gas%20home.dart';
 import 'package:cpac/view/gas_station/tabbar_gas%20home_history.dart';
 import 'package:cpac/view/login_pump_gas.dart';
@@ -55,7 +56,8 @@ class _gas_screenshot_bin_agin_historyState
         print('$result TEST+++');
         _canShowButton2 = true;
         AlertBinDoneS();
-
+        PostPumpHistoryRefue(startdate, enddate);
+        Tabel_Body_Gas_History(context);
         Future.delayed(Duration(seconds: 2), () {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(

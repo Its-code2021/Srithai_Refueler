@@ -86,6 +86,26 @@ Future<void> GetapiDriverDouponList(BuildContext context, result_token) async {
   print('Coupon:::: $Driver_CouponList');
 }
 
+Future<void> GetapiDriverDouponListReload(
+    BuildContext context, result_token) async {
+  var dio = Dio();
+  String url = apiDriverCouponList;
+  final response = await dio.get(url,
+      options: Options(headers: {'Authorization': 'Token $result_token'}));
+  var result = response.data['results'];
+  status_code = response.data['status_code'][0]['code'];
+  if (status_code == "200") {
+    Driver_CouponList = result;
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => Reload_Home()),
+        (route) => false);
+  } else if (response.data['status_code'][0]['code'] == "404") {
+    Driver_CouponList[0] = 'ยังไม่มีรายการคูปอง';
+  }
+  print('Coupon:::: $Driver_CouponList');
+}
+
 var Driver_CouponDetail;
 var Status_GasStation;
 Future<void> GetHistory_Detail_Gas(BuildContext context, Driver_id) async {
