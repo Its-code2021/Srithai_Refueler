@@ -55,6 +55,7 @@ Future<void> PostapiQrCodeNumber(qrcode, BuildContext context) async {
     var status_code = response.data["status_code"][0]["code"];
     var result = response.data['results'][0];
     if (status_code == '200') {
+      print("test:: $QrCode");
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => Loading_pang()),
           (Route<dynamic> route) => false);
@@ -101,7 +102,6 @@ Future<void> PostOilConfrim_ADD(BuildContext context, Qr_confrim) async {
       print("OilConfrim::::$Tokens_all");
       var result = response.data['results'][0];
       Oil_Details = result;
-
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => Loading_pang_Detail()),
           (Route<dynamic> route) => false);

@@ -12,7 +12,9 @@ import 'package:cpac/view/driver/tabel_all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:intl/intl.dart';
 import 'package:painter/painter.dart';
+import 'package:pattern_formatter/numeric_formatter.dart';
 import 'package:signature/signature.dart';
 
 class Staff_Draw_User extends StatefulWidget {
@@ -193,7 +195,7 @@ class _Staff_Draw_UserState extends State<Staff_Draw_User> {
                           var total_Refuel =
                               int.parse(Oil_Details['amount'].toString());
                           var _texthController_text =
-                              int.parse(_texthController.text);
+                              double.parse(_texthController.text);
                           assert(total_Refuel is int);
                           if (total_Refuel > _texthController_text ||
                               total_Refuel == _texthController_text) {
@@ -364,16 +366,19 @@ class BtnConfrimState extends State<BtnConfrim> {
         children: <Widget>[
           Center(
             child: TextField(
-              inputFormatters: [
-                CommaFormatter_driver(),
-                FilteringTextInputFormatter.allow(
-                  RegExp(
-                    //r'^[-]{0,1}[0-9]*[,]?[0-9]*', //signed regex
-                    r'^[0-9]*?[0-9]*',
-                  ),
-                ),
-              ],
+              // inputFormatters: [
+              //   CommaFormatter_driver(),
+              //   FilteringTextInputFormatter.allow(
+              //     RegExp(
+              //       //r'^[-]{0,1}[0-9]*[,]?[0-9]*', //signed regex
+              //       r'^[-]{0,1}[0-9]*[.]*[0,1]?[0-9]*',
+              //     ),
+              //   ),
+              // ],
               controller: _texthController,
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+              ],
               autofocus: true,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(vertical: 0.1),
@@ -391,18 +396,18 @@ class BtnConfrimState extends State<BtnConfrim> {
   }
 }
 
-class CommaFormatter_driver extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-    TextEditingValue oldValue,
-    TextEditingValue newValue,
-  ) {
-    String _text = newValue.text;
-    //This is only if you need signed numbers. Will convert the first '.'(dot) to '-'(minus)
-    //if (_text.isNotEmpty && _text[0] == '.')
-    //  _text = _text.replaceFirst('.', '-');
-    return newValue.copyWith(
-      text: _text.replaceAll('.', ','),
-    );
-  }
-}
+// class CommaFormatter_driver extends TextInputFormatter {
+//   @override
+//   TextEditingValue formatEditUpdate(
+//     TextEditingValue oldValue,
+//     TextEditingValue newValue,
+//   ) {
+//     String _text = newValue.text;
+//     //This is only if you need signed numbers. Will convert the first '.'(dot) to '-'(minus)
+//     //if (_text.isNotEmpty && _text[0] == '.')
+//     //  _text = _text.replaceFirst('.', '-');
+//     return newValue.copyWith(
+//       text: _text.replaceAll(',', ''),
+//     );
+//   }
+// }

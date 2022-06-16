@@ -1099,7 +1099,7 @@ Widget Tabel_Staff_detail() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
                   Text(
-                    'เลขที่ คูปอง ',
+                    'เลขที่คูปอง ',
                     style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
@@ -1177,6 +1177,40 @@ Widget Tabel_Staff_detail() {
                 children: [
                   Text(
                     QrCode['driver'].toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'หน่วยงาน/กิจการ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    QrCode['site_name'].toString() +
+                        '/' +
+                        QrCode['business_name'].toString(),
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
@@ -1318,6 +1352,40 @@ Widget Tabel_Staff_detail_new() {
                 children: [
                   Text(
                     Oil_Details['driver'].toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'หน่วยงาน/กิจการ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Oil_Details['site_name'].toString() +
+                        '/' +
+                        Oil_Details['business_name'].toString(),
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,

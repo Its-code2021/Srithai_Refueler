@@ -283,6 +283,30 @@ class _gas_screenshot_binState extends State<gas_screenshot_bin> {
                     ]),
                     TableRow(children: [
                       Text(
+                        'หน่วยงาน/กิจการ:',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        Gas_Details['site_name'].toString() +
+                            '/' +
+                            Gas_Details['business_name'].toString(),
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff428BCA)),
+                      ),
+                    ]),
+                    TableRow(children: const [
+                      Text(
+                        '',
+                      ),
+                      Text(
+                        '',
+                      ),
+                    ]),
+                    TableRow(children: [
+                      Text(
                         'จำนวนลิตร:',
                         textAlign: TextAlign.right,
                         style: TextStyle(fontWeight: FontWeight.bold),

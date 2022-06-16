@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:cpac/server/api.dart';
 import 'package:cpac/utility/my_alert.dart';
+import 'package:cpac/view/driver/staff_done.dart';
+import 'package:cpac/view/truck_driver/change_driver_select.dart';
 import 'package:cpac/view/truck_driver/frist_usertruck_login.dart';
 import 'package:cpac/view/truck_driver/loading_driver.dart';
 import 'package:cpac/view/truck_driver/login_truck_driver.dart';
@@ -121,7 +123,7 @@ Future<void> GetHistory_Detail_Gas(BuildContext context, Driver_id) async {
         context,
         MaterialPageRoute(builder: (context) => Loading_Driver_Coupon_Detail()),
         (route) => false);
-
+    print('Driver_id:::::$Driver_id');
     Driver_CouponDetail = result;
     if (Driver_CouponDetail['is_refuel'] == 0) {
       Status_GasStation = 'ปั้มบริษัท(เติมอู่)';
@@ -220,5 +222,79 @@ Future<void> GetDevice() async {
     IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
     device_model = iosDeviceInfo.identifierForVendor.toString();
     print('device_model IOS:::$device_model');
+  }
+}
+
+var Driver_List_Chang;
+Future<void> GetapiDriver_List(BuildContext context) async {
+  String url = '$apiDriver_List';
+  Dio dio = new Dio();
+  Response response = await dio.get(
+    url,
+    options: Options(headers: {'Authorization': 'Token $result_token'}),
+  );
+  var result = response.data['results'];
+  Driver_List_Chang = result;
+  if (response.data['status_code'][0]['code'] == "200") {
+    print('Driver_List::$Driver_List_Chang');
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => Loading_Driver_List()),
+        (route) => false);
+  } else {
+    AlertDriver_list(context);
+  }
+}
+
+var Search_Driver;
+Future<void> GetapiSearch_Driver(BuildContext context, String text) async {
+  String url = '$apiDriver_Search$text';
+  Dio dio = new Dio();
+  Response response = await dio.get(
+    url,
+    options: Options(headers: {'Authorization': 'Token $result_token'}),
+  );
+  var result = response.data['results'];
+  Search_Driver = result;
+  if (response.data['status_code'][0]['code'] == "200") {
+    print('Search_Driver::$Search_Driver');
+    Search_Driver;
+  } else {
+    AlertDriver_Search(context);
+  }
+}
+
+Future<void> PostapiDriver_Change(
+    BuildContext context,
+    var DriverEmployee_id,
+    var eDriverEmployee_id,
+    String eDriver_remark,
+    var eDriverEmployee_at,
+    coupon_id_driver) async {
+  String url = apiDriver_Change;
+  Dio dio = new Dio();
+  Response response = await dio.post(url,
+      options: Options(headers: {'Authorization': 'Token $result_token'}),
+      data: {
+        "id": coupon_id_driver,
+        "DriverEmployee_id": eDriverEmployee_id,
+        "eDriverEmployee_id": DriverEmployee_id,
+        "eDriver_remark": eDriver_remark,
+        "eDriverEmployee_at": eDriverEmployee_at,
+      });
+  var result = response.data['results'][0];
+  var status_code = response.data['status_code'][0];
+  if (status_code['code'] == '200') {
+    AlertDriver_Change_Done(context);
+    GetapiDriverDouponList(context, result_token);
+    // Navigator.of(context).pushAndRemoveUntil(
+    //     MaterialPageRoute(builder: (context) => Staff_Done()),
+    //     (Route<dynamic> route) => false);
+    print(result);
+  } else {
+    print('พขร เก่า ($DriverEmployee_id)');
+    print('พขร ใหม่ ($eDriverEmployee_id)');
+    print('หมายเหตุ ($eDriver_remark)');
+    print('วันที่เปลียน ($eDriverEmployee_at)');
   }
 }

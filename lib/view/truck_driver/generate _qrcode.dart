@@ -6,6 +6,7 @@ import 'package:cpac/view/truck_driver/driver_truck_done.dart';
 import 'package:cpac/view/truck_driver/loading_driver.dart';
 import 'package:cpac/view/truck_driver/tabbar_driver_truck.dart';
 import 'package:cpac/view/truck_driver/table_truck_textall.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:flutter/services.dart';
@@ -16,10 +17,14 @@ import 'dart:io';
 import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'change_driver.dart';
+
 class Generate_QrCode extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => Generate_QrCodeState();
 }
+
+var coupon_id_driver;
 
 class Generate_QrCodeState extends State<Generate_QrCode> {
   GlobalKey globalKey = GlobalKey();
@@ -166,20 +171,35 @@ class Generate_QrCodeState extends State<Generate_QrCode> {
             ),
             Container(height: 10),
             Tabel_Trck_GenQrCode(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: const Text(
+                '* การเปลี่ยนแปลงพนักงานขับรถเติมน้ำมันจะมีรายงาน ส่งแจ้งผู้บริหารทราบให้ใช้เฉพาะเหตุจำเป็นเท่านั้น',
+                style:
+                    TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Container(height: 5),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue[900],
+              ),
+              onPressed: () {
+                print('เปลี่ยน พขร เติมน้ำมัน $coupon_id_driver');
+                coupon_id_driver = Driver_CouponDetail['id'].toString();
+                GetapiDriver_List(context);
+                name = 'เลือกพนักงานขับรถ';
+                // Navigator.pushAndRemoveUntil(
+                //     context,
+                //     MaterialPageRoute(builder: (context) => Change_Driver()),
+                //     (route) => false);
+              },
+              child: Text(
+                'เปลี่ยน พขร เติมน้ำมัน',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
             Container(height: 15),
-            // ElevatedButton(
-            //     onPressed: () {
-            //       var Driver_id = Driver_CouponDetail['id'];
-            //       GetapiRecheckRefuel(context,Driver_id);
-            //       print('Driver_ids::::::: $Driver_id');
-
-            //       // Navigator.push(
-            //       //   context,
-            //       //   MaterialPageRoute(
-            //       //       builder: (context) => Driver_Truck_Done()),
-            //       // );
-            //     },
-            //     child: Text('test'))
           ],
         ),
       ),

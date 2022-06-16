@@ -6,6 +6,8 @@ import 'package:cpac/view/gas_station/gas_loading_page.dart';
 import 'package:cpac/view/gas_station/gas_tabel_all.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 class Gas_Bill_Amount extends StatefulWidget {
   Gas_Bill_Amount({Key? key}) : super(key: key);
@@ -126,7 +128,7 @@ class _Gas_Bill_AmountState extends State<Gas_Bill_Amount> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        total_result.toString(),
+                        total_result.toStringAsFixed(2),
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.green),
                       ),
@@ -337,9 +339,13 @@ class BtnConfrim_BilAmountState extends State<BtnConfrim_BilAmount> {
               total_result = (Decimal.parse(_texthController.text) *
                   Decimal.parse(BilDetail['refuel_amount'].toString()));
               total_results = total_result;
+
               _refreshAction(total_results);
               print("$total_results");
             },
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+            ],
             autofocus: true,
             // onSubmitted: (String total_ref) {
             //   _refreshAction();
@@ -376,7 +382,7 @@ class BtnConfrim_BilAmountState extends State<BtnConfrim_BilAmount> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
                   Text(
-                    'เลขที่ คูปอง ',
+                    'เลขที่คูปอง ',
                     style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )
@@ -454,6 +460,40 @@ class BtnConfrim_BilAmountState extends State<BtnConfrim_BilAmount> {
                 children: [
                   Text(
                     BilDetail['driver'].toString(),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: const Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'หน่วยงาน/กิจการ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Gas_Details['site_name'].toString() +
+                        '/' +
+                        Gas_Details['business_name'].toString(),
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,
@@ -592,7 +632,7 @@ class BtnConfrim_BilAmountState extends State<BtnConfrim_BilAmount> {
                     )
                   ] else ...[
                     Text(
-                      total_results.toString(),
+                      total_results.toStringAsFixed(2),
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Color(0xff428BCA)),

@@ -90,9 +90,9 @@ Widget Table_list_Null(BuildContext context) {
     width: MediaQuery.of(context).size.width,
     height: MediaQuery.of(context).size.width,
     child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text(
+        Text(
           'ยังไม่มีรายการคูปอง !!!',
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -101,16 +101,20 @@ Widget Table_list_Null(BuildContext context) {
           ),
         ),
         Container(
-          child: ElevatedButton(
-            onPressed: () {
-              _refresh(context);
-            },
-            child: Text(
-              'โหลดรายการคูปองใหม่',
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-            ),
-          ),
+          height: 10,
         ),
+        // Container(
+        //   child: IconButton(
+        //     onPressed: () {
+        //       GetapiDriverUser(context, result_token, device_model);
+        //     },
+        //     icon: Icon(
+        //       Icons.refresh,
+        //       color: Colors.blue,
+        //       size: 45,
+        //     ),
+        //   ),
+        // ),
       ],
     ),
   );

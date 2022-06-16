@@ -35,7 +35,6 @@ class _Refueling_AllState extends State<Refueling_All> {
           ),
           onPressed: () {
             var Qr_confrim = QrCode['qr_code'];
-
             PostOilConfrim_ADD(context, Qr_confrim);
           },
         ),

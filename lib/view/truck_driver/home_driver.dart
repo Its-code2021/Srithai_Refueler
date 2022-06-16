@@ -34,13 +34,31 @@ class _Home_Coupon_DriverState extends State<Home_Coupon_Driver> {
             height: 50,
             alignment: Alignment.center,
             color: const Color(0xff438EB9),
-            child: const Text(
-              'รายการคูปองน้ำมัน',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const Text(
+                    'รายการคูปองน้ำมัน',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        GetapiDriverUser(context, result_token, device_model);
+                      },
+                      icon: Icon(
+                        Icons.refresh,
+                        color: Colors.white,
+                        size: 28,
+                      )),
+                ],
+              ),
             ),
           ),
           Container(

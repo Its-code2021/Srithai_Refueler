@@ -198,7 +198,7 @@ class _Gas_Draw_UserState extends State<Gas_Draw_User> {
                       var total_Refuel =
                           int.parse(Gas_Details['amount'].toString());
                       var _texthController_text =
-                          int.parse(_texthController.text);
+                          double.parse(_texthController.text);
                       assert(total_Refuel is int);
                       if (total_Refuel > _texthController_text ||
                           total_Refuel == _texthController_text) {
@@ -395,13 +395,7 @@ class BtnConfrim_Oil_TotalState extends State<BtnConfrim_Oil_Total> {
           Center(
             child: TextField(
               inputFormatters: [
-                CommaFormatter(),
-                FilteringTextInputFormatter.allow(
-                  RegExp(
-                    //r'^[-]{0,1}[0-9]*[,]?[0-9]*', //signed regex
-                    r'^[0-9]*?[0-9]*',
-                  ),
-                ),
+                FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
               ],
               enabled: _text,
               controller: _text ? _texthController : null,

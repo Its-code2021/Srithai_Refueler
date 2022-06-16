@@ -70,9 +70,15 @@ dependencies:
   flutter_app_version_checker: ^0.3.1
   version_check: ^0.2.1
   flutter_easyrefresh: ^2.2.1
+  dropdown_search: ^0.6.3
+  
   flutter_localizations: 
     sdk: flutter
     version: ^0.0.0
+  textfield_search: ^0.10.0
+  intl_phone_field: ^3.1.0
+  english_words: ^4.0.0
+  searchable_listview: ^1.6.0
   
 dev_dependencies:
   flutter_test:

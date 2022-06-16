@@ -19,7 +19,7 @@ Widget Tabel_Trck_GenQrCode() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
                   Text(
-                    'เลขที่ คูปอง ',
+                    'เลขที่คูปอง ',
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.black87),
                     textAlign: TextAlign.center,
@@ -100,6 +100,41 @@ Widget Tabel_Trck_GenQrCode() {
                 children: [
                   Text(
                     Driver_CouponDetail['driver'],
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'หน่วยงาน/กิจการ ',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black87),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Driver_CouponDetail['site_name'].toString() +
+                        '/' +
+                        Driver_CouponDetail['business_name'].toString(),
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
                     textAlign: TextAlign.center,

@@ -2,11 +2,13 @@ import 'package:cpac/controller/chang_password.dart';
 import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/server/api.dart';
 import 'package:cpac/utility/my_alert.dart';
+import 'package:cpac/view/driver/tabbar_driver_home.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'gas_station/gas_loading_page.dart';
+import 'gas_station/tabbar_gas home.dart';
 import 'login_pump_gas.dart';
 
 class Frist_User_Login extends StatefulWidget {
@@ -321,9 +323,23 @@ class _Frist_User_LoginState extends State<Frist_User_Login> {
     var result = response.data['results'][0];
     if (response.data['status_code'][0]['code'] == "200") {
       if (result['frist_login'] == 0) {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => Loading_Page_Date()),
-            (Route<dynamic> route) => false);
+        if (Profile['user_level'] == "D") {
+          GetapiHeader(token); //pop dialog
+          GetToken(token);
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (context) => TabBar_Menu_Driver_Home()),
+              (Route<dynamic> route) => false);
+        } else if (Profile['user_level'] == "P") {
+          GetapiHeader(token);
+          GetToken(token);
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => TabBar_Menu_Gas_Home()),
+              (Route<dynamic> route) => false);
+        }
+        // Navigator.of(context).pushAndRemoveUntil(
+        //     MaterialPageRoute(builder: (context) => Loading_Page_Date()),
+        //     (Route<dynamic> route) => false);
       } else {
         GetapiHeader(token); //pop dialog
         GetToken(token);
