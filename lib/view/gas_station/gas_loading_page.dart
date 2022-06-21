@@ -1,3 +1,4 @@
+import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/view/gas_station/gas_bill_amount.dart';
 import 'package:cpac/view/gas_station/gas_draw_user.dart';
 import 'package:cpac/view/gas_station/gas_history_detail.dart';
@@ -6,6 +7,7 @@ import 'package:cpac/view/gas_station/gas_screenshot_bin_agin_history.dart';
 import 'package:cpac/view/gas_station/gas_screenshot_bin_history.dart';
 import 'package:cpac/view/gas_station/tabbar_Gas.dart';
 import 'package:cpac/view/gas_station/tabbar_gas%20home.dart';
+import 'package:cpac/view/login_pump_gas.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
 

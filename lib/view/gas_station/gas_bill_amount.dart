@@ -1,9 +1,11 @@
 import 'package:cpac/controller/gas_qr_code.dart';
+import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/utility/my_alert.dart';
 import 'package:cpac/utility/status_all.dart';
 import 'package:cpac/view/gas_station/gas_done.dart';
 import 'package:cpac/view/gas_station/gas_loading_page.dart';
 import 'package:cpac/view/gas_station/gas_tabel_all.dart';
+import 'package:cpac/view/login_pump_gas.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +19,14 @@ class Gas_Bill_Amount extends StatefulWidget {
 }
 
 class _Gas_Bill_AmountState extends State<Gas_Bill_Amount> {
+  @override
+  void initState() {
+    super.initState();
+    BtnConfrim_BilAmount();
+    _texthController.text = '';
+    _text = true;
+  }
+
   Widget Gas_Amount_Btn() {
     return Container(
       width: 150,
@@ -202,14 +212,25 @@ class _Gas_Bill_AmountState extends State<Gas_Bill_Amount> {
     );
   }
 
+  bool check_bill = false;
   @override
   Widget build(BuildContext context) {
     @override
     void initState() {
       super.initState();
       print('init');
-      _texthController.text = '';
-      _text = true; //variable to control enable property of textfield
+      Future.delayed(const Duration(seconds: 3), () {
+        check_bill = true;
+        if (check_bill = true) {
+          print(check_bill);
+          GetapiHeader(token);
+          GetToken(token);
+          _texthController.text = '';
+          _text = true; //variable to control enable property of textfield
+        } else {
+          print('Error');
+        }
+      });
     }
 
     Future<void> _refresh() async {
@@ -296,7 +317,8 @@ class BtnConfrim_BilAmountState extends State<BtnConfrim_BilAmount> {
   @override
   void initState() {
     super.initState();
-
+    Tavle_all();
+    Btn_Amount();
     _texthController.text = '';
     _text = true; //variable to control enable property of textfield
   }
@@ -339,7 +361,6 @@ class BtnConfrim_BilAmountState extends State<BtnConfrim_BilAmount> {
               total_result = (Decimal.parse(_texthController.text) *
                   Decimal.parse(BilDetail['refuel_amount'].toString()));
               total_results = total_result;
-
               _refreshAction(total_results);
               print("$total_results");
             },
@@ -347,18 +368,11 @@ class BtnConfrim_BilAmountState extends State<BtnConfrim_BilAmount> {
               FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
             ],
             autofocus: true,
-            // onSubmitted: (String total_ref) {
-            //   _refreshAction();
-            //   total_results;
-            //   print("$total_results");
-            //   return _refreshAction();
-            // },
             decoration: const InputDecoration(
               hintText: '0.00',
               contentPadding: EdgeInsets.symmetric(vertical: 0.1),
               border: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.teal)),
-              // errorText: _validate ? 'กรุณากรอกจะจำนวนลิตรที่เติมจริง' : null,
             ),
             keyboardType: TextInputType.number,
             textAlign: TextAlign.center,
@@ -554,49 +568,7 @@ class BtnConfrim_BilAmountState extends State<BtnConfrim_BilAmount> {
             Container(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Btn_Amount()
-                  // BtnConfrim_BilAmount(),
-                  // Padding(
-                  //   padding: const EdgeInsets.all(8.0),
-                  //   child: Column(
-                  //     children: <Widget>[
-                  //       Center(
-                  //         child: TextField(
-                  //           controller: _text ? _texthController : null,
-                  //           onChanged: (total_ref) {
-                  //             Decimal total_result = (Decimal.parse(
-                  //                     _texthController.text) *
-                  //                 Decimal.parse(
-                  //                     BilDetail['refuel_amount']
-                  //                         .toString()));
-                  //             total_results = total_result;
-                  //             _refreshAction();
-                  //           },
-                  //           autofocus: true,
-                  //           textInputAction: TextInputAction.done,
-                  //           onSubmitted: (String total_ref) {
-                  //             _refreshAction();
-                  //             print("$total_results");
-                  //             return _refreshAction();
-                  //           },
-                  //           decoration: const InputDecoration(
-                  //             hintText: '0.00',
-                  //             contentPadding:
-                  //                 EdgeInsets.symmetric(vertical: 0.1),
-                  //             border: const OutlineInputBorder(
-                  //                 borderSide:
-                  //                     BorderSide(color: Colors.teal)),
-                  //             // errorText: _validate ? 'กรุณากรอกจะจำนวนลิตรที่เติมจริง' : null,
-                  //           ),
-                  //           keyboardType: TextInputType.number,
-                  //           textAlign: TextAlign.center,
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                ],
+                children: [Btn_Amount()],
               ),
             ),
           ],

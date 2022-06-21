@@ -124,7 +124,7 @@ class _User_ProfileState extends State<User_Profile> {
               height: 10,
             ),
             Text(
-              'เวอร์ชั่นปัจจุบัน :1.0.29',
+              'เวอร์ชั่นปัจจุบัน :1.2',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
             ),
             Container(

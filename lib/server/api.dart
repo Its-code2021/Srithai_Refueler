@@ -2,10 +2,10 @@ import 'package:cpac/controller/qr_code.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
-// String api = "https://stms.srithaigroup.com/v2/api";
-// String apimail = "https://stms.srithaigroup.com/v2/service"; //Demo Wifi [บ้าน]
-String api = "http://192.168.1.113/project/tms/api"; //Demo Wifi GPS
-String apimail = "http://192.168.1.113/project/tms/service"; //Demo Wifi GPS
+String api = "https://stms.srithaigroup.com/v2/api"; //Server จริง
+String apimail = "https://stms.srithaigroup.com/v2/service"; //Server จริง
+// String api = "http://192.168.1.113/project/tms/api"; //Demo Wifi GPS
+// String apimail = "http://192.168.1.113/project/tms/service"; //Demo Wifi GPS
 // String api = "http://192.168.1.72/project/tms/api"; //Demo Wifi RS
 // String api = "http://192.168.1.202/project/tms/api"; //Demo Wifi FLM
 // String api = "http://192.168.1.44/project/tms/api"; //Demo Wifi [บ้าน]

@@ -136,8 +136,16 @@ class _Frist_UserTruck_LoginState extends State<Frist_UserTruck_Login> {
                             _newpasswordController.text)) {
                           if ((_newpasswordController.text ==
                               _con_newpasswordController.text)) {
-                            Alertfrist_loginChangPassword(context,
-                                _oldpasswordController, _newpasswordController);
+                            if (_newpasswordController.text.length > 7 &&
+                                _con_newpasswordController.text.length > 7) {
+                              Alertfrist_loginChangPassword(
+                                  context,
+                                  _oldpasswordController,
+                                  _newpasswordController);
+                            } else {
+                              chang_password_new(
+                                  context, 'กรุณากรอกรหัสอย่างน้อย 8 ตัวอักษร');
+                            }
                           } else {
                             chang_password_new(
                                 context, 'รหัสผ่านใหม่ไม่ตรงกัน');

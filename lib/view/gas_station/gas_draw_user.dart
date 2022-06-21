@@ -43,7 +43,6 @@ class _Gas_Draw_UserState extends State<Gas_Draw_User> {
   @override
   void initState() {
     super.initState();
-
     _controller.addListener(() => print('Value changed'));
   }
 

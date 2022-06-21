@@ -131,20 +131,23 @@ Future<void> PostGasConfirmRefuelAmount(
         "images": images,
       });
   print('response:::::$response');
-  var result = response.data['results'][0];
+  var results = response.data['results'][0];
   var status_code = response.data['status_code'][0];
   if (status_code['code'] == '200') {
-    GetapiHeader(token);
-    GetToken(token);
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => Loading_Page_Bill_Amount()),
-        (Route<dynamic> route) => false);
+    if (results != null && results != '') {
+      print('results::::$results');
+      GetapiHeader(token);
+      GetToken(token);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => Loading_Page_Bill_Amount()),
+          (Route<dynamic> route) => false);
+    } else {}
   }
   GetBilDetail_Gas(id);
-  print('sest:::::$result');
+  print('sest:::::$results');
   print('status_code:::::$status_code');
   print(GetBilDetail_Gas(id));
-  ConfirmRefuel = result;
+  ConfirmRefuel = results;
 }
 
 Future<void> PostQrcodeGas_Agein(OilDetail_id) async {
