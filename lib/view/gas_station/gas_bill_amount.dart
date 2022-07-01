@@ -250,7 +250,19 @@ class _Gas_Bill_AmountState extends State<Gas_Bill_Amount> {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Image.asset('images/002.png', fit: BoxFit.cover),
-        centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () {
+                var Bin_history_id = BilDetail['id'];
+                var Bin_Amount = BilDetail['bill_amount'];
+                GetBin_history_detail_Gas_reload(
+                    context, Bin_history_id, Bin_Amount);
+              },
+              icon: Icon(
+                Icons.refresh,
+                size: 30,
+              ))
+        ],
         backgroundColor: const Color(0xff438EB9),
       ),
       body: RefreshIndicator(

@@ -3,6 +3,7 @@ import 'package:cpac/controller/qr_code.dart';
 import 'package:cpac/server/api.dart';
 import 'package:cpac/utility/date_time.dart';
 import 'package:cpac/utility/my_alert.dart';
+import 'package:cpac/view/cpac/tabbar_cpac_home.dart';
 import 'package:cpac/view/driver/tabbar_driver_home.dart';
 import 'package:cpac/view/frist_user_login.dart';
 import 'package:cpac/view/gas_station/gas_loading_page.dart';
@@ -36,6 +37,8 @@ Future<void> GetToken(token) async {
   var result = token;
   Tokens_all = result;
   PostPumpHistoryRefue(startdate, enddate);
+  GetPump_Paymant_List();
+  GetPump_Paymant_List_History();
 }
 
 Future<void> GetapiPumpUser(BuildContext context, token) async {
@@ -56,11 +59,21 @@ Future<void> GetapiPumpUser(BuildContext context, token) async {
           MaterialPageRoute(builder: (context) => TabBar_Menu_Driver_Home()),
           (Route<dynamic> route) => false);
     } else if (Profile['user_level'] == "P") {
-      GetapiHeader(token);
-      GetToken(token);
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => TabBar_Menu_Gas_Home()),
-          (Route<dynamic> route) => false);
+      if (Profile['Business_id'] != 2) {
+        GetapiHeader(token);
+        GetToken(token);
+        GetPump_Paymant_List();
+        GetPump_Paymant_List_History();
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => TabBar_Menu_Gas_Home()),
+            (Route<dynamic> route) => false);
+      } else {
+        GetToken(token);
+        GetapiHeader(token);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => TabBar_Cpac_Home()),
+            (Route<dynamic> route) => false);
+      }
     }
   }
 
@@ -152,12 +165,16 @@ Future<void> GetConfrimRememberPumpUser(
     if (result['frist_login'] == 0) {
       GetapiPumpUser(context, token);
       GetapiDriverDouponList(context, token);
+      GetPump_Paymant_List();
+      GetPump_Paymant_List_History();
       // Navigator.of(context).pushAndRemoveUntil(
       //     MaterialPageRoute(builder: (context) => Loading_Page_Date()),
       //     (Route<dynamic> route) => false);
     } else {
       GetapiHeader(token); //pop dialog
       GetToken(token);
+      GetPump_Paymant_List();
+      GetPump_Paymant_List_History();
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => Frist_User_Login()),
           (Route<dynamic> route) => false);

@@ -9,14 +9,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-class Gas_User_Profile extends StatefulWidget {
-  Gas_User_Profile({Key? key}) : super(key: key);
+class Cpac_User_Profile extends StatefulWidget {
+  Cpac_User_Profile({Key? key}) : super(key: key);
 
   @override
-  _Gas_User_ProfileState createState() => _Gas_User_ProfileState();
+  _Cpac_User_ProfileState createState() => _Cpac_User_ProfileState();
 }
 
-class _Gas_User_ProfileState extends State<Gas_User_Profile> {
+class _Cpac_User_ProfileState extends State<Cpac_User_Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

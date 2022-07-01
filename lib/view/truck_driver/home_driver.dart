@@ -114,7 +114,7 @@ class _Home_Coupon_DriverState extends State<Home_Coupon_Driver> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             const Text(
-                              "เลที่คูปอง: ",
+                              "เลขที่คูปอง: ",
                               style:
                                   const TextStyle(fontWeight: FontWeight.bold),
                             ),

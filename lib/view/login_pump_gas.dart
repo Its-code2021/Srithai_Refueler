@@ -258,6 +258,7 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
                     Container(height: 60),
                     Image.asset(
                       'images/001.png',
+                      fit: BoxFit.cover,
                     ),
                     Container(height: 30),
                     const Text(

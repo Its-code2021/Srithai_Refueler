@@ -8,6 +8,7 @@ import 'package:cpac/view/gas_station/gas_user_profile.dart';
 import 'package:flutter/material.dart';
 
 import 'gas__oil_all.dart';
+import 'gas_list_payment.dart';
 
 class TabBar_Menu_Gas_Home_History extends StatefulWidget {
   @override
@@ -22,6 +23,7 @@ class _TabBar_Menu_Gas_Home_HistoryState
   final List<Widget> _widgetOptions = <Widget>[
     Gas_Select(),
     Gas_History(),
+    Gas_List_Payment(),
     Gas_User_Profile(),
     // SplashPage(),
   ];
@@ -101,6 +103,26 @@ class _TabBar_Menu_Gas_Home_HistoryState
               ),
               activeIcon: Icon(
                 Icons.history,
+                size: 25,
+                color: Color(0xff438EB9),
+              ),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.payment_outlined,
+                size: 25,
+                color: Colors.grey,
+              ),
+              title: Text(
+                'รับชำระเงิน',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              activeIcon: Icon(
+                Icons.payment,
                 size: 25,
                 color: Color(0xff438EB9),
               ),

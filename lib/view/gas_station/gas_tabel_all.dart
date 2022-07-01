@@ -965,7 +965,7 @@ Widget Tabel_Body_Gas_History(BuildContext context) {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            History_Refuel[index]['amount'].toString(),
+                            History_Refuel[index]['refuel_amount'].toString(),
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 12.0,

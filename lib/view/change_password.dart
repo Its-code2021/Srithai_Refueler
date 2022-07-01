@@ -108,7 +108,7 @@ class _Change_PasswordState extends State<Change_Password> {
                     Container(
                       child: SizedBox(
                         width: double.infinity,
-                        child: Text(
+                        child:  Text(
                           'ยืนยันรหัสผ่านใหม่',
                           textAlign: TextAlign.left,
                           style: TextStyle(

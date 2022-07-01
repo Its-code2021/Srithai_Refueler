@@ -10,13 +10,15 @@ import 'package:flutter/material.dart';
 import 'gas__oil_all.dart';
 import 'gas_list_payment.dart';
 
-class TabBar_Menu_Gas_Home extends StatefulWidget {
+class TabBar_Menu_Gas_Home_Payment extends StatefulWidget {
   @override
-  _TabBar_Menu_Gas_HomeState createState() => _TabBar_Menu_Gas_HomeState();
+  _TabBar_Menu_Gas_Home_PaymentState createState() =>
+      _TabBar_Menu_Gas_Home_PaymentState();
 }
 
-class _TabBar_Menu_Gas_HomeState extends State<TabBar_Menu_Gas_Home> {
-  int _selectedIndex = 0;
+class _TabBar_Menu_Gas_Home_PaymentState
+    extends State<TabBar_Menu_Gas_Home_Payment> {
+  int _selectedIndex = 2;
 
   final List<Widget> _widgetOptions = <Widget>[
     Gas_Select(),

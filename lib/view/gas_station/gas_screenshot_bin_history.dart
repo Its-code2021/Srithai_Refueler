@@ -227,9 +227,9 @@ class _gas_screenshot_bin_historyState
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        Gas_Details['site_name'].toString() +
+                        Bin_history_detail['site_name'].toString() +
                             '/' +
-                            Gas_Details['business_name'].toString(),
+                            Bin_history_detail['business_name'].toString(),
                         textAlign: TextAlign.start,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,

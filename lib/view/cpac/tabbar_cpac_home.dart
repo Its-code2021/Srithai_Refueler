@@ -1,28 +1,21 @@
-// ignore_for_file: deprecated_member_use, unnecessary_new, use_key_in_widget_constructors, avoid_print, avoid_unnecessary_containers, file_names, prefer_const_constructors, duplicate_ignore
-
-import 'package:cpac/view/gas_station/gas_history.dart';
-import 'package:cpac/view/gas_station/gas_menu_user.dart';
-import 'package:cpac/view/gas_station/gas_qr_code.dart';
-import 'package:cpac/view/gas_station/gas_select.dart';
-import 'package:cpac/view/gas_station/gas_user_profile.dart';
+import 'package:cpac/view/cpac/cpac_user_profile.dart';
 import 'package:flutter/material.dart';
 
-import 'gas__oil_all.dart';
-import 'gas_list_payment.dart';
+import 'cpac_coupong.dart';
+import 'cpac_home.dart';
 
-class TabBar_Menu_Gas_Home extends StatefulWidget {
+class TabBar_Cpac_Home extends StatefulWidget {
   @override
-  _TabBar_Menu_Gas_HomeState createState() => _TabBar_Menu_Gas_HomeState();
+  _TabBar_Cpac_HomeState createState() => _TabBar_Cpac_HomeState();
 }
 
-class _TabBar_Menu_Gas_HomeState extends State<TabBar_Menu_Gas_Home> {
+class _TabBar_Cpac_HomeState extends State<TabBar_Cpac_Home> {
   int _selectedIndex = 0;
 
   final List<Widget> _widgetOptions = <Widget>[
-    Gas_Select(),
-    Gas_History(),
-    Gas_List_Payment(),
-    Gas_User_Profile(),
+    Cpac_Home(),
+    Cpac_Coupong(),
+    Cpac_User_Profile(),
     // SplashPage(),
   ];
 
@@ -87,12 +80,12 @@ class _TabBar_Menu_Gas_HomeState extends State<TabBar_Menu_Gas_Home> {
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.history_outlined,
+                Icons.ballot_outlined,
                 size: 25,
                 color: Colors.grey,
               ),
               title: Text(
-                'ประวัติการเติมน้ำมัน',
+                'รายการคูปอง',
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 12,
@@ -100,27 +93,7 @@ class _TabBar_Menu_Gas_HomeState extends State<TabBar_Menu_Gas_Home> {
                 textAlign: TextAlign.center,
               ),
               activeIcon: Icon(
-                Icons.history,
-                size: 25,
-                color: Color(0xff438EB9),
-              ),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.payment_outlined,
-                size: 25,
-                color: Colors.grey,
-              ),
-              title: Text(
-                'รับชำระเงิน',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-              activeIcon: Icon(
-                Icons.payment,
+                Icons.ballot_rounded,
                 size: 25,
                 color: Color(0xff438EB9),
               ),

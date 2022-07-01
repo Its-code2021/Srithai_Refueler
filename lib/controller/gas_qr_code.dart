@@ -330,6 +330,7 @@ Future<void> GetBin_history_detail_Gas_reload(
   var status_code = response.data["status_code"][0]["code"];
   if (status_code == '200') {
     if (Bin_Amount != 0 && Bin_Amount != '0') {
+      Gas_Details();
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Loading_Bin__Detail()),
@@ -338,6 +339,7 @@ Future<void> GetBin_history_detail_Gas_reload(
       OilDetail_id = Bin_history_id;
       GetBilDetail_Gas(Bin_history_id);
       PostQrcodeGas_Agein(OilDetail_id);
+
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => Loading_Page_Bill_Amount()),
           (Route<dynamic> route) => false);
@@ -365,6 +367,286 @@ Future<void> GetSendMail_Gas(BuildContext context, startdates, enddates) async {
 
     print('result:::::$result');
   }
+}
+
+// รายการรับชำระเงิน
+var Paymant_List;
+Future<void> GetPump_Paymant_List() async {
+  String url = '$apiPump_Paymant_List';
+  Dio dio = new Dio();
+  Response response = await dio.get(
+    url,
+    options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+  );
+  var result = response.data['results'];
+  if (response.data['status_code'][0]['code'] == "200") {
+    Paymant_List = result;
+  } else {
+    Paymant_List = "";
+
+    // Driver_CouponDetail =
+    //     Counpon_Null(context, 'คูปองได้ถูกใช้ไปเรียบร้อยแล้ว!!!');
+  }
+  print('Paymant_List:::::$Paymant_List');
+}
+
+Future<void> GetPump_Paymant_List_Again(BuildContext context) async {
+  String url = '$apiPump_Paymant_List';
+  Dio dio = new Dio();
+  Response response = await dio.get(
+    url,
+    options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+  );
+  var result = response.data['results'];
+  if (response.data['status_code'][0]['code'] == "200") {
+    Paymant_List = result;
+    GetPump_Paymant_List();
+    GetPump_Paymant_List_History();
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (context) => Loading_Gas_TabBar_Menu_Gas_Home_Payment()),
+        (Route<dynamic> route) => false);
+  } else {
+    Paymant_List = "";
+  }
+  print('Paymant_List:::::$Paymant_List');
+}
+
+Future<void> GetPump_Paymant_List_BTN(BuildContext context) async {
+  String url = '$apiPump_Paymant_List';
+  Dio dio = new Dio();
+  Response response = await dio.get(
+    url,
+    options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+  );
+  var result = response.data['results'];
+  if (response.data['status_code'][0]['code'] == "200") {
+    Paymant_List = result;
+    GetPump_Paymant_List();
+    GetPump_Paymant_List_History();
+    AlertPaymeny_History(context);
+    Future.delayed(
+      Duration(seconds: 3),
+      () {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (context) =>
+                    Loading_Gas_TabBar_Menu_Gas_Home_Payment()),
+            (Route<dynamic> route) => false);
+      },
+    );
+  } else {
+    Paymant_List = "";
+    AlertPaymeny_History_Not(context);
+    // Driver_CouponDetail =
+    //     Counpon_Null(context, 'คูปองได้ถูกใช้ไปเรียบร้อยแล้ว!!!');
+  }
+  print('Paymant_List:::::$Paymant_List');
+}
+
+// รายละเอียดการชำระเงิน
+var Paymant_List_Detail;
+Future<void> GetPump_Paymant_List_Detail(
+    BuildContext context, Paymant_List_Ids) async {
+  String url = '$apiPump_Paymant_List_Detail$Paymant_List_Ids';
+  Dio dio = new Dio();
+  Response response = await dio.get(
+    url,
+    options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+  );
+  var result = response.data['results'][0];
+  var status_code = response.data["status_code"][0]["code"];
+  if (status_code == '200') {
+    Paymant_List_Detail = result;
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => Loading_Gas_List_Payment_Detail()));
+    print('Paymant_List_Id:::::$Paymant_List_Detail');
+  } else {}
+}
+
+// ประวัติรายการรับชำระเงิน
+var Paymant_List_History;
+Future<void> GetPump_Paymant_List_History() async {
+  String url = '$apiPump_Paymant_History';
+  Dio dio = new Dio();
+  Response response = await dio.get(
+    url,
+    options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+  );
+  var result = response.data['results'];
+  if (response.data['status_code'][0]['code'] == "200") {
+    Paymant_List_History = result;
+  } else {
+    Paymant_List_History = "";
+  }
+  print('Paymant_List_History:::::$Paymant_List_History');
+}
+
+// ประวัติรายละเอียดการชำระเงิน
+var Paymant_List_History_Detail;
+Future<void> GetPump_Paymant_List_History_Detail(
+    BuildContext context, String paymant_list_history_ids) async {
+  String url = '$apiPump_Paymant_History_Detail$paymant_list_history_ids';
+  Dio dio = new Dio();
+  Response response = await dio.get(
+    url,
+    options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+  );
+  var result = response.data['results'][0];
+  var status_code = response.data["status_code"][0]["code"];
+  if (status_code == '200') {
+    Paymant_List_History_Detail = result;
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => Loading_Gas_List_Screenshot_Payment_History()));
+    print('Paymant_List_History_Detail:::::$Paymant_List_History_Detail');
+  } else {}
+}
+
+var Paymant_Update_Id;
+
+Future<void> PostPumpPaymantUpdate(
+  BuildContext context,
+  Paymant_List_Detail_id,
+) async {
+  // ignore: unnecessary_string_interpolations
+  String url = apiPump_Paymant_Update;
+  print('$url');
+  Dio dio = new Dio();
+  Response response = await dio.post(url,
+      options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+      data: {
+        "id": Paymant_List_Detail_id,
+      });
+
+  var result = response.data['results'];
+  var status_code = response.data["status_code"][0]["code"];
+  if (status_code == '200') {
+    Paymant_Update_Id = result[0];
+    GetPump_Paymant_Slip(context, Paymant_Update_Id);
+    print('Paymant_List_Detail_id:::::$Paymant_Update_Id');
+  } else {}
+}
+
+var Paymant_Slip_Detail;
+Future<void> GetPump_Paymant_Slip(
+    BuildContext context, Paymant_Update_Id) async {
+  String url = '$apiPump_Paymant_Slip$Paymant_Update_Id';
+  Dio dio = new Dio();
+  Response response = await dio.get(
+    url,
+    options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+  );
+  var result = response.data['results'];
+  if (response.data['status_code'][0]['code'] == "200") {
+    Paymant_Slip_Detail = result;
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (context) => Loading_Gas_List_Screenshot_Payment()),
+        (Route<dynamic> route) => false);
+  } else {
+    Paymant_Slip_Detail = "";
+
+    // Driver_CouponDetail =
+    //     Counpon_Null(context, 'คูปองได้ถูกใช้ไปเรียบร้อยแล้ว!!!');
+  }
+  print('Paymant_Slip_Detail:::::$Paymant_Slip_Detail');
+}
+
+var Paymant_Slip_History_Detail;
+Future<void> GetPump_Paymant_Slip_History(
+    BuildContext context, Paymant_Update_Id) async {
+  String url = '$apiPump_Paymant_Slip$Paymant_Update_Id';
+  Dio dio = new Dio();
+  Response response = await dio.get(
+    url,
+    options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+  );
+  var result = response.data['results'];
+  if (response.data['status_code'][0]['code'] == "200") {
+    Paymant_Slip_History_Detail = result;
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (context) => Loading_Gas_List_Screenshot_Payment()),
+        (Route<dynamic> route) => false);
+  } else {
+    Paymant_Slip_History_Detail = "";
+
+    // Driver_CouponDetail =
+    //     Counpon_Null(context, 'คูปองได้ถูกใช้ไปเรียบร้อยแล้ว!!!');
+  }
+  print('Paymant_Slip_Detail:::::$Paymant_Slip_Detail');
+}
+
+Future<void> AlertPaymeny_History(BuildContext context) async {
+  showDialog(
+    context: context,
+    builder: (context) => MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+      child: AlertDialog(
+        actions: [
+          Column(
+            children: [
+              Container(
+                height: 10,
+              ),
+              Center(child: CircularProgressIndicator()),
+              Container(
+                height: 10,
+              ),
+              const Text(
+                'กรุณารอสักครู่',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          )
+        ],
+      ),
+    ),
+  );
+}
+
+Future<void> AlertPaymeny_History_Not(BuildContext context) async {
+  showDialog(
+    context: context,
+    builder: (context) => MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+      child: AlertDialog(
+        actions: [
+          Column(
+            children: [
+              Icon(
+                Icons.error_outline,
+                size: 50,
+                color: Colors.red,
+              ),
+              Container(
+                height: 10,
+              ),
+              const Text(
+                'ไม่พบรายการรับชำระเงินค่าน้ำมัน',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+              Container(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Center(
+                    child: Text(
+                  'ตกลง',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
+              ),
+            ],
+          )
+        ],
+      ),
+    ),
+  );
 }
 
 Future<void> AlertSendDone(BuildContext context) async {

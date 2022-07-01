@@ -2,10 +2,10 @@ import 'package:cpac/controller/qr_code.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
-String api = "https://stms.srithaigroup.com/v2/api"; //Server จริง
-String apimail = "https://stms.srithaigroup.com/v2/service"; //Server จริง
-// String api = "http://192.168.1.113/project/tms/api"; //Demo Wifi GPS
-// String apimail = "http://192.168.1.113/project/tms/service"; //Demo Wifi GPS
+// String api = "https://stms.srithaigroup.com/v2/api"; //Server จริง
+// String apimail = "https://stms.srithaigroup.com/v2/service"; //Server จริง
+String api = "http://192.168.1.113/project/tms/api"; //Demo Wifi GPS
+String apimail = "http://192.168.1.113/project/tms/service"; //Demo Wifi GPS
 // String api = "http://192.168.1.72/project/tms/api"; //Demo Wifi RS
 // String api = "http://192.168.1.202/project/tms/api"; //Demo Wifi FLM
 // String api = "http://192.168.1.44/project/tms/api"; //Demo Wifi [บ้าน]
@@ -46,6 +46,18 @@ String apiPumpHistoryRefue =
 
 String apiPumpHistoryRefueDetail =
     api + "/pump/?p=history-detail&id="; // ประวัติการเติมน้ำมัน
+String apiPump_Paymant_List =
+    api + "/pump/?p=pump-paymant-list"; // รายการรับชำระเงินค่าน้ำมัน
+String apiPump_Paymant_List_Detail = api +
+    "/pump/?p=pump-paymant-detail&id="; // รายละเอียดการรับชำระเงินค่าน้ำมัน
+
+String apiPump_Paymant_History =
+    api + "/pump/?p=pump-paymant-history"; // รายการรับชำระเงินค่าน้ำมัน
+String apiPump_Paymant_History_Detail = api +
+    "/pump/?p=pump-paymant-detail-history&id="; // รายละเอียดการรับชำระเงินค่าน้ำมัน
+String apiPump_Paymant_Update =
+    apimail + "/pump/?p=pump-update-status-paymant"; //ยืนยันสรุปยอดรับชำระเงิน
+String apiPump_Paymant_Slip = api + "/pump/?p=payment-slip&id=";
 String apiSendEmail = apimail + "/pump/?p=send-email"; // ส่งเมล
 //API Driver(พขร.)
 String apiLoginDriver = api + "/auth/?p=driver-login"; //เข้าสู่ระบบ
