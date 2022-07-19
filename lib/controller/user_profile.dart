@@ -4,11 +4,18 @@ import 'package:cpac/server/api.dart';
 import 'package:cpac/utility/date_time.dart';
 import 'package:cpac/utility/my_alert.dart';
 import 'package:cpac/view/cpac/tabbar_cpac_home.dart';
+import 'package:cpac/view/driver/deiver_pin_code/driver_login_pin_code.dart';
+import 'package:cpac/view/driver/deiver_pin_code/driver_pin_convenience_detail.dart';
 import 'package:cpac/view/driver/tabbar_driver_home.dart';
 import 'package:cpac/view/frist_user_login.dart';
+import 'package:cpac/view/gas_station/pin_code/gas_confirm_password_change_pin_code.dart';
+import 'package:cpac/view/gas_station/pin_code/gas_create_pin_code.dart';
 import 'package:cpac/view/gas_station/gas_loading_page.dart';
+import 'package:cpac/view/gas_station/pin_code/gas_first_login_create_pin_code.dart';
+import 'package:cpac/view/gas_station/pin_code/gas_pin_convenience_detail.dart';
 import 'package:cpac/view/gas_station/tabbar_gas%20home.dart';
 import 'package:cpac/view/loading_chang_password.dart';
+import 'package:cpac/view/login_pin_code.dart';
 import 'package:cpac/view/login_pump_gas.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +23,10 @@ import 'package:store_redirect/store_redirect.dart';
 
 import 'driver_employee.dart';
 
+String ver = "1.2.8";
+
 var Profile;
+var Tokens_Pin_All;
 Future<void> GetapiHeader(token) async {
   var dio = Dio();
   String url = apiUser;
@@ -24,6 +34,7 @@ Future<void> GetapiHeader(token) async {
       options: Options(headers: {'Authorization': 'Token $token'}));
   var result = response.data['results'][0];
   Profile = result;
+  Tokens_Pin_All = token;
 }
 
 var Tokens_all;
@@ -48,31 +59,56 @@ Future<void> GetapiPumpUser(BuildContext context, token) async {
     url,
     options: Options(headers: {'Authorization': 'Token $token'}),
   );
+  var Tokens_PIN = token;
   print('Token::: $response');
   var result = response.data['results'][0];
   if (response.data['status_code'][0]['code'] == "200") {
     Profile = result;
     if (Profile['user_level'] == "D") {
-      GetapiHeader(token); //pop dialog
-      GetToken(token);
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => TabBar_Menu_Driver_Home()),
-          (Route<dynamic> route) => false);
-    } else if (Profile['user_level'] == "P") {
-      if (Profile['Business_id'] != 2) {
+      if (Profile['is_pin'] == 1) {
         GetapiHeader(token);
         GetToken(token);
+        // GetTokenPIN(context, Tokens_PIN);
+        PostPumpHistoryRefue(startdate, enddate);
         GetPump_Paymant_List();
         GetPump_Paymant_List_History();
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => TabBar_Menu_Gas_Home()),
+            MaterialPageRoute(builder: (context) => Driver_Login_Pin_Code()),
             (Route<dynamic> route) => false);
       } else {
-        GetToken(token);
         GetapiHeader(token);
+        GetToken(token);
+        PostPumpHistoryRefue(startdate, enddate);
+        GetPump_Paymant_List();
+        GetPump_Paymant_List_History();
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => TabBar_Cpac_Home()),
+            MaterialPageRoute(
+                builder: (context) => Driver_Pin_ConvenienceDetail()),
             (Route<dynamic> route) => false);
+        print('PIN CODE::: 0');
+      }
+    } else if (Profile['user_level'] == "P") {
+      if (Profile['is_pin'] == 1) {
+        GetapiHeader(token);
+        GetToken(token);
+        // GetTokenPIN(context, Tokens_PIN);
+        PostPumpHistoryRefue(startdate, enddate);
+        GetPump_Paymant_List();
+        GetPump_Paymant_List_History();
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => Login_Pin_Code()),
+            (Route<dynamic> route) => false);
+      } else {
+        GetapiHeader(token);
+        GetToken(token);
+        PostPumpHistoryRefue(startdate, enddate);
+        GetPump_Paymant_List();
+        GetPump_Paymant_List_History();
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (context) => Gas_Pin_ConvenienceDetail()),
+            (Route<dynamic> route) => false);
+        print('PIN CODE::: 0');
       }
     }
   }
@@ -81,78 +117,6 @@ Future<void> GetapiPumpUser(BuildContext context, token) async {
   print('Token::: $token');
 }
 
-// Future<void> AlertUpdate_App(BuildContext context) async {
-//   showDialog(
-//     context: context,
-//     builder: (context) => MediaQuery(
-//       data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-//       child: AlertDialog(
-//         actions: [
-//           Column(
-//             children: [
-//               Icon(
-//                 Icons.error_outline,
-//                 size: 50,
-//                 color: Colors.red,
-//               ),
-//               Container(
-//                 height: 10,
-//               ),
-//               const Text(
-//                 'กรุณาอัพเดตแอปเวอร์ชั่นใหม่',
-//                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-//                 textAlign: TextAlign.center,
-//               ),
-//               Container(
-//                 height: 10,
-//               ),
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                 children: [
-//                   ElevatedButton(
-//                     style: ElevatedButton.styleFrom(
-//                       primary: Colors.red,
-//                     ),
-//                     onPressed: () {
-//                       Navigator.of(context).pushAndRemoveUntil(
-//                           MaterialPageRoute(
-//                               builder: (context) => TabBar_Menu_Gas_Home()),
-//                           (Route<dynamic> route) => false);
-//                     },
-//                     child: const Center(
-//                         child: Text(
-//                       'ข้าม',
-//                       style: TextStyle(fontWeight: FontWeight.bold),
-//                     )),
-//                   ),
-//                   ElevatedButton(
-//                     style: ElevatedButton.styleFrom(
-//                       primary: Colors.green,
-//                     ),
-//                     onPressed: () {
-//                       // _launchUrl();
-//                       StoreRedirect.redirect(
-//                         androidAppId: "com.srithai.refuelers",
-//                         // iOSAppId: "585027354",
-//                       );
-//                       Navigator.of(context).pop();
-//                     },
-//                     child: const Center(
-//                         child: Text(
-//                       'อัพเดท',
-//                       style: TextStyle(fontWeight: FontWeight.bold),
-//                     )),
-//                   ),
-//                 ],
-//               ),
-//             ],
-//           )
-//         ],
-//       ),
-//     ),
-//   );
-// }
-
 Future<void> GetConfrimRememberPumpUser(
     BuildContext context, token, device_model_pump) async {
   var dio = Dio();
@@ -160,32 +124,71 @@ Future<void> GetConfrimRememberPumpUser(
   final response = await dio.get(url,
       options: Options(headers: {'Authorization': 'Token $token'}));
   var result = response.data['results'][0];
+
   if (response.data['status_code'][0]['code'] == "200") {
     // if (result['device_model'] == device_model_pump) {
     if (result['frist_login'] == 0) {
-      GetapiPumpUser(context, token);
-      GetapiDriverDouponList(context, token);
-      GetPump_Paymant_List();
-      GetPump_Paymant_List_History();
-      // Navigator.of(context).pushAndRemoveUntil(
-      //     MaterialPageRoute(builder: (context) => Loading_Page_Date()),
-      //     (Route<dynamic> route) => false);
+      Profile = result;
+      if (Profile['user_level'] == "D") {
+        if (Profile['is_pin'] == 1) {
+          GetapiHeader(token);
+          GetToken(token);
+          // GetTokenPIN(context, Tokens_PIN);
+          PostPumpHistoryRefue(startdate, enddate);
+          GetPump_Paymant_List();
+          GetPump_Paymant_List_History();
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => Driver_Login_Pin_Code()),
+              (Route<dynamic> route) => false);
+        } else {
+          GetapiHeader(token);
+          GetToken(token);
+          PostPumpHistoryRefue(startdate, enddate);
+          GetPump_Paymant_List();
+          GetPump_Paymant_List_History();
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (context) => Driver_Pin_ConvenienceDetail()),
+              (Route<dynamic> route) => false);
+          print('PIN CODE::: 0');
+        }
+      } else if (Profile['user_level'] == "P") {
+        if (result['is_pin'] == 1) {
+          GetapiHeader(token);
+          GetToken(token);
+          // GetTokenPIN(context, Tokens_PIN);
+          PostPumpHistoryRefue(startdate, enddate);
+          GetPump_Paymant_List();
+          GetPump_Paymant_List_History();
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => Login_Pin_Code()),
+              (Route<dynamic> route) => false);
+        } else {
+          GetapiHeader(token);
+          GetToken(token);
+          PostPumpHistoryRefue(startdate, enddate);
+          GetPump_Paymant_List();
+          GetPump_Paymant_List_History();
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (context) => Gas_Pin_ConvenienceDetail()),
+              (Route<dynamic> route) => false);
+          print('PIN CODE::: 0');
+        }
+      }
+      print(Profile);
     } else {
-      GetapiHeader(token); //pop dialog
+      GetapiHeader(token);
       GetToken(token);
+      // GetTokenPIN(context, token);
+      PostPumpHistoryRefue(startdate, enddate);
       GetPump_Paymant_List();
       GetPump_Paymant_List_History();
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => Frist_User_Login()),
           (Route<dynamic> route) => false);
     }
-    // } else {
-    //   Navigator.of(context).pushAndRemoveUntil(
-    //       MaterialPageRoute(builder: (context) => Loading_Chang_Password()),
-    //       (Route<dynamic> route) => false);
-    // }
   }
-  Profile = result;
-  print(Profile);
+
   print('Token::: $token');
 }

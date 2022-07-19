@@ -3,12 +3,14 @@ import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/server/api.dart';
 import 'package:cpac/utility/my_alert.dart';
 import 'package:cpac/view/driver/tabbar_driver_home.dart';
+import 'package:cpac/view/gas_station/pin_code/gas_first_login_create_pin_code.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'gas_station/gas_loading_page.dart';
 import 'gas_station/tabbar_gas home.dart';
+import 'loading_chang_password.dart';
 import 'login_pump_gas.dart';
 
 class Frist_User_Login extends StatefulWidget {
@@ -199,7 +201,7 @@ class _Frist_User_LoginState extends State<Frist_User_Login> {
     showDialog(
       context: context,
       builder: (context) => MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+        data: MediaQuery.of(context).copyWith(),
         child: AlertDialog(
           actions: [
             Column(
@@ -213,7 +215,14 @@ class _Frist_User_LoginState extends State<Frist_User_Login> {
                   height: 5,
                 ),
                 Text(
-                  'ยืนยันการเปลี่ยนรหัสผ่าน',
+                  'ยืนยันรหัสผ่าน',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Container(
+                  height: 5,
+                ),
+                Text(
+                  'หลังจากยืนยันรหัสผ่านแล้วต้องเข้าสู่ระบบใหม่',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Container(
@@ -335,14 +344,14 @@ class _Frist_User_LoginState extends State<Frist_User_Login> {
           GetapiHeader(token); //pop dialog
           GetToken(token);
           Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(
-                  builder: (context) => TabBar_Menu_Driver_Home()),
+              MaterialPageRoute(builder: (context) => Loading_Chang_Password()),
               (Route<dynamic> route) => false);
         } else if (Profile['user_level'] == "P") {
           GetapiHeader(token);
           GetToken(token);
+          password = "";
           Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => TabBar_Menu_Gas_Home()),
+              MaterialPageRoute(builder: (context) => Loading_Chang_Password()),
               (Route<dynamic> route) => false);
         }
         // Navigator.of(context).pushAndRemoveUntil(

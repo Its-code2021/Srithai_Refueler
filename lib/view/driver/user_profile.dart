@@ -2,6 +2,7 @@
 
 import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/view/change_password.dart';
+import 'package:cpac/view/driver/deiver_pin_code/driver_confirm_password_change_pin_code.dart';
 
 import 'package:cpac/view/splash_page.dart';
 import 'package:cpac/view/truck_driver/login_truck_driver.dart';
@@ -124,48 +125,80 @@ class _User_ProfileState extends State<User_Profile> {
               height: 10,
             ),
             Text(
-              'เวอร์ชั่นปัจจุบัน :1.2.4',
+              'เวอร์ชั่นปัจจุบัน :$ver',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
             ),
             Container(
               height: 10,
             ),
-            Container(
-              width: 250,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size.fromHeight(
-                    50,
-                  ),
-                  primary: Colors.blue[900],
-                  // fromHeight use double.infinity as width and 40 is the height
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Change_Password()),
-                  );
-                  print('เปลี่ยนรหัสผ่าน');
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      'เปลี่ยนรหัสผ่าน ',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.blue[900],
+                        // fromHeight use double.infinity as width and 40 is the height
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Change_Password()),
+                        );
+                        print('เปลี่ยนรหัสผ่าน');
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            'เปลี่ยนรหัสผ่าน ',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Icon(
+                            Icons.lock,
+                            size: 25,
+                            color: Colors.white,
+                          ),
+                        ],
                       ),
                     ),
-                    Icon(
-                      Icons.lock,
-                      size: 25,
-                      color: Colors.white,
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                Container(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.blue[900],
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  Driver_ConfirmPassword_ChangePinCode()),
+                          (Route<dynamic> route) => false);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          'เปลี่ยนรหัส PIN ',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
             Container(
               height: 20,

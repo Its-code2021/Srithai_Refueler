@@ -1,6 +1,7 @@
 import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/view/gas_station/gas_bill_amount.dart';
 import 'package:cpac/view/gas_station/gas_draw_user.dart';
+import 'package:cpac/view/gas_station/gas_draw_user_add_gen.dart';
 import 'package:cpac/view/gas_station/gas_history_detail.dart';
 import 'package:cpac/view/gas_station/gas_list_payment_detail.dart';
 import 'package:cpac/view/gas_station/gas_list_payment_history_detail.dart';
@@ -89,6 +90,31 @@ class _Loading_Page_Detail_GasState extends State<Loading_Page_Detail_Gas> {
       backgroundColor: Colors.white,
       showLoader: true,
       navigator: Gas_Draw_User(),
+      durationInSeconds: 2,
+      loaderColor: Colors.white,
+    );
+  }
+}
+
+class Loading_Page_Detail_Gas_Add_Gen extends StatefulWidget {
+  @override
+  _Loading_Page_Detail_Gas_Add_GenState createState() =>
+      _Loading_Page_Detail_Gas_Add_GenState();
+}
+
+class _Loading_Page_Detail_Gas_Add_GenState
+    extends State<Loading_Page_Detail_Gas_Add_Gen> {
+  @override
+  Widget build(BuildContext context) {
+    return EasySplashScreen(
+      logo: Image.asset(
+        'images/loading.gif',
+        fit: BoxFit.cover,
+        alignment: Alignment.center,
+      ),
+      backgroundColor: Colors.white,
+      showLoader: true,
+      navigator: Gas_Draw_User_Add_Gen(),
       durationInSeconds: 2,
       loaderColor: Colors.white,
     );

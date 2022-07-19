@@ -53,7 +53,8 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
   @override
   void initState() {
     checkVersion();
-    _loadUserEmailPassword();
+    _loadUserEmailPasswords();
+    _passwordControllers.clear();
     super.initState();
   }
 
@@ -104,80 +105,6 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
     if (!await launchUrl(_url)) throw 'Could not launch $_url';
   }
 
-  // Future<void> AlertUpdate_App(BuildContext context) async {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => MediaQuery(
-  //       data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-  //       child: AlertDialog(
-  //         actions: [
-  //           Column(
-  //             children: [
-  //               Icon(
-  //                 Icons.error_outline,
-  //                 size: 50,
-  //                 color: Colors.red,
-  //               ),
-  //               Container(
-  //                 height: 10,
-  //               ),
-  //               const Text(
-  //                 'กรุณาอัพเดตแอปเวอร์ชั่นใหม่',
-  //                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-  //                 textAlign: TextAlign.center,
-  //               ),
-  //               Container(
-  //                 height: 10,
-  //               ),
-  //               Row(
-  //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-  //                 children: [
-  //                   ElevatedButton(
-  //                     style: ElevatedButton.styleFrom(
-  //                       primary: Colors.red,
-  //                     ),
-  //                     onPressed: () {
-  //                       Navigator.of(context);
-  //                       GetapiDriverUser(context, result_token, device_model);
-
-  //                       result_token;
-  //                       _Btn_DriverCheck(_isChecked_Driver);
-  //                       GetapiDriverDouponList(context, result_token);
-  //                     },
-  //                     child: const Center(
-  //                         child: Text(
-  //                       'ข้าม',
-  //                       style: TextStyle(fontWeight: FontWeight.bold),
-  //                     )),
-  //                   ),
-  //                   ElevatedButton(
-  //                     style: ElevatedButton.styleFrom(
-  //                       primary: Colors.green,
-  //                     ),
-  //                     onPressed: () {
-  //                       // _launchUrl();
-  //                       StoreRedirect.redirect(
-  //                         androidAppId: "com.srithai.refuelers",
-  //                         // iOSAppId: "585027354",
-  //                       );
-  //                       Navigator.of(context).pop();
-  //                     },
-  //                     child: const Center(
-  //                         child: Text(
-  //                       'อัพเดท',
-  //                       style: TextStyle(fontWeight: FontWeight.bold),
-  //                     )),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ],
-  //           )
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
   Future<Null> login() async {
     String url = apiLoginDriver;
     try {
@@ -201,10 +128,11 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
           PackageInfo packageInfo = await PackageInfo.fromPlatform();
           versions = packageInfo.version;
           GetapiDriverUser(context, result_token, device_model);
-          print('device_model android:::$device_model');
+          // print('device_model android:::$device_model');
           result_token;
           _Btn_DriverCheck(_isChecked_Driver);
-          GetapiDriverDouponList(context, result_token);
+          GetapiDriver_Coupon_List(result_token);
+          // GetapiDriverDouponList(context, result_token);
         } else if (Platform.isIOS) {
           IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
           device_model = iosDeviceInfo.identifierForVendor.toString();
@@ -223,9 +151,7 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
   }
 
   OutlineInputBorder myinputborder() {
-    //return type is OutlineInputBorder
     return const OutlineInputBorder(
-        //Outline border type for TextFeild
         borderRadius: BorderRadius.all(Radius.circular(10)),
         borderSide: BorderSide(
           color: Colors.grey,
@@ -392,24 +318,6 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
-                    // ElevatedButton(
-                    //     onPressed: () async {
-                    //       DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-                    //       if (Platform.isAndroid) {
-                    //         AndroidDeviceInfo androidInfo =
-                    //             await deviceInfo.androidInfo;
-                    //         model_device_android = androidInfo.model.toString();
-                    //         print(
-                    //             'Model Name Android ::: $model_device_android');
-                    //       } else if (Platform.isIOS) {
-                    //         IosDeviceInfo iosDeviceInfo =
-                    //             await deviceInfo.iosInfo;
-                    //         model_device_ios =
-                    //             iosDeviceInfo.identifierForVendor.toString();
-                    //         print('Model UUID IOS ::: $model_device_ios');
-                    //       }
-                    //     },
-                    //     child: Text('Test Model Name'))
                   ]),
             ),
           ),
@@ -463,7 +371,8 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
       (prefs) {
         prefs.setBool("remember_me", value);
         prefs.setString('username', _usernameControllers.text);
-        // prefs.setString('password', _passwordControllers.text);
+        prefs.setString('password', _passwordControllers.text);
+        prefs.setString('device_model', device_model.toString());
         // prefs.setString('result_token', result_token.toString());
       },
     );
@@ -473,32 +382,38 @@ class _Login_Truck_DriverState extends State<Login_Truck_Driver> {
     });
   }
 
-  void _loadUserEmailPassword() async {
+  void _loadUserEmailPasswords() async {
     print("Load Username");
     try {
       SharedPreferences _prefs = await SharedPreferences.getInstance();
       var _username = _prefs.getString("username") ?? "";
       var _password = _prefs.getString("password") ?? "";
-      var _result_token = _prefs.getString("result_token") ?? "";
+      // var _result_token = _prefs.getString("result_token") ?? "";
+      var _device_model = _prefs.getString("device_model") ?? "";
       var _remeberMe = _prefs.getBool("remember_me") ?? false;
 
       print(_remeberMe);
       print(_username);
       print(_password);
-      print(_result_token);
+      print(_device_model);
+      // print(_result_token);
       if (_remeberMe) {
         setState(() {
           // _onLoading();
-          if (result_token != null || result_token != '') {
-            GetapiDriverUser(context, result_token, device_model);
+          if (_device_model != null || _device_model != '') {
+            print("_device_model:::::$_device_model");
+            login_Remember_Truck_Driver(
+                context, _username, _password, _device_model);
+            // GetConfrimRememberDriverUser(context, result_token, device_model);
             // GetapiDriverDouponList(context, result_token);
           } else {}
           _isChecked = true;
           _isChecked_Driver = true;
         });
         _usernameControllers.text = _username;
-        _passwordControllers.text = _password;
-        result_token = _result_token;
+        // _passwordControllers.text = _password;
+        device_model = _device_model;
+        // result_token = _result_token;
       }
     } catch (e) {
       print(e);
@@ -525,10 +440,7 @@ void customShowUpdateDialog(BuildContext context, VersionCheck versionCheck) {
                 primary: Colors.green,
               ),
               onPressed: () async {
-                StoreRedirect.redirect(
-                    // androidAppId: "com.srithai.refuelers",
-                    //// iOSAppId: "585027354",
-                    );
+                StoreRedirect.redirect();
                 Navigator.of(context).pop();
               },
             ),
@@ -536,7 +448,7 @@ void customShowUpdateDialog(BuildContext context, VersionCheck versionCheck) {
               style: ElevatedButton.styleFrom(
                 primary: Colors.red,
               ),
-              child: Text(
+              child: const Text(
                 'ข้าม',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
@@ -685,9 +597,10 @@ Future<Null> login_Remember(BuildContext context, _username, _password) async {
     if (response.data['status_code'][0]['code'] == "200") {
       var result = response.data['results'][0];
       result_token = result;
-      // GetapiDriverUser(context, result_token, device_model);
-      GetapiDriverDouponList(context, result_token);
-      print('device_model::: $device_model');
+      // GetapiDriverUser(context, result_token);
+      GetapiDriverUser(context, result_token, device_model);
+      // GetapiDriverDouponList(context, result_token);
+      print('result_token::: $result_token');
     } else {
       myAlert_2(context, "รหัสผ่านหรือชื่อผู้ใช้งานไม่ถูกต้อง");
     }
@@ -698,6 +611,33 @@ Future<Null> login_Remember(BuildContext context, _username, _password) async {
   }
 }
 
+Future<Null> login_Remember_Truck_Driver(
+    BuildContext context, _username, _password, String device_model) async {
+  String url = apiLoginDriver;
+  try {
+    Dio dio = new Dio();
+    Response response = await dio.post(url, data: {
+      "username": _username,
+      "password": _password,
+      "device_model": device_model.toString()
+    });
+    if (response.data['status_code'][0]['code'] == "200") {
+      var result = response.data['results'][0];
+      result_token = result;
+      GetConfrimRememberDriverUser(context, result_token, device_model);
+      GetapiDriver_Coupon_Expire(result_token);
+      // GetapiDriverUser(context, result_token, device_model);
+      // GetapiDriverDouponList(context, result_token);
+      print('result_token::: $result_token');
+    } else {
+      // myAlert_2(context, "รหัสผ่านหรือชื่อผู้ใช้งานไม่ถูกต้อง");
+    }
+  } catch (e) {
+    print(e);
+    print('รหัสไม่ถูก');
+    myAlert_2(context, "รหัสผ่านไม่ถูกต้อง!!");
+  }
+}
 // Widget Remember_Login(BuildContext context) {
 //   @override
 //   void _Btn_DriverCheck(value) {

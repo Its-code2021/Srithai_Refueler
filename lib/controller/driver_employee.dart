@@ -3,11 +3,16 @@ import 'dart:io';
 import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/server/api.dart';
 import 'package:cpac/utility/my_alert.dart';
+import 'package:cpac/view/cpac/tabbar_cpac_home.dart';
 import 'package:cpac/view/driver/staff_done.dart';
+import 'package:cpac/view/gas_station/gas_loading_page.dart';
 import 'package:cpac/view/truck_driver/change_driver_select.dart';
 import 'package:cpac/view/truck_driver/frist_usertruck_login.dart';
 import 'package:cpac/view/truck_driver/loading_driver.dart';
 import 'package:cpac/view/truck_driver/login_truck_driver.dart';
+import 'package:cpac/view/truck_driver/pin_code_driver/driver_truck_forgot_pint_code.dart';
+import 'package:cpac/view/truck_driver/pin_code_driver/driver_truck_login_pin_code.dart';
+import 'package:cpac/view/truck_driver/pin_code_driver/driver_truck_pin_convenience_detail.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -24,10 +29,29 @@ Future<void> GetapiDriverUser(
   if (response.data['status_code'][0]['code'] == "200") {
     if (result['frist_login'] == 0) {
       if (result['device_model'] == device_model) {
-        GetapiDriverDouponList(context, result_token);
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => Loading_Driver()),
-            (Route<dynamic> route) => false);
+        if (result['SrtBusiness_id'] != 2) {
+          if (result['is_pin'] == 1) {
+            GetapiDriver_Coupon_List(result_token);
+            GetapiDriver_Coupon_Expire(result_token);
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => Loading_Driver()),
+                (Route<dynamic> route) => false);
+          } else {
+            print("is_pin 0 ");
+            GetapiDriver_Coupon_List(result_token);
+            GetapiDriver_Coupon_Expire(result_token);
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (context) => Driver_Truck_Pin_ConvenienceDetail()),
+                (Route<dynamic> route) => false);
+          }
+        } else {
+          GetapiDriver_Coupon_List(result_token);
+          GetapiDriver_Coupon_Expire(result_token);
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => TabBar_Cpac_Home()),
+              (Route<dynamic> route) => false);
+        }
       } else {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => Btn_Logout(context)),
@@ -52,17 +76,28 @@ Future<void> GetConfrimRememberDriverUser(
       options: Options(headers: {'Authorization': 'Token $result_token'}));
   var result = response.data['results'][0];
   if (response.data['status_code'][0]['code'] == "200") {
-    if (result['device_model'] == device_model) {
-      if (result['frist_login'] == 0) {
-        GetapiDriverUser(context, result_token, device_model);
-        // Navigator.of(context).pushAndRemoveUntil(
-        //     MaterialPageRoute(builder: (context) => Loading_Driver()),
-        //     (Route<dynamic> route) => false);
-      } else {
+    if (result['frist_login'] == 0) {
+      if (result['is_pin'] == 1) {
+        print("is_pin 1 ");
+        GetapiDriver_Coupon_List(result_token);
+        GetapiDriver_Coupon_Expire(result_token);
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => Frist_UserTruck_Login()),
+            MaterialPageRoute(
+                builder: (context) => Driver_Truck_Login_Pin_Code()),
+            (Route<dynamic> route) => false);
+      } else {
+        print("is_pin 0 ");
+        GetapiDriver_Coupon_List(result_token);
+        GetapiDriver_Coupon_Expire(result_token);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (context) => Driver_Truck_Pin_ConvenienceDetail()),
             (Route<dynamic> route) => false);
       }
+    } else {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => Frist_UserTruck_Login()),
+          (Route<dynamic> route) => false);
     }
   } else {
     myAlert_2(context, "เข้าสู่ระบบไม่ได้เนื่องจากมีอุปกรณ์อื่นใช้งานอยู่");
@@ -111,7 +146,7 @@ Future<void> GetapiDriverDouponListReload(
 
 var Driver_CouponDetail;
 var Status_GasStation;
-Future<void> GetHistory_Detail_Gas(BuildContext context, Driver_id) async {
+Future<void> GetCoupon_Detail_Driver(BuildContext context, Driver_id) async {
   String url = '$apiDriverCouponDetail$Driver_id';
   Dio dio = new Dio();
   Response response = await dio.get(
@@ -150,7 +185,9 @@ Future<void> GetapiRecheckRefuel(BuildContext context, Driver_id) async {
   var result = response.data['results'];
   RecheckRefuel_Driver = result;
   if (response.data['status_code'][0]['code'] == "200") {
-    GetapiDriverDouponList(context, result_token);
+    GetapiDriver_Coupon_List(result_token);
+    // GetapiDriverDouponList(context, result_token);
+
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => Loading_Driver()),
@@ -300,3 +337,121 @@ Future<void> PostapiDriver_Change(
   }
 }
 
+var Driver_Coupon_Count;
+var Driver_Coupon_Count_List;
+Future<void> GetapiDriver_Coupon_List(result_token) async {
+  String url = '$apiDriver_Coupon_list';
+  Dio dio = new Dio();
+  Response response = await dio.get(
+    url,
+    options: Options(headers: {'Authorization': 'Token $result_token'}),
+  );
+  var result = response.data['results'];
+  var summary = response.data['summary'];
+
+  print('summary($summary)');
+  print('result($result)');
+  if (result != null) {
+    Driver_Coupon_Count = summary;
+    Driver_Coupon_Count_List = result;
+  } else {}
+}
+
+//PIN CODE
+var Driver_Password_pin;
+Future<void> PostAuthDriver_Check_Created_Pin(BuildContext context,
+    String currentText_number_drivers, String id_pin) async {
+  String url = apiDriverUser_Created_Pin;
+  Dio dio = new Dio();
+  Response response = await dio.post(url,
+      options: Options(headers: {'Authorization': 'Token $result_token'}),
+      data: {
+        "is_pin": 1,
+        "pin_code": currentText_number_drivers,
+        "id": id_pin
+      });
+
+  var result = response.data['results'][0];
+  print('Password_check_pin:::::$result');
+  var status_code = response.data["status_code"][0]["code"];
+  if (status_code == '200') {
+    Driver_Password_pin = result;
+
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => Loading_Driver()),
+        (Route<dynamic> route) => false);
+  } else {}
+}
+
+var Driver_Password_check_pin;
+//เช็ครหัสผ่านเพื่อเปลี่ยน Pin
+Future<void> PostDriver__Check_Password_Pin(
+    BuildContext context, String password) async {
+  String url = apiDriverUser_Check_Password_Pin;
+  Dio dio = new Dio();
+  Response response = await dio.post(url,
+      options: Options(headers: {'Authorization': 'Token $result_token'}),
+      data: {"password": password});
+
+  var result = response.data['results'];
+  print('Password_check_pin:s::::$result');
+  var status_code = response.data["status_code"][0]["code"];
+  if (result != null && result != '') {
+    if (status_code == '200') {
+      Driver_Password_check_pin = result[0];
+
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (context) => DriverTruck_Forgot_Pin_Code()),
+          (Route<dynamic> route) => false);
+    } else {}
+  } else {
+    AlertPassword_Confrim_Chang_PinCode(context);
+  }
+}
+
+//เปลี่ยนรหัส Pin
+var Driver_TruckChange_pin;
+Future<void> PostAuthDriver_Truck_Change_Pin(BuildContext context,
+    String DriverTruck_currentText_Chang_Pin, String id_pin_confirm) async {
+  String url = apiDriverUser_Change_Pin;
+  Dio dio = new Dio();
+  Response response = await dio.post(url,
+      options: Options(headers: {'Authorization': 'Token $result_token'}),
+      data: {
+        "pin_code": DriverTruck_currentText_Chang_Pin,
+        "id": id_pin_confirm
+      });
+
+  var result = response.data['results'][0];
+  print('Password_Change_pin:::::$result');
+  var status_code = response.data["status_code"][0]["code"];
+  if (status_code == '200') {
+    Driver_TruckChange_pin = result;
+    GetapiDriver_Coupon_List(result_token);
+    Future.delayed(Duration(seconds: 1), () {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => Loading_Driver()),
+          (Route<dynamic> route) => false);
+    });
+  } else {}
+}
+
+var Driver_Coupon_Expire;
+Future<void> GetapiDriver_Coupon_Expire(String result_token) async {
+  String url = '$apiDriver_Coupon_Expire';
+  Dio dio = new Dio();
+  Response response = await dio.get(
+    url,
+    options: Options(headers: {'Authorization': 'Token $result_token'}),
+  );
+  var result = response.data['results'];
+  var status_code = response.data["status_code"][0]["code"];
+  print('status_code:::::$status_code');
+  if (status_code == '200') {
+    print('Driver_Coupon_Expire:::::$Driver_Coupon_Expire');
+    Driver_Coupon_Expire = result;
+  } else {
+    Driver_Coupon_Expire = "";
+  }
+}

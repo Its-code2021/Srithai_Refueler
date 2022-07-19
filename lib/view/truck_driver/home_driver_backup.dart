@@ -144,7 +144,7 @@ class _Home_Coupon_DriverState extends State<Home_Coupon_Driver> {
                             ),
                             onPressed: () {
                               Coupon_id = Driver_CouponList[index]['id'];
-                              GetHistory_Detail_Gas(context, Coupon_id);
+                              GetCoupon_Detail_Driver(context, Coupon_id);
                               print(Coupon_id);
                             },
                             child: Row(

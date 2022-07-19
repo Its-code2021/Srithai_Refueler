@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:cpac/controller/driver_employee.dart';
 import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/server/api.dart';
 import 'package:cpac/view/change_password.dart';
-import 'package:cpac/view/login_pump_gas.dart';
+import 'package:cpac/view/truck_driver/login_truck_driver.dart';
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +59,7 @@ class _Cpac_User_ProfileState extends State<Cpac_User_Profile> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   title: Text(
-                    Profile['fullname'].toString(),
+                    Driver_ProfileUser['fullname'].toString(),
                     style: TextStyle(
                       color: Color(0xff438EB9),
                       fontWeight: FontWeight.bold,
@@ -72,7 +74,7 @@ class _Cpac_User_ProfileState extends State<Cpac_User_Profile> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   title: Text(
-                    Profile['username'].toString(),
+                    Driver_ProfileUser['username'].toString(),
                     style: TextStyle(
                       color: Color(0xff438EB9),
                       fontWeight: FontWeight.bold,
@@ -87,7 +89,7 @@ class _Cpac_User_ProfileState extends State<Cpac_User_Profile> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   title: Text(
-                    Profile['telephone'].toString(),
+                    Driver_ProfileUser['telephone'].toString(),
                     style: TextStyle(
                       color: Color(0xff438EB9),
                       fontWeight: FontWeight.bold,
@@ -102,7 +104,7 @@ class _Cpac_User_ProfileState extends State<Cpac_User_Profile> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   title: Text(
-                    Profile['email'].toString(),
+                    Driver_ProfileUser['email'].toString(),
                     style: TextStyle(
                       color: Color(0xff438EB9),
                       fontWeight: FontWeight.bold,
@@ -206,7 +208,7 @@ class _Cpac_User_ProfileState extends State<Cpac_User_Profile> {
               Container(
                 height: 20,
               ),
-              Btn_LogoutS(context),
+              Btn_Logout(context),
               Container(
                 height: 30,
               ),

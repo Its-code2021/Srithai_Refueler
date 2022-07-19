@@ -35,7 +35,11 @@ class _Refueling_AllState extends State<Refueling_All> {
           ),
           onPressed: () {
             var Qr_confrim = QrCode['qr_code'];
-            PostOilConfrim_ADD(context, Qr_confrim);
+            if (QrCode['oil_gen'] == 0) {
+              PostOilConfrim_ADD(context, Qr_confrim);
+            } else {
+              PostOilConfrim_ADD_GEN(context, Qr_confrim);
+            }
           },
         ),
       ),

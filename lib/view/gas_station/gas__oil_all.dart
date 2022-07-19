@@ -38,11 +38,16 @@ class _Gas_Oil_AllState extends State<Gas_Oil_All> {
           ),
           onPressed: () {
             var Qr_confrim = QrCode['qr_code'];
+            // GetBilDetail_Gas(context, OilDetail_id);
+            if (QrCode['oil_gen'] == 0) {
+              PostOilConfrimGas_ADD(context, Qr_confrim);
+            } else {
+              PostOilConfrimGas_ADD_GEN(context, Qr_confrim);
+              print(QrCode['oil_gen']);
+            }
 
-            GetBilDetail_Gas(OilDetail_id);
-            PostOilConfrimGas_ADD(context, Qr_confrim);
             print(Qr_confrim);
-            print(GetBilDetail_Gas(OilDetail_id));
+            // print(GetBilDetail_Gas(context, OilDetail_id));
           },
         ),
       ),

@@ -23,6 +23,7 @@ class _Gas_Bill_AmountState extends State<Gas_Bill_Amount> {
   void initState() {
     super.initState();
     BtnConfrim_BilAmount();
+    BilDetail;
     _texthController.text = '';
     _text = true;
   }

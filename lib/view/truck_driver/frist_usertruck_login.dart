@@ -215,6 +215,13 @@ class _Frist_UserTruck_LoginState extends State<Frist_UserTruck_Login> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Container(
+                  height: 5,
+                ),
+                Text(
+                  'หลังจากยืนยันรหัสผ่านแล้วต้องเข้าสู่ระบบใหม่',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Container(
                   height: 20,
                 ),
                 Row(
@@ -304,7 +311,13 @@ class _Frist_UserTruck_LoginState extends State<Frist_UserTruck_Login> {
 
         New_Token_Driver = result;
         if ((username_chang_driver != "" && password_chang_driver != "")) {
-          GetConfrimRememberFrist_Login_Driver(context, New_Token_Driver);
+          _passwordControllers.clear();
+          result_token = '';
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                builder: (context) => Loading_Chang_Password_Driver(),
+              ),
+              (Route<dynamic> route) => false);
           print('username::: $username_chang_driver');
           print('password::: $password_chang_driver');
           print('New_Token_Driver:::$New_Token_Driver');
@@ -315,6 +328,7 @@ class _Frist_UserTruck_LoginState extends State<Frist_UserTruck_Login> {
     }
   }
 
+  TextEditingController _passwordControllers = TextEditingController();
   Future<void> GetConfrimRememberFrist_Login_Driver(
       BuildContext context, New_Token_Driver) async {
     result_token = New_Token_Driver;
@@ -326,9 +340,11 @@ class _Frist_UserTruck_LoginState extends State<Frist_UserTruck_Login> {
     if (response.data['status_code'][0]['code'] == "200") {
       String _username = username_chang_driver;
       String _password = password_chang_driver;
+      _passwordControllers.clear();
+      result_token = '';
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-            builder: (context) => Loading_Driver(),
+            builder: (context) => Loading_Chang_Password_Driver(),
           ),
           (Route<dynamic> route) => false);
     }

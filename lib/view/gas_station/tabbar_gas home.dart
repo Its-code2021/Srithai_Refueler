@@ -1,10 +1,12 @@
 // ignore_for_file: deprecated_member_use, unnecessary_new, use_key_in_widget_constructors, avoid_print, avoid_unnecessary_containers, file_names, prefer_const_constructors, duplicate_ignore
 
+import 'package:cpac/controller/user_profile.dart';
 import 'package:cpac/view/gas_station/gas_history.dart';
 import 'package:cpac/view/gas_station/gas_menu_user.dart';
 import 'package:cpac/view/gas_station/gas_qr_code.dart';
 import 'package:cpac/view/gas_station/gas_select.dart';
 import 'package:cpac/view/gas_station/gas_user_profile.dart';
+import 'package:cpac/view/login_pump_gas.dart';
 import 'package:flutter/material.dart';
 
 import 'gas__oil_all.dart';
@@ -26,7 +28,13 @@ class _TabBar_Menu_Gas_HomeState extends State<TabBar_Menu_Gas_Home> {
     // SplashPage(),
   ];
 
-  @override
+  // @override
+  // void initState() {
+  //   GetToken(token);
+  //   GetapiHeader(token);
+  //   super.initState();
+  // }
+
   Widget build(BuildContext context) {
     Future<bool> showExitPopup() async {
       return await showDialog(

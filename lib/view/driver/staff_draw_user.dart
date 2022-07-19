@@ -96,7 +96,7 @@ class _Staff_Draw_UserState extends State<Staff_Draw_User> {
                                 ),
                               ),
                               Text(
-                                _texthController.text,
+                                Oil_Details['oil_truck'].toString(),
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.green),
@@ -125,7 +125,8 @@ class _Staff_Draw_UserState extends State<Staff_Draw_User> {
                           ElevatedButton(
                             onPressed: () {
                               var id = Oil_Details['id'].toString();
-                              var refuel_amount = _texthController.text;
+                              var refuel_amount =
+                                  Oil_Details['oil_truck'].toString();
                               var images = base64Image;
                               PostConfirmRefuelAmount(
                                   context, id, refuel_amount, images);
@@ -161,6 +162,8 @@ class _Staff_Draw_UserState extends State<Staff_Draw_User> {
   }
 
   var total_Refuel_all;
+  bool _validate = false;
+  bool _validate2 = false;
   Widget Confrim_Oil() {
     return Container(
       width: 150,
@@ -181,36 +184,18 @@ class _Staff_Draw_UserState extends State<Staff_Draw_User> {
               ),
               onPressed: () {
                 setState(() async {
-                  _texthController.text.isEmpty
-                      ? _validate = true
-                      : _validate = false;
-                  _controller.isEmpty ? _validate2 = true : _validate2 = false;
+                  _controller.isEmpty ? _validate = true : _validate = false;
                   if (_validate == false) {
-                    if (_validate2 == false) {
-                      if (_controller.isNotEmpty) {
-                        final Uint8List? data = await _controller.toPngBytes();
-                        if (data != null) {
-                          base64Image = base64Encode(data);
-                          var images_code = base64Image;
-                          var total_Refuel =
-                              int.parse(Oil_Details['amount'].toString());
-                          var _texthController_text =
-                              double.parse(_texthController.text);
-                          assert(total_Refuel is int);
-                          if (total_Refuel > _texthController_text ||
-                              total_Refuel == _texthController_text) {
-                            total_Refuel_all = _texthController_text;
-                            AlertConfrimAmout(context);
-                          } else {
-                            AlertOilRate_Null(context);
-                          }
-                        }
+                    if (_controller.isNotEmpty) {
+                      final Uint8List? data = await _controller.toPngBytes();
+                      if (data != null) {
+                        base64Image = base64Encode(data);
+                        var images_code = base64Image;
+                        AlertConfrimAmout(context);
                       }
-                    } else if (_validate2 == true) {
-                      AlertDetailDrawGas(context);
                     }
                   } else if (_validate == true) {
-                    AlertDetailDraw(context);
+                    AlertDetailDrawGas(context);
                   }
                 });
               },
@@ -337,77 +322,3 @@ class _Staff_Draw_UserState extends State<Staff_Draw_User> {
     );
   }
 }
-
-class BtnConfrim extends StatefulWidget {
-  @override
-  BtnConfrimState createState() {
-    return new BtnConfrimState();
-  }
-}
-
-var _texthController = TextEditingController();
-bool _text = false;
-bool _validate = false;
-bool _validate2 = false;
-
-class BtnConfrimState extends State<BtnConfrim> {
-  void initState() {
-    super.initState();
-    print('init');
-    _texthController.text = '';
-    _text = true; //variable to control enable property of textfield
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: <Widget>[
-          Center(
-            child: TextField(
-              // inputFormatters: [
-              //   CommaFormatter_driver(),
-              //   FilteringTextInputFormatter.allow(
-              //     RegExp(
-              //       //r'^[-]{0,1}[0-9]*[,]?[0-9]*', //signed regex
-              //       r'^[-]{0,1}[0-9]*[.]*[0,1]?[0-9]*',
-              //     ),
-              //   ),
-              // ],
-              controller: _texthController,
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
-              ],
-              autofocus: true,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(vertical: 0.1),
-                border: new OutlineInputBorder(
-                    borderSide: new BorderSide(color: Colors.teal)),
-                // errorText: _validate ? 'กรุณากรอกจะจำนวนลิตรที่เติมจริง' : null,
-              ),
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// class CommaFormatter_driver extends TextInputFormatter {
-//   @override
-//   TextEditingValue formatEditUpdate(
-//     TextEditingValue oldValue,
-//     TextEditingValue newValue,
-//   ) {
-//     String _text = newValue.text;
-//     //This is only if you need signed numbers. Will convert the first '.'(dot) to '-'(minus)
-//     //if (_text.isNotEmpty && _text[0] == '.')
-//     //  _text = _text.replaceFirst('.', '-');
-//     return newValue.copyWith(
-//       text: _text.replaceAll(',', ''),
-//     );
-//   }
-// }

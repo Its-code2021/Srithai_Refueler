@@ -23,6 +23,8 @@ import 'package:store_redirect/store_redirect.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:version_check/version_check.dart';
 
+import 'login_pin_code.dart';
+
 class Login_Pump_Gas extends StatefulWidget {
   @override
   _Login_Pump_GasState createState() => _Login_Pump_GasState();
@@ -36,6 +38,7 @@ var password_chang;
 var username_chang;
 var device_model_pump;
 var versions;
+String password = "";
 
 class _Login_Pump_GasState extends State<Login_Pump_Gas> {
   bool _isChecked = false;
@@ -99,78 +102,6 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
     if (!await launchUrl(_url)) throw 'Could not launch $_url';
   }
 
-  // Future<void> AlertUpdate_App(BuildContext context) async {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => MediaQuery(
-  //       data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-  //       child: AlertDialog(
-  //         actions: [
-  //           Column(
-  //             children: [
-  //               Icon(
-  //                 Icons.error_outline,
-  //                 size: 50,
-  //                 color: Colors.red,
-  //               ),
-  //               Container(
-  //                 height: 10,
-  //               ),
-  //               const Text(
-  //                 'กรุณาอัพเดตแอปเวอร์ชั่นใหม่',
-  //                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-  //                 textAlign: TextAlign.center,
-  //               ),
-  //               Container(
-  //                 height: 10,
-  //               ),
-  //               Row(
-  //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-  //                 children: [
-  //                   ElevatedButton(
-  //                     style: ElevatedButton.styleFrom(
-  //                       primary: Colors.red,
-  //                     ),
-  //                     onPressed: () {
-  //                       Navigator.of(context);
-  //                       GetConfrimRememberPumpUser(
-  //                           context, token, device_model_pump);
-  //                       _Btn_PumpCheck(_isChecked_DriverPump);
-  //                     },
-  //                     child: const Center(
-  //                         child: Text(
-  //                       'ข้าม',
-  //                       style: TextStyle(fontWeight: FontWeight.bold),
-  //                     )),
-  //                   ),
-  //                   ElevatedButton(
-  //                     style: ElevatedButton.styleFrom(
-  //                       primary: Colors.green,
-  //                     ),
-  //                     onPressed: () {
-  //                       // _launchUrl();
-  //                       StoreRedirect.redirect(
-  //                         androidAppId: "com.srithai.refuelers",
-  //                         // iOSAppId: "585027354",
-  //                       );
-  //                       Navigator.of(context).pop();
-  //                     },
-  //                     child: const Center(
-  //                         child: Text(
-  //                       'อัพเดท',
-  //                       style: TextStyle(fontWeight: FontWeight.bold),
-  //                     )),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ],
-  //           )
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
   Future<Null> login() async {
     String url = apiLogin;
     try {
@@ -185,7 +116,7 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
         var result = response.data['results'][0];
         token = result;
         String username = _usernameController.text.toString();
-        String password = _passwordController.text.toString();
+        password = _passwordController.text.toString();
         username_chang = username;
         password_chang = password;
         DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -193,6 +124,7 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
           AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
           PackageInfo packageInfo = await PackageInfo.fromPlatform();
           versions = packageInfo.version;
+          // GetapiPumpUser(context, token);
           GetConfrimRememberPumpUser(context, token, device_model_pump);
           _Btn_PumpCheck(_isChecked_DriverPump);
         } else if (Platform.isIOS) {
@@ -377,15 +309,15 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
   }
 
   void _Btn_PumpCheck(value) {
-    print("_isChecked_DriverPump");
-    print("_isChecked_DriverPump $token");
+    print("_isChecked_DriverPump $_isChecked_DriverPump");
+
     _isChecked_DriverPump = value;
     SharedPreferences.getInstance().then(
       (prefs) {
         prefs.setBool("remember_me", value);
         prefs.setString('username', _usernameController.text);
         // prefs.setString('password', _passwordController.text);
-        // prefs.setString('token', token);
+        prefs.setString('token', token);
       },
     );
     void setState(value) {
@@ -452,9 +384,8 @@ class _Login_Pump_GasState extends State<Login_Pump_Gas> {
           // _onLoading();
           if (token != null || token != '') {
             token;
-            GetapiPumpUser(context, token);
-            // GetapiDriverDouponList(context, token);
-            token;
+            GetConfrimRememberPumpUser(context, token, device_model_pump);
+            // GetTokenPIN(context, token);
             _Btn_PumpCheck(_isChecked_DriverPump);
             print('จดจำการเข้าสู่ระบบ:::::::: $_isChecked_DriverPump');
             print('จดจำการเข้าสู่ระบบ:::::::: $token');
@@ -535,10 +466,10 @@ Widget Btn_LogoutS(BuildContext context) {
           await _prefs.clear();
           bool _isChecked_Pump = true;
           _Btn_PumpRemeberme(_isChecked_Pump);
-          // _usernameController.clear();
+          _usernameController.clear();
           _passwordController.clear();
           token = '';
-          // Tokens_all = '';
+          Tokens_all = '';
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) => Loading_Chang_Password()),
               (Route<dynamic> route) => false);
@@ -657,7 +588,6 @@ Future<Null> login_Remember_pump(
       var result = response.data['results'][0];
       token = result;
       GetapiPumpUser(context, token);
-      // GetapiDriverDouponList(context, token);
     } else {
       // myAlert_2(context, "รหัสผ่านหรือชื่อผู้ใช้งานไม่ถูกต้อง");
     }

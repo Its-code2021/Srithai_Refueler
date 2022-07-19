@@ -102,6 +102,7 @@ class _inpump_screenshot_binState extends State<inpump_screenshot_bin> {
 
   Future<void> AlertBinDoneS() async {
     showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (context) => MediaQuery(
         data: MediaQuery.of(context).copyWith(textScaleFactor: 1),

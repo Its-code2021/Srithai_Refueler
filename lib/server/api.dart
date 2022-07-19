@@ -23,18 +23,22 @@ String apiRefuelDetail =
 
 String apiConfirmRefuelAmount =
     api + "/app/?p=confirm-refuel-amount"; // ยืนยันการเติมน้ำมัน
+String apiConfirmRefuelAmount_GEN =
+    api + "/app/?p=confirm-refuel-gen-amount"; // ยืนยันการเติมน้ำมัน + เติม GEN
 
 //API Pump
 String apiQrCodePump = api + "/pump/?p=scan-qr"; // Scan QrCode
 String apiQrCodeNumberPump = api + "/pump/?p=enter-qr"; // กรอกหมายเลข QrCode
 String apiConfrimRefulOilPump =
     api + "/pump/?p=refuel-confirmed"; // Confrim เติทน้ำมัน
+
 String apiRefuelDetailPump =
     api + "/pump/?p=refuel-detail&id="; // รายละเอียดการเติมน้ำมัน
 
 String apiPumpConfirmRefuelAmount =
     api + "/pump/?p=confirm-driver-signed"; // ยืนยันการเติมน้ำมัน
-
+String apiConfrimRefulOilGenPump = api +
+    "/pump/?p=confirm-refuel-gen-amount"; // ยืนยันการ เติทน้ำมัน & เครื่องเจน
 String apiPumprefuelBillDetail = api +
     "/pump/?p=refuel-bill-detail&id="; // รายละเอียดและกรอกจำนวนเงินเติมน้ำมัน
 
@@ -59,6 +63,17 @@ String apiPump_Paymant_Update =
     apimail + "/pump/?p=pump-update-status-paymant"; //ยืนยันสรุปยอดรับชำระเงิน
 String apiPump_Paymant_Slip = api + "/pump/?p=payment-slip&id=";
 String apiSendEmail = apimail + "/pump/?p=send-email"; // ส่งเมล
+///
+//API Pump_PIN_CODE
+String apiPump_Check_Password_Pin = api +
+    "/auth/?p=user-check-password"; //check Password เพื่อเปลี่ยน หรือสร้าง Pin
+String apiUser_Created_Pin = api + "/auth/?p=user-created-pin"; //สร้าง Pin
+
+String apiUser_check_Pin =
+    api + "/auth/?p=user-check-pin"; //check Pin เพื่อ เข้าสู่ระบบ
+String apiUser_Change_Pin = api + "/auth/?p=user-change-pin"; //เปลี่ยนรหัส PIN
+////
+
 //API Driver(พขร.)
 String apiLoginDriver = api + "/auth/?p=driver-login"; //เข้าสู่ระบบ
 String apiDriverUser = api + "/auth/?p=driver-data"; //user
@@ -73,3 +88,18 @@ String apiDriver_Change =
     api + "/app/?p=driver-change"; //เช็ค พขร ที่เปลี่ยนได้
 String apiDriver_Search =
     api + "/app/?p=driver-search&q="; //เช็ค พขร ที่เปลี่ยนได้
+String apiDriver_Coupon_list =
+    api + "/app/?p=driver-coupon-list"; //เช็ค จำนวนคูปอง พขร
+String apiDriver_Coupon_Expire =
+    api + "/app/?p=driver-coupon-expire"; //เช็ค จำนวนคูปอง พขร
+//API Driver_PIN_CODE
+String apiDriverUser_Check_Password_Pin = api +
+    "/auth/?p=driver-check-password"; //check Password เพื่อเปลี่ยน หรือสร้าง Pin
+String apiDriverUser_Created_Pin =
+    api + "/auth/?p=driver-created-pin"; //สร้าง Pin
+
+String apiDriverUser_check_Pin =
+    api + "/auth/?p=driver-check-pin"; //check Pin เพื่อ เข้าสู่ระบบ
+String apiDriverUser_Change_Pin =
+    api + "/auth/?p=driver-change-pin"; //เปลี่ยนรหัส PIN
+////

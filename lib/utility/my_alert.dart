@@ -432,6 +432,49 @@ Future<void> AlertOilTotal_Null(BuildContext context) async {
   );
 }
 
+Future<void> AlertOilTotalAddGen_Null(BuildContext context) async {
+  showDialog(
+    context: context,
+    builder: (context) => MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+      child: AlertDialog(
+        actions: [
+          Column(
+            children: [
+              Icon(
+                Icons.error_outline,
+                size: 50,
+                color: Colors.red,
+              ),
+              Container(
+                height: 10,
+              ),
+              const Text(
+                'กรุณากรอกจำนวนลิตรที่เติมเครื่อง GEN',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+              Container(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Center(
+                    child: Text(
+                  'ตกลง',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
+              ),
+            ],
+          )
+        ],
+      ),
+    ),
+  );
+}
+
 Future<void> AlertOilRate_Null(BuildContext context) async {
   showDialog(
     context: context,
@@ -451,6 +494,49 @@ Future<void> AlertOilRate_Null(BuildContext context) async {
               ),
               const Text(
                 'ไม่สามารถกรอกจำนวนลิตรที่เติมจริงเกินที่กำหนดได้',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+              Container(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Center(
+                    child: Text(
+                  'ตกลง',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
+              ),
+            ],
+          )
+        ],
+      ),
+    ),
+  );
+}
+
+Future<void> AlertOilRateGEN_Null(BuildContext context) async {
+  showDialog(
+    context: context,
+    builder: (context) => MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+      child: AlertDialog(
+        actions: [
+          Column(
+            children: [
+              Icon(
+                Icons.error_outline,
+                size: 50,
+                color: Colors.red,
+              ),
+              Container(
+                height: 10,
+              ),
+              const Text(
+                'ไม่สามารถกรอกจำนวนลิตรที่เติมเครื่อง Gen เกินที่กำหนดได้',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 textAlign: TextAlign.center,
               ),
@@ -786,4 +872,234 @@ Future<void> AlertDriver_Change_Done(BuildContext context) async {
       ),
     ),
   );
+}
+
+Future<void> AlertPassword_Confrim_Chang_PinCode(BuildContext context) async {
+  showDialog(
+      context: context,
+      builder: (context) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+            child: AlertDialog(
+              actions: [
+                Column(
+                  children: [
+                    Icon(
+                      Icons.error_outline,
+                      size: 50,
+                      color: Colors.red,
+                    ),
+                    Container(
+                      height: 10,
+                    ),
+                    const Text(
+                      'กรุณากรอกรหัสผ่านให้ถูกต้อง',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      textAlign: TextAlign.center,
+                    ),
+                    Container(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Center(
+                          child: Text(
+                        'ตกลง',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ));
+}
+
+Future<void> AlertPassword_Confrim_PinCode(BuildContext context) async {
+  showDialog(
+      context: context,
+      builder: (context) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+            child: AlertDialog(
+              actions: [
+                Column(
+                  children: [
+                    Icon(
+                      Icons.error_outline,
+                      size: 50,
+                      color: Colors.red,
+                    ),
+                    Container(
+                      height: 10,
+                    ),
+                    const Text(
+                      'รหัส PIN ไม่ถูกต้อง',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      textAlign: TextAlign.center,
+                    ),
+                    Container(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Center(
+                          child: Text(
+                        'ตกลง',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ));
+}
+
+Future<void> Alert_Confrim_PinCode(BuildContext context) async {
+  showDialog(
+      context: context,
+      builder: (context) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+            child: AlertDialog(
+              actions: [
+                Column(
+                  children: [
+                    Icon(
+                      Icons.error_outline,
+                      size: 50,
+                      color: Colors.red,
+                    ),
+                    Container(
+                      height: 10,
+                    ),
+                    const Text(
+                      'รหัส PIN ไม่ถูกต้อง',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      textAlign: TextAlign.center,
+                    ),
+                    Container(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Center(
+                          child: Text(
+                        'ตกลง',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ));
+}
+
+Future<void> Alert_Security_PinCode(BuildContext context) async {
+  showDialog(
+      context: context,
+      builder: (context) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+            child: AlertDialog(
+              actions: [
+                Column(
+                  children: [
+                    Icon(
+                      Icons.error_outline,
+                      size: 50,
+                      color: Colors.red,
+                    ),
+                    Container(
+                      height: 10,
+                    ),
+                    const Text(
+                      'เพื่อความปลอดภัยไม่ควรตั้ง ',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      textAlign: TextAlign.center,
+                    ),
+                    const Text(
+                      'PIN CODE เป็นหมายเลขนี้',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      textAlign: TextAlign.center,
+                    ),
+                    Container(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Center(
+                          child: Text(
+                        'ตกลง',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ));
+}
+
+Future<void> Alert_Coupon_Expire(BuildContext context) async {
+  showDialog(
+      context: context,
+      builder: (context) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+            child: AlertDialog(
+              actions: [
+                Column(
+                  children: [
+                    Icon(
+                      Icons.content_paste_off,
+                      size: 40,
+                      color: Colors.red,
+                    ),
+                    Container(
+                      height: 10,
+                    ),
+                    const Text(
+                      'คูปองหมดอายุ! แจ้งหัวหน้างานจัดส่งขออนุมัติผู้บริหาร หากไม่ดำเนินการขออนุมัติคูปองจะถูกยกเลิกอัตโนมัติ',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      textAlign: TextAlign.center,
+                    ),
+                    const Text(
+                      '',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      textAlign: TextAlign.center,
+                    ),
+                    Container(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0xff1F47CB),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Center(
+                          child: Text(
+                        'ตกลง',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ));
 }

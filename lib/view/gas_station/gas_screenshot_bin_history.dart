@@ -59,7 +59,7 @@ class _gas_screenshot_bin_historyState
         _canShowButton2 = true;
         AlertBinDone();
 
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(Duration(seconds: 1), () {
           PostPumpHistoryRefue(startdate, enddate);
           Tabel_Body_Gas_History(context);
           Navigator.of(context).pushAndRemoveUntil(

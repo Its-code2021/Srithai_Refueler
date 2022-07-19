@@ -144,39 +144,77 @@ Widget Tabel_Trck_GenQrCode() {
             ),
           ],
         ),
-        // TableRow(
-        //   children: [
-        //     Container(
-        //       color: Color(0xffC3C3C3),
-        //       height: 40,
-        //       child: Column(
-        //         mainAxisAlignment: MainAxisAlignment.center,
-        //         children: const [
-        //           Text(
-        //             'ต้นทาง - ปลายทาง ',
-        //             style: TextStyle(
-        //                 fontWeight: FontWeight.bold, color: Colors.black87),
-        //             textAlign: TextAlign.center,
-        //           )
-        //         ],
-        //       ),
-        //     ),
-        //     Container(
-        //       height: 40,
-        //       child: Column(
-        //         mainAxisAlignment: MainAxisAlignment.center,
-        //         children: [
-        //           const Text(
-        //             'มาลีวัล -> สมุทรปราการ',
-        //             style: TextStyle(
-        //                 fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
-        //             textAlign: TextAlign.center,
-        //           )
-        //         ],
-        //       ),
-        //     ),
-        //   ],
-        // ),
+        if (Driver_CouponDetail['oil_gen'] != 0) ...{
+          TableRow(
+            children: [
+              Container(
+                color: Color(0xffC3C3C3),
+                height: 40,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text(
+                      'จำนวนน้ำมันเติมรถ ',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.black87),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                height: 40,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      Driver_CouponDetail['oil_truck'].toString(),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff428BCA)),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+          TableRow(
+            children: [
+              Container(
+                color: Color(0xffC3C3C3),
+                height: 40,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text(
+                      'จำนวนน้ำมันเติมเครื่องเจน ',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.black87),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                height: 40,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      Driver_CouponDetail['oil_gen'].toString(),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff428BCA)),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        } else
+          ...{},
         TableRow(
           children: [
             Container(

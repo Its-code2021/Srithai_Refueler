@@ -71,7 +71,8 @@ dependencies:
   version_check: ^0.2.1
   flutter_easyrefresh: ^2.2.1
   dropdown_search: ^0.6.3
-  
+ 
+
   flutter_localizations: 
     sdk: flutter
     version: ^0.0.0

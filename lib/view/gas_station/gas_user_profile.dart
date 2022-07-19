@@ -9,6 +9,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import 'pin_code/gas_confirm_password_change_pin_code.dart';
+
 class Gas_User_Profile extends StatefulWidget {
   Gas_User_Profile({Key? key}) : super(key: key);
 
@@ -110,98 +112,81 @@ class _Gas_User_ProfileState extends State<Gas_User_Profile> {
                   ),
                 ),
               ),
-              // Card(
-              //   child: ListTile(
-              //     leading: Text(
-              //       'หน่วยงาน:',
-              //       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              //     ),
-              //     title: Text(
-              //       Profile['site_name'].toString(),
-              //       style: TextStyle(
-              //         color: Color(0xff438EB9),
-              //         fontWeight: FontWeight.bold,
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              // Card(
-              //   child: ListTile(
-              //     leading: Text(
-              //       'กิจการ:',
-              //       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              //     ),
-              //     title: Text(
-              //       Profile['business_name'].toString(),
-              //       style: TextStyle(
-              //         color: Color(0xff438EB9),
-              //         fontWeight: FontWeight.bold,
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              // Card(
-              //   child: ListTile(
-              //     leading: Text(
-              //       'โทรศัพท์:',
-              //       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              //     ),
-              //     title: Text(
-              //       Profile['telephone'].toString(),
-              //       style: TextStyle(
-              //         color: Color(0xff438EB9),
-              //         fontWeight: FontWeight.bold,
-              //       ),
-              //     ),
-              //   ),
-              // ),
               Container(
                 height: 20,
               ),
               Text(
-                'เวอร์ชั่นปัจจุบัน : $versions',
+                'เวอร์ชั่นปัจจุบัน :$ver',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               Container(
                 height: 20,
               ),
-              Container(
-                width: 250,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size.fromHeight(
-                      50,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.blue[900],
+
+                        // fromHeight use double.infinity as width and 40 is the height
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Change_Password()),
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            'เปลี่ยนรหัสผ่าน ',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Icon(
+                            Icons.lock,
+                            size: 25,
+                            color: Colors.white,
+                          ),
+                        ],
+                      ),
                     ),
-                    primary: Colors.blue[900],
-                    // fromHeight use double.infinity as width and 40 is the height
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Change_Password()),
-                    );
-                    print('ออกจากระบบ');
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        'เปลี่ยนรหัสผ่าน ',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
+                  Container(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.blue[900],
                       ),
-                      Icon(
-                        Icons.lock,
-                        size: 25,
-                        color: Colors.white,
+                      onPressed: () {
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    Gas_ConfirmPassword_ChangePinCode()),
+                            (Route<dynamic> route) => false);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            'เปลี่ยนรหัส PIN ',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
               Container(
                 height: 20,

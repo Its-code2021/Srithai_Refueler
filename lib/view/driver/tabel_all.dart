@@ -4,6 +4,7 @@ import 'package:cpac/controller/qr_code.dart';
 import 'package:cpac/utility/status_all.dart';
 import 'package:cpac/view/driver/coupon_detail.dart';
 import 'package:cpac/view/driver/staff_draw_user.dart';
+import 'package:cpac/view/driver/staff_draw_user_gen.dart';
 import 'package:flutter/material.dart';
 
 // ignore: non_constant_identifier_names
@@ -1220,38 +1221,142 @@ Widget Tabel_Staff_detail() {
             ),
           ],
         ),
-        TableRow(
-          children: [
-            Container(
-              color: Color(0xffC3C3C3),
-              height: 40,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    'จำนวนลิตร',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  )
-                ],
+        if (QrCode['oil_gen'] == 0) ...{
+          TableRow(
+            children: [
+              Container(
+                color: Color(0xffC3C3C3),
+                height: 40,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text(
+                      'จำนวนลิตร',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
               ),
-            ),
-            Container(
-              height: 40,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    QrCode['amount'].toString(),
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
-                    textAlign: TextAlign.center,
-                  )
-                ],
+              Container(
+                height: 40,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      QrCode['amount'].toString(),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff428BCA)),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+        } else ...{
+          TableRow(
+            children: [
+              Container(
+                color: Color(0xffC3C3C3),
+                height: 40,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text(
+                      'เติมรถ (ลิตร)',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                height: 40,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      QrCode['oil_truck'].toString(),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff428BCA)),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+          TableRow(
+            children: [
+              Container(
+                color: Color(0xff428BCA),
+                height: 40,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text(
+                      'เติมเครื่อง GEN (ลิตร)',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                color: Color(0xff428BCA),
+                height: 40,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      QrCode['oil_gen'].toString(),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+          TableRow(
+            children: [
+              Container(
+                color: Color(0xffC3C3C3),
+                height: 40,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text(
+                      'รวมจำนวนลิตร',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                height: 40,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      QrCode['amount'].toString(),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff428BCA)),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        },
       ],
     ),
   );
@@ -1399,33 +1504,495 @@ Widget Tabel_Staff_detail_new() {
           children: [
             Container(
               color: Color(0xffC3C3C3),
+              height: 40,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: TextField(
-                      enabled: false,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        contentPadding:
-                            const EdgeInsets.symmetric(vertical: 0.1),
-                        hintText: "จำนวนลิตรที่เติมจริง",
-                        hintStyle: TextStyle(color: Colors.black87),
-                      ),
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff428BCA)),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+                  Text(
+                    'จำนวนลิตรที่เติมจริง',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
                 ],
               ),
             ),
             Container(
+              height: 40,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [BtnConfrim()],
+                children: [
+                  Text(
+                    Oil_Details['oil_truck'].toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        // TableRow(
+        //   children: [
+        //     Container(
+        //       color: Color(0xffC3C3C3),
+        //       child: Column(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         children: const [
+        //           Padding(
+        //             padding: EdgeInsets.all(8.0),
+        //             child: TextField(
+        //               enabled: false,
+        //               decoration: InputDecoration(
+        //                 border: InputBorder.none,
+        //                 contentPadding:
+        //                     const EdgeInsets.symmetric(vertical: 0.1),
+        //                 hintText: "จำนวนลิตรที่เติมจริง",
+        //                 hintStyle: TextStyle(color: Colors.black87),
+        //               ),
+        //               style: TextStyle(
+        //                   fontWeight: FontWeight.bold,
+        //                   color: Color(0xff428BCA)),
+        //               textAlign: TextAlign.center,
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //     Container(
+        //       child: Column(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         children: [BtnConfrim()],
+        //       ),
+        //     ),
+        //   ],
+        // ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'ชื่อผู้เติมน้ำมัน',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Oil_Details['refueler_name'].toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'สถานะ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Status_Oil_All()
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'วัน/เวลาที่เติม',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Oil_Details['refuel_at'].toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.green),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+var total_Refuel_alls;
+var total_Refuel_Gen_alls;
+var tottal_gens;
+Widget Tabel_Staff_detail_new_GEN() {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 5.0),
+    child: Table(
+      border: TableBorder.all(
+          color: Colors.black, style: BorderStyle.solid, width: 2),
+      children: [
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'เลขที่คูปอง ',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black87),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Oil_Details['code'].toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'ทะเบียนรถ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Oil_Details['truck_license'].toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'ชื่อพนักงานขับรถ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Oil_Details['driver'].toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'หน่วยงาน/กิจการ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Oil_Details['site_name'].toString() +
+                        '/' +
+                        Oil_Details['business_name'].toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        // TableRow(
+        //   children: [
+        //     Container(
+        //       color: Color(0xffC3C3C3),
+        //       child: Column(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         children: const [
+        //           Padding(
+        //             padding: EdgeInsets.all(8.0),
+        //             child: TextField(
+        //               enabled: false,
+        //               decoration: InputDecoration(
+        //                 border: InputBorder.none,
+        //                 contentPadding:
+        //                     const EdgeInsets.symmetric(vertical: 0.1),
+        //                 hintText: "เติมรถ (ลิตร)",
+        //                 hintStyle: TextStyle(color: Colors.black87),
+        //               ),
+        //               style: TextStyle(
+        //                   fontWeight: FontWeight.bold,
+        //                   color: Color(0xff428BCA)),
+        //               textAlign: TextAlign.center,
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //     Container(
+        //       child: Column(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         children: [BtnConfrim_GEN1()],
+        //       ),
+        //     ),
+        //   ],
+        // ),
+        // TableRow(
+        //   children: [
+        //     Container(
+        //       color: Color(0xffC3C3C3),
+        //       child: Column(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         children: const [
+        //           Padding(
+        //             padding: EdgeInsets.all(8.0),
+        //             child: TextField(
+        //               enabled: false,
+        //               decoration: InputDecoration(
+        //                 border: InputBorder.none,
+        //                 contentPadding:
+        //                     const EdgeInsets.symmetric(vertical: 0.1),
+        //                 hintText: "เติมเครื่อง GEN (ลิตร)",
+        //                 hintStyle: TextStyle(color: Colors.black87),
+        //               ),
+        //               style: TextStyle(
+        //                   fontWeight: FontWeight.bold,
+        //                   color: Color(0xff428BCA)),
+        //               textAlign: TextAlign.center,
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //     Container(
+        //       child: Column(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         children: [BtnConfrim_GEN2()],
+        //       ),
+        //     ),
+        //   ],
+        // ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'เติมรถ (ลิตร)',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Oil_Details['oil_truck'].toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'เติมเครื่อง GEN (ลิตร)',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Oil_Details['oil_gen'].toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        // TableRow(
+        //   children: [
+        //     Container(
+        //       color: Color(0xffC3C3C3),
+        //       child: Column(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         children: const [
+        //           Padding(
+        //             padding: EdgeInsets.all(8.0),
+        //             child: TextField(
+        //               enabled: false,
+        //               decoration: InputDecoration(
+        //                 border: InputBorder.none,
+        //                 contentPadding:
+        //                     const EdgeInsets.symmetric(vertical: 0.1),
+        //                 hintText: "รวมจำนวนน้ำมันที่เติม",
+        //                 hintStyle: TextStyle(color: Colors.black87),
+        //               ),
+        //               style: TextStyle(
+        //                   fontWeight: FontWeight.bold,
+        //                   color: Color(0xff428BCA)),
+        //               textAlign: TextAlign.center,
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //     Container(
+        //       child: Column(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         children: [BtnConfrim_Oil_Add_Gen_SUM()],
+        //       ),
+        //     ),
+        //   ],
+        // ),
+        TableRow(
+          children: [
+            Container(
+              color: Color(0xffC3C3C3),
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'รวมจำนวนน้ำมันที่เติม',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    Oil_Details['amount'].toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff428BCA)),
+                    textAlign: TextAlign.center,
+                  )
+                ],
               ),
             ),
           ],

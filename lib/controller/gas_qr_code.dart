@@ -21,6 +21,8 @@ Future<void> GetapiQrCodeGas(qrcode, BuildContext context) async {
         });
     var status_code = response.data["status_code"][0]["code"];
     var result = response.data['results'][0];
+    var generator = response.data['generator'];
+    QrCode = result;
     if (status_code == '200') {
       print(result);
       print(Profile['fullname']);
@@ -33,11 +35,20 @@ Future<void> GetapiQrCodeGas(qrcode, BuildContext context) async {
       AlertScanQrcode_Gas(context);
     } else if (status_code == '201') {
       var OilDetail_id = result;
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => Loading_Page_Detail_Gas()),
-          (Route<dynamic> route) => false);
-      GetBilDetail_Gas(OilDetail_id);
-      PostQrcodeGas_Agein(OilDetail_id);
+      if (generator == 0) {
+        print(generator);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => Loading_Page_Detail_Gas()),
+            (Route<dynamic> route) => false);
+        PostQrcodeGas_Agein(OilDetail_id);
+      } else {
+        print(generator);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (context) => Loading_Page_Detail_Gas_Add_Gen()),
+            (Route<dynamic> route) => false);
+        PostQrcodeGas_Agein(OilDetail_id);
+      }
     }
   } on Exception catch (e) {
     print(e);
@@ -54,6 +65,7 @@ Future<void> PostapiGasQrCodeNumber(qrcode, BuildContext context) async {
           "code": qrcode,
         });
     var status_code = response.data["status_code"][0]["code"];
+    var generator = response.data['generator'];
     var result = response.data['results'][0];
     if (status_code == '200') {
       print(Profile['fullname']);
@@ -66,10 +78,20 @@ Future<void> PostapiGasQrCodeNumber(qrcode, BuildContext context) async {
       AlertQrCodeMessage_Error(context);
     } else if (status_code == '201') {
       var OilDetail_id = result;
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => Loading_Page_Detail_Gas()),
-          (Route<dynamic> route) => false);
-      PostQrcodeGas_Agein(OilDetail_id);
+      if (generator == 0) {
+        print(generator);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => Loading_Page_Detail_Gas()),
+            (Route<dynamic> route) => false);
+        PostQrcodeGas_Agein(OilDetail_id);
+      } else {
+        print(generator);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (context) => Loading_Page_Detail_Gas_Add_Gen()),
+            (Route<dynamic> route) => false);
+        PostQrcodeGas_Agein(OilDetail_id);
+      }
     }
   } on Exception catch (e) {
     print(e);
@@ -77,7 +99,7 @@ Future<void> PostapiGasQrCodeNumber(qrcode, BuildContext context) async {
 }
 
 var Gas_Details;
-var OilDetail_id;
+var OilDetail_id = null;
 Future<void> PostOilConfrimGas_ADD(BuildContext context, Qr_confrim) async {
   String url = apiConfrimRefulOilPump;
   Dio dio = new Dio();
@@ -99,15 +121,18 @@ Future<void> PostOilConfrimGas_ADD(BuildContext context, Qr_confrim) async {
         url,
         options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
       );
-      print("response $response");
-      print("OilConfrim::::$Tokens_all");
+      // print("response $response");
+      // print("OilConfrim::::$Tokens_all");
       print("OilDetail_id::::$OilDetail_id");
       var result = response.data['results'][0];
-      Gas_Details = result;
-      // Tabel_Staff_detail();
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => Loading_Page_Detail_Gas()),
-          (Route<dynamic> route) => false);
+      var status_code_OilDetail = response.data['status_code'][0];
+      if (status_code_OilDetail['code'] == "200") {
+        Gas_Details = result;
+        print("Gas_Details:::$Gas_Details");
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => Loading_Page_Detail_Gas()),
+            (Route<dynamic> route) => false);
+      }
     }
   } else if (status_code["code"] == "404") {
     Counpon_OilRefuel(context, "คูปองนี้ได้ถูกใช้เติมไปแล้ว");
@@ -130,24 +155,49 @@ Future<void> PostGasConfirmRefuelAmount(
         "refuel_amount": refuel_amount,
         "images": images,
       });
-  print('response:::::$response');
+
   var results = response.data['results'][0];
   var status_code = response.data['status_code'][0];
+  print('status_code:::::$status_code');
   if (status_code['code'] == '200') {
     if (results != null && results != '') {
       print('results::::$results');
-      GetapiHeader(token);
-      GetToken(token);
+      ConfirmRefuel = results;
+      GetBilDetail_Gas(context, id);
+    } else {
+      print('ERROR:::::');
+    }
+  }
+  // GetBilDetail_Gas(context, id);
+}
+
+var BilDetail;
+Future<void> GetBilDetail_Gas(BuildContext context, id) async {
+  String url = '$apiPumprefuelBillDetail$id';
+  Dio dio = new Dio();
+  Response response = await dio.get(
+    url,
+    options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+  );
+  var result = response.data['results'][0];
+  var status_code = response.data['status_code'][0];
+  if (status_code['code'] == '200') {
+    BilDetail = result;
+    GetapiHeader(token);
+    GetToken(token);
+    Tabel_Bill_Amount();
+    if (BilDetail != null && BilDetail != '') {
+      print('result BilDetail IF:::::$BilDetail');
+
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => Loading_Page_Bill_Amount()),
           (Route<dynamic> route) => false);
-    } else {}
-  }
-  GetBilDetail_Gas(id);
-  print('sest:::::$results');
-  print('status_code:::::$status_code');
-  print(GetBilDetail_Gas(id));
-  ConfirmRefuel = results;
+    }
+  } else {}
+
+  print('status_code BilDetail:::::$status_code');
+
+  print('Test BilDetail:::::$BilDetail');
 }
 
 Future<void> PostQrcodeGas_Agein(OilDetail_id) async {
@@ -179,18 +229,22 @@ Future<void> PostQrcodeGas_Agein_reload(
   Tabel_Gas_detail_draw();
 }
 
-var BilDetail;
-Future<void> GetBilDetail_Gas(id) async {
-  String url = '$apiPumprefuelBillDetail$id';
+Future<void> PostQrcodeGas_Add_Gen_Agein_reload(
+    BuildContext context, OilDetail_id) async {
+  String url = '$apiRefuelDetailPump$OilDetail_id';
   Dio dio = new Dio();
   Response response = await dio.get(
     url,
     options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
   );
   var result = response.data['results'][0];
-  BilDetail = result;
-  Tabel_Bill_Amount();
-  print('Test:::::$BilDetail');
+  print(result);
+  Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+          builder: (context) => Loading_Page_Detail_Gas_Add_Gen()),
+      (Route<dynamic> route) => false);
+  Gas_Details = result;
+  Tabel_Gas_detail_draw();
 }
 
 var ConfirmtBilAmount;
@@ -206,10 +260,9 @@ Future<void> PostConfirmtBilAmount(BuildContext context, String id,
   if (status_code == '200') {
     ConfirmtBilAmount = result;
     GetBin_Detail_Gas(id);
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Loading_Bin_History_Detail()),
-    );
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => Loading_Bin_History_Detail()),
+        (Route<dynamic> route) => false);
   }
 
   print('bill_amount:::::$ConfirmtBilAmount');
@@ -305,7 +358,7 @@ Future<void> GetBin_history_detail_Gas(
       );
     } else {
       OilDetail_id = Bin_history_id;
-      GetBilDetail_Gas(Bin_history_id);
+      GetBilDetail_Gas(context, Bin_history_id);
       PostQrcodeGas_Agein(OilDetail_id);
       Navigator.push(
         context,
@@ -337,7 +390,7 @@ Future<void> GetBin_history_detail_Gas_reload(
       );
     } else {
       OilDetail_id = Bin_history_id;
-      GetBilDetail_Gas(Bin_history_id);
+      GetBilDetail_Gas(context, Bin_history_id);
       PostQrcodeGas_Agein(OilDetail_id);
 
       Navigator.of(context).pushAndRemoveUntil(
@@ -696,4 +749,77 @@ Future<void> AlertSendDone(BuildContext context) async {
       ),
     ),
   );
+}
+
+Future<void> PostOilConfrimGas_ADD_GEN(BuildContext context, Qr_confrim) async {
+  String url = apiConfrimRefulOilPump;
+  Dio dio = new Dio();
+  Response response = await dio.post(url,
+      options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+      data: {
+        "code": Qr_confrim,
+      });
+
+  print("response $response");
+  var status_code = response.data['status_code'][0];
+  if (status_code['code'] == "200") {
+    var result = response.data['results'][0];
+    OilDetail_id = result;
+    if (OilDetail_id != null) {
+      String url = '$apiRefuelDetailPump$OilDetail_id';
+      Dio dio = new Dio();
+      Response response = await dio.get(
+        url,
+        options: Options(headers: {'Authorization': 'Token $Tokens_all'}),
+      );
+      // print("response $response");
+      // print("OilConfrim::::$Tokens_all");
+      print("OilDetail_id::::$OilDetail_id");
+      var result = response.data['results'][0];
+      var status_code_OilDetail = response.data['status_code'][0];
+      if (status_code_OilDetail['code'] == "200") {
+        Gas_Details = result;
+        print("Gas_Details:::$Gas_Details");
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (context) => Loading_Page_Detail_Gas_Add_Gen()),
+            (Route<dynamic> route) => false);
+      }
+    }
+  } else if (status_code["code"] == "404") {
+    Counpon_OilRefuel(context, "คูปองนี้ได้ถูกใช้เติมไปแล้ว");
+    print('ERROR');
+  }
+  print('ERROR');
+}
+
+Future<void> PostGasConfirmRefue_OIL_GEN(BuildContext context, id, refuel_gen,
+    refuel_truck, refuel_amount, images) async {
+  String url = apiConfrimRefulOilGenPump;
+  Dio dio = Dio();
+  Response response = await dio.post(url,
+      options: Options(headers: {
+        'Authorization': 'Token $Tokens_all',
+      }),
+      data: {
+        "id": id,
+        "refuel_gen": refuel_gen,
+        "refuel_truck": refuel_truck,
+        "refuel_amount": refuel_amount,
+        "images": images,
+      });
+
+  var results = response.data['results'][0];
+  var status_code = response.data['status_code'][0];
+  print('status_code:::::$status_code');
+  if (status_code['code'] == '200') {
+    if (results != null && results != '') {
+      print('results::::$results');
+      ConfirmRefuel = results;
+      GetBilDetail_Gas(context, id);
+    } else {
+      print('ERROR:::::');
+    }
+  }
+  // GetBilDetail_Gas(context, id);
 }

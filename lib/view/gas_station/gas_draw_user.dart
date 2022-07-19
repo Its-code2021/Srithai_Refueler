@@ -283,7 +283,6 @@ class _Gas_Draw_UserState extends State<Gas_Draw_User> {
         child: SingleChildScrollView(
           physics: ScrollPhysics(),
           child: Container(
-            height: MediaQuery.of(context).size.height,
             child: new SafeArea(
                 child: Column(
               children: [
